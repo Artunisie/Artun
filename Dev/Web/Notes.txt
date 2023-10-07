@@ -1,0 +1,78 @@
+Utilisateurs:
+-1)Tech : Ce sont les utilisateurs qui proposent leurs services pour réaliser les projets.
+-2)Administrateurs : Ce sont les utilisateurs responsables de la gestion de la plateforme
+-)Clients : Consomme les services
+
+Actions_taches :
+
+tech
+
+-cree compte.
+-update compte.
+-login/logout.
+-bloquer un clients.
+-signaler un client.
+-consulter l'Historique des Projets.
+-pubier des services  
+-consulter la listes des évaluations ///et des commentaires sur les projets.
+-envoi un demande pour une category(Mail).
+
+*Administrateur:
+-compte par defaut
+-login/logout
+-Supprimer un client ou un Freelancer
+-consulter la liste des signales
+-creer un category(Mail)
+
+*Clients:
+-cree compte
+-update compte
+-login/logout
+-bloquer un freelacer
+-signaler un freelancer
+-Suivi des Travaux (Machines en panne ....)
+-consulter l Historique des services.
+-consulter la liste des freelances.
+-évaluation des freelances. 
+
+
+
+
+/*Fonctionnemnt de base*/
+/*Recherche Par gps*/
+/*Paiment*/
+/*Chat integrer*/
+
+
+-Diagrammes:
+1)cas d'utilistation.
+2)diag de classes.
+3)diag de séquence.
+
+
+
+/*Works*/
+
+Les entités et les modèles :
+
+Entités : Utilisateur, Projet, Proposition, Sprint, Commentaire, Paiement.
+Modèles de données : Modèle de données utilisateur, Modèle de données projet, Modèle de données proposition, etc.
+Backlog du projet :
+
+Élaboration du cahier des charges.
+Conception de l'architecture de la plateforme.
+Mise en place de l'interface utilisateur.
+Développement des fonctionnalités de base.
+Mise en place du système de paiement.
+Tests et débogage.
+Lancement de la version web.
+Développement de la version mobile.
+Tests de la version mobile.
+Lancement de la version mobile.
+Gestion continue des projets et des utilisateurs.
+Répartition des tâches pour les 5 personnes dans les 4 sprints :
+
+Sprint 1 : Développement de l'interface utilisateur et des fonctionnalités de base.
+Sprint 2 : Mise en place du système de paiement et des fonctionnalités avancées.(seif)
+Sprint 3 : Tests et débogage, préparation pour le lancement de la version web.
+Sprint 4 : Développement de la version mobile, tests et lancement de la version mobile.
