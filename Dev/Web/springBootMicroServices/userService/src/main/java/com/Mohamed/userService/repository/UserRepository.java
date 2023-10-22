@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findUserByNumCin(Integer numCin);
 
     User findUserByVerificationCode(String code);
+
+    User findUserByRestPasswordToken(String restPasswordToken);
 }

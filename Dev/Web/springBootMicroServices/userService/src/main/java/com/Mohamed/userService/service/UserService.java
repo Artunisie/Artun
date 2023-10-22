@@ -1,7 +1,9 @@
 package com.Mohamed.userService.service;
 
+import com.Mohamed.userService.dto.ResetPasswordRequeste;
 import com.Mohamed.userService.entity.User;
 import com.Mohamed.userService.exceptions.InvalidEntityException;
+import com.Mohamed.userService.exceptions.UserNotFoundException;
 import com.Mohamed.userService.repository.UserRepository;
 import com.Mohamed.userService.util.EmailUtil;
 import com.Mohamed.userService.util.PasswordEncoderUtil;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -26,12 +29,12 @@ public class UserService {
     public void addUser(User user) {
         boolean emailTest = emailUserAlreadyExists(user.getEmail());
         boolean cinTest = numCinUserAlreadyExists(user.getNumCin());
-       /* if (emailTest) {
+        if (emailTest) {
             throw new InvalidEntityException("Un autre utilisateur avec le meme email existe deja");
         }
         if (cinTest) {
             throw new InvalidEntityException("Un autre utilisateur avec le meme cin existe deja");
-        }*/
+        }
         String password = user.getPassword();
         String cryptedPassword = PasswordEncoderUtil.crypterPassword(password);
         user.setPassword(cryptedPassword);
@@ -89,5 +92,72 @@ public class UserService {
         return errorCode;
     }
 
+    public void generateRestPasswordTokenAndLink(String email, String siteURL) throws UserNotFoundException {
+        User user = userRepository.findUserByEmail(email).get();
+        String token = null;
+        if (user != null) {
+            token = RandomString.make(64);
+            user.setRestPasswordToken(token);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.HOUR, 2);
+            Date expirationDate = calendar.getTime();
+            user.setResetPasswordTokenExpiration(expirationDate);
+
+            userRepository.save(user);
+            sendForgotPasswordEmail(user, siteURL);
+        } else {
+            throw new UserNotFoundException("Could not find a user with this email");
+        }
+    }
+
+    public void sendForgotPasswordEmail(User user, String siteUrl) {
+        String restPasswordLink = siteUrl + "/artun/app/user/restPassword/procedure?token=" + user.getRestPasswordToken();
+        String toEmail = user.getEmail();
+        String emailSubject = EMAIL_FORGOT_PASSWORD_SUBJECT + toEmail;
+        String emailBody = EMAIL_FORGOT_PASSWORD_BODY;
+        emailBody += "<br><br><body>\n" + "    <div style=\"display: inline-block;\">\n" + "  <img src=\"https://i.postimg.cc/KzZXhzGM/passw-ord.jpg\" alt=\"Image\" style=\"display: block; margin: 0 auto;\" />\n" + "   <h3><a href=\"" + restPasswordLink + "\" style=\"text-align: center;\">REINITIALISEZ VOTRE MOT DE PASSE ICI</a></h3>\n" + "        \n" + "    </div>\n" + "</body>";
+        emailBody += "\n" + EMAIL_SIGNATURE;
+        try {
+            emailUtil.sendSimpleMessage(toEmail, FROM_EMAIL, emailBody, emailSubject);
+        } catch (MessagingException e) {
+            System.err.println("Une erreur s'est produite lors de l'envoi de l'email : " + e.getMessage());
+
+        }
+
+    }
+
+    public User getStudentByRestPasswordToken(String restPasswordToken) {
+        return userRepository.findUserByRestPasswordToken(restPasswordToken);
+    }
+
+    public void restPassword(ResetPasswordRequeste requeste) {
+        String restPasswordToken = requeste.getRestPasswordToken();
+        String newPassword = requeste.getNewPassword();
+
+        System.out.println(newPassword);
+        System.out.println(restPasswordToken);
+
+        if (restPasswordToken == null || newPassword == null) {
+            throw new IllegalArgumentException("Token de réinitialisation et nouveau mot de passe sont requis.");
+        }
+        User user = getStudentByRestPasswordToken(restPasswordToken);
+        if (user != null) {
+            Date now = new Date();
+            Date expirationDate = user.getResetPasswordTokenExpiration();
+            if (expirationDate != null && now.before(expirationDate)) {
+
+                newPassword = PasswordEncoderUtil.crypterPassword(newPassword);
+                user.setPassword(newPassword);
+                user.setRestPasswordToken(null);
+                user.setResetPasswordTokenExpiration(null);
+                userRepository.save(user);
+            } else {
+                throw new IllegalArgumentException("Le token de réinitialisation de mot de passe a expiré.");
+            }
+        } else {
+            throw new IllegalArgumentException("Étudiant non trouvé.");
+        }
+    }
 
 }
