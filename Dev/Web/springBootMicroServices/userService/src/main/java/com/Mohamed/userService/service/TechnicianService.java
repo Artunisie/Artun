@@ -18,11 +18,11 @@ public class TechnicianService {
 
     public boolean addTechnician(Technician technician){
         try {
-            double A = technician.getRating();
-            double B = technician.getHourlyRate();
-            System.out.println(" a:"+ A + "\n"+ "B" + B );
+            //double A = technician.getRating();
+            //double B = technician.getHourlyRate();
+            //System.out.println(" a:"+ A + "\n"+ "B" + B );
             userService.addUser(technician);
-            System.out.println("*Technicien:"+technician.toString());
+            //System.out.println("*Technicien:"+technician.toString());
             technicianRepository.save(technician);
             return true;
 
