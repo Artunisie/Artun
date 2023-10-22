@@ -37,7 +37,6 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/restPassword/request")
     public ResponseEntity<String> restPasswordRequest(@RequestParam("email") String email, HttpServletRequest request){
         String applicationURL = util.getSiteURL(request);
@@ -61,4 +60,5 @@ public class UserController {
             return new ResponseEntity<>("Une erreur s'est produite lors de la réinitialisation du mot de passe", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

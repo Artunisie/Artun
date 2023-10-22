@@ -2,6 +2,8 @@ package com.Mohamed.userService.controller;
 
 import com.Mohamed.userService.entity.Admin;
 import com.Mohamed.userService.entity.Technician;
+import com.Mohamed.userService.exceptions.AccountNotActivateException;
+import com.Mohamed.userService.exceptions.UserNotFoundException;
 import com.Mohamed.userService.service.TechnicianService;
 import com.Mohamed.userService.service.UserService;
 import com.Mohamed.userService.util.linksUtil;
@@ -9,10 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/artun/app/user/technician/")
@@ -32,5 +31,12 @@ public class TechnicianController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur lors de l'enregistrement.");
         }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateTechnician(@RequestBody Technician technician, @RequestParam("email") String email) {
+            technicianService.updateTechnician(technician, email);
+            return ResponseEntity.ok("Mise à jour du technicien réussie.");
+
     }
 }

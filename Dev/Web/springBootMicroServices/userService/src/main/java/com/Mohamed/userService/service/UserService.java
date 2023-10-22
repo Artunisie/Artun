@@ -2,6 +2,7 @@ package com.Mohamed.userService.service;
 
 import com.Mohamed.userService.dto.ResetPasswordRequeste;
 import com.Mohamed.userService.entity.User;
+import com.Mohamed.userService.exceptions.AccountNotActivateException;
 import com.Mohamed.userService.exceptions.InvalidEntityException;
 import com.Mohamed.userService.exceptions.UserNotFoundException;
 import com.Mohamed.userService.repository.UserRepository;
@@ -157,6 +158,28 @@ public class UserService {
             }
         } else {
             throw new IllegalArgumentException("Étudiant non trouvé.");
+        }
+    }
+
+    public void updateUser(User user, String email) throws UserNotFoundException, AccountNotActivateException {
+        User userToUpdate = userRepository.findUserByEmail(email).orElse(null);
+        if (userToUpdate == null) {
+            throw new UserNotFoundException("L'utilisateur avec l'adresse e-mail " + email + " n'a pas été trouvé. Impossible de mettre à jour l'utilisateur.");
+        } else if (!userToUpdate.isEnable()) {
+            throw new AccountNotActivateException("Le compte n'est pas activé. Impossible de mettre à jour les informations de l'utilisateur.");
+        } else {
+            userToUpdate.setNumCin(user.getNumCin());
+            userToUpdate.setFirstName(user.getFirstName());
+            userToUpdate.setLastName(user.getLastName());
+            userToUpdate.setPhoneNumber(user.getPhoneNumber());
+            userToUpdate.setDateOfBirth(user.getDateOfBirth());
+            userToUpdate.setAddress(user.getAddress());
+            userToUpdate.setEmail(user.getEmail());
+
+            String password = user.getPassword();
+            String cryptedPassword = PasswordEncoderUtil.crypterPassword(password);
+            userToUpdate.setPassword(cryptedPassword);
+            userRepository.save(userToUpdate);
         }
     }
 
