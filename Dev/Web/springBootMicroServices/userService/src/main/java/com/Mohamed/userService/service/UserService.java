@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.Optional;
 
 import static com.Mohamed.userService.myResources.EmailRessource.*;
+import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_ALREADY_VERIFIED;
+import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -68,9 +70,23 @@ public class UserService {
     private static String getString(User user, String siteURL) {
         String verifyURL = siteURL + "/artun/app/user/verify?code=" + user.getVerificationCode();
         String emailBody = EMAIL_REGISTER_BODY;
-        emailBody += "<br><br><body>\n" + "    <div style=\"display: inline-block;\">\n" + "        <img src=\"https://i.postimg.cc/9QHBGTfv/mail.jpg\" alt=\"Image\"/>\n" + "        <h3 style=\"text-align: center;\"><a href=\"" + verifyURL + "\" style=\"text-align: center;\">VÉRIFIER VOTRE E-MAIL ICI</a></h3>\n" + "        \n" + "    </div>\n" + "</body>";
+        emailBody += "<br><br><body>\n" + "    <div style=\"display: inline-block;\">\n" + " <img src=\"https://i.postimg.cc/9QHBGTfv/mail.jpg\" alt=\"Image\"/>\n" + "        <h3 style=\"text-align: center;\"><a href=\"" + verifyURL + "\" style=\"text-align: center;\">VÉRIFIER VOTRE E-MAIL ICI</a></h3>\n" + "        \n" + "    </div>\n" + "</body>";
         emailBody += "\n" + EMAIL_SIGNATURE;
         return emailBody;
+    }
+
+    public int verify(String verificationCode) {
+        User user = userRepository.findUserByVerificationCode(verificationCode);
+        int errorCode = 0;
+        if (user == null) {
+            errorCode = ACCOUNT_NOT_FOUND;
+        } else if (user.isEnable()) {
+            errorCode = ACCOUNT_ALREADY_VERIFIED;
+        } else {
+            user.setEnable(true);
+            userRepository.save(user);
+        }
+        return errorCode;
     }
 
 
