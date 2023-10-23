@@ -35,8 +35,12 @@ public class TechnicianController {
 
     @PutMapping("/update")
     public ResponseEntity<String> updateTechnician(@RequestBody Technician technician, @RequestParam("email") String email) {
-            technicianService.updateTechnician(technician, email);
-            return ResponseEntity.ok("Mise à jour du technicien réussie.");
+        boolean isUpdated  = technicianService.updateTechnician(technician, email);
+        if (isUpdated) {
+            return ResponseEntity.ok("Mise à jour du Technicien réussie.");
+        } else {
+            return ResponseEntity.badRequest().body("Impossible de mettre à jour les informations du Technicien.");
+        }
 
     }
 }
