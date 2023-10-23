@@ -61,4 +61,14 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
+        boolean suppressionReussie = userService.deleteUser(id);
+        if (suppressionReussie) {
+            return ResponseEntity.ok("L'utilisateur a été supprimé avec succès.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'utilisateur n'existe pas ou n'a pas pu être supprimé.");
+        }
+    }
+
 }

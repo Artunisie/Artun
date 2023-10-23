@@ -10,6 +10,7 @@ import com.Mohamed.userService.util.EmailUtil;
 import com.Mohamed.userService.util.PasswordEncoderUtil;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_ALREADY_VER
 import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_NOT_FOUND;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
@@ -182,5 +184,22 @@ public class UserService {
             userRepository.save(userToUpdate);
         }
     }
+
+    public boolean deleteUser(Long id) {
+        if (id == null) {
+            log.error("Utilisateur ID is null");
+            return false;
+        }
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userRepository.deleteById(id);
+            log.info("Utilisateur avec ID " + id + " a été supprimé avec succès.");
+            return true;
+        } else {
+            log.warn("Utilisateur avec ID " + id + " n'existe pas. Aucune suppression effectuée.");
+            return false;
+        }
+    }
+
 
 }
