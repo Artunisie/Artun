@@ -7,15 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dicovery" />
-        <module name="getway" />
+        <module name="discovery" />
+        <module name="gateway" />
         <module name="userService" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dicovery" target="17" />
+      <module name="getway" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dicovery" options="-parameters" />
+      <module name="discovery" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="getway" options="-parameters" />
       <module name="userService" options="-parameters" />
     </option>
