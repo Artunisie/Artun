@@ -10,6 +10,7 @@
         <module name="discovery" />
         <module name="gateway" />
         <module name="userService" />
+        <module name="adminservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,6 +20,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="adminservice" options="-parameters" />
       <module name="dicovery" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
