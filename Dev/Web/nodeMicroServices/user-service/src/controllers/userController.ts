@@ -30,9 +30,8 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
     await user.save();
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, {
-        expiresIn: '1h',
-      });
-      
+      expiresIn: '1h',
+    });
 
     sendVerificationEmail(user.email, token);
 
@@ -113,7 +112,6 @@ const verifyEmail = async (req: Request, res: Response): Promise<void> => {
     type Secret = string | Buffer | { key: string | Buffer; passphrase: string };
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET as Secret) as { userId: string };
     const userId = decodedToken.userId;
-    
 
     const user = await User.findById(userId);
     if (!user) {
@@ -145,7 +143,6 @@ const resetPassword = async (req: Request, res: Response): Promise<void> => {
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as Secret, {
     expiresIn: '1h',
   });
-  
 
   sendPasswordResetEmail(user.email, token);
 
@@ -181,13 +178,13 @@ const sendPasswordResetEmail = (email: string, token: string): void => {
   const transporter = nodemailer.createTransport({
     service: 'Yahoo',
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: process.env.YAHOO_EMAIL_USER, // Use your Yahoo email address
+      pass: process.env.YAHOO_EMAIL_PASS, // Use your Yahoo email password or app-specific password
     },
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: process.env.YAHOO_EMAIL_USER, // Use your Yahoo email address
     to: email,
     subject: 'Password Reset',
     text: `Click on the following link to reset your password: http://localhost:3000/resetPassword?token=${token}`,
@@ -203,37 +200,33 @@ const sendPasswordResetEmail = (email: string, token: string): void => {
 };
 
 const getUserById = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const { id } = req.params;
-  
-      const user = await User.findById(id);
-      if (!user) {
-        res.status(404).json({ message: 'User not found' });
-        return;
-      }
-  
-      const userWithoutPassword = { ...user.toJSON(), password: undefined };
-      
-      res.status(200).json({ user: userWithoutPassword });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  };
-  
-  const getUsers = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const users = await User.find({}, '-password');
-  
-      res.status(200).json(users);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  };
+  try {
+    const { id } = req.params;
 
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
 
-  
-  
-  export { createUser, updateUser, deleteUser, verifyEmail, resetPassword, getUsers ,getUserById};
-  
+    const userWithoutPassword = { ...user.toJSON(), password: undefined };
+
+    res.status(200).json({ user: userWithoutPassword });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  };
+};
+
+const getUsers = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const users = await User.find({}, '-password');
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  };
+};
+
+export { createUser, updateUser, deleteUser, verifyEmail, resetPassword, getUsers, getUserById };
