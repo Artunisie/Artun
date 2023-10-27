@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPassword = exports.verifyEmail = exports.deleteUser = exports.updateUser = exports.createUser = void 0;
+exports.getUserById = exports.getUsers = exports.resetPassword = exports.verifyEmail = exports.deleteUser = exports.updateUser = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -161,7 +161,7 @@ const sendVerificationEmail = (email, token) => {
 };
 const sendPasswordResetEmail = (email, token) => {
     const transporter = nodemailer_1.default.createTransport({
-        service: 'Gmail',
+        service: 'Yahoo',
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
@@ -182,3 +182,31 @@ const sendPasswordResetEmail = (email, token) => {
         }
     });
 };
+const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const user = yield User_1.default.findById(id);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        const userWithoutPassword = Object.assign(Object.assign({}, user.toJSON()), { password: undefined });
+        res.status(200).json({ user: userWithoutPassword });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.getUserById = getUserById;
+const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield User_1.default.find({}, '-password');
+        res.status(200).json(users);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.getUsers = getUsers;
