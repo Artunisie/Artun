@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserById = exports.getUsers = exports.resetPassword = exports.verifyEmail = exports.deleteUser = exports.updateUser = exports.createUser = void 0;
+exports.changePassword = exports.getUserById = exports.getUsers = exports.resetPassword = exports.verifyEmail = exports.deleteUser = exports.updateUser = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -40,7 +40,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             expiresIn: '1h',
         });
         sendVerificationEmail(user.email, token);
-        res.status(201).json({ message: 'User created successfully. Please check your email for verification.' });
+        res.status(201).json({ message: 'User created successfully. Please check your email for verification.' + token });
     }
     catch (error) {
         console.error(error);
@@ -133,19 +133,44 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         expiresIn: '1h',
     });
     sendPasswordResetEmail(user.email, token);
-    res.status(200).json({ message: 'Password reset instructions sent to your email' });
+    res.status(200).json({ message: 'Password reset instructions sent to your email' + token });
 });
 exports.resetPassword = resetPassword;
+const changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { token, newPassword } = req.body;
+        if (!token || !newPassword) {
+            res.status(400).json({ message: 'Invalid token or password' });
+            return;
+        }
+        const decodedToken = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
+        const user = yield User_1.default.findById(userId);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        const hashedPassword = yield bcrypt_1.default.hash(newPassword, 10);
+        user.password = hashedPassword;
+        yield user.save();
+        res.status(200).json({ message: 'Password changed successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.changePassword = changePassword;
 const sendVerificationEmail = (email, token) => {
     const transporter = nodemailer_1.default.createTransport({
-        service: 'Gmail',
+        service: 'yahoo',
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
+            user: process.env.YAHOO_EMAIL_USER,
+            pass: process.env.YAHOO_EMAIL_PASS,
         },
     });
     const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: process.env.YAHOO_EMAIL_USER,
         to: email,
         subject: 'Email Verification',
         text: `Click on the following link to verify your email: http://localhost:3000/verifyEmail?token=${token}`,
@@ -161,14 +186,14 @@ const sendVerificationEmail = (email, token) => {
 };
 const sendPasswordResetEmail = (email, token) => {
     const transporter = nodemailer_1.default.createTransport({
-        service: 'Yahoo',
+        service: 'yahoo',
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
+            user: process.env.YAHOO_EMAIL_USER,
+            pass: process.env.YAHOO_EMAIL_PASS,
         },
     });
     const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: process.env.YAHOO_EMAIL_USER,
         to: email,
         subject: 'Password Reset',
         text: `Click on the following link to reset your password: http://localhost:3000/resetPassword?token=${token}`,
@@ -190,8 +215,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(404).json({ message: 'User not found' });
             return;
         }
-        const userWithoutPassword = Object.assign(Object.assign({}, user.toJSON()), { password: undefined });
-        res.status(200).json({ user: userWithoutPassword });
+        res.status(200).json(user);
     }
     catch (error) {
         console.error(error);
@@ -201,7 +225,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield User_1.default.find({}, '-password');
+        const users = yield User_1.default.find();
         res.status(200).json(users);
     }
     catch (error) {

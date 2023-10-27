@@ -9,8 +9,8 @@ const app = express();
 const port = 3000;
 
 const mongodbURI = process.env.MONGODB_URI;
-const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
+const emailUser = process.env.YAHOO_EMAIL_USER;
+const emailPass = process.env.YAHOO_EMAIL_PASS;
 
 if (!mongodbURI || !emailUser || !emailPass) {
   console.error("Please set the required environment variables.");

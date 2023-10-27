@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import User, { IUser } from '../models/User';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import User from '../models/User';
+import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
@@ -35,7 +35,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
 
     sendVerificationEmail(user.email, token);
 
-    res.status(201).json({ message: 'User created successfully. Please check your email for verification.' });
+    res.status(201).json({ message: 'User created successfully. Please check your email for verification.' + token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -109,8 +109,7 @@ const verifyEmail = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    type Secret = string | Buffer | { key: string | Buffer; passphrase: string };
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET as Secret) as { userId: string };
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string };
     const userId = decodedToken.userId;
 
     const user = await User.findById(userId);
@@ -138,28 +137,57 @@ const resetPassword = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  type Secret = string | Buffer | { key: string | Buffer; passphrase: string };
-
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as Secret, {
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, {
     expiresIn: '1h',
   });
 
   sendPasswordResetEmail(user.email, token);
 
-  res.status(200).json({ message: 'Password reset instructions sent to your email' });
+  res.status(200).json({ message: 'Password reset instructions sent to your email' + token});
+};
+
+const changePassword = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      res.status(400).json({ message: 'Invalid token or password' });
+      return;
+    }
+
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string };
+    const userId = decodedToken.userId;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 const sendVerificationEmail = (email: string, token: string): void => {
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: 'yahoo',
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: process.env.YAHOO_EMAIL_USER,
+      pass: process.env.YAHOO_EMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: process.env.YAHOO_EMAIL_USER,
     to: email,
     subject: 'Email Verification',
     text: `Click on the following link to verify your email: http://localhost:3000/verifyEmail?token=${token}`,
@@ -176,15 +204,15 @@ const sendVerificationEmail = (email: string, token: string): void => {
 
 const sendPasswordResetEmail = (email: string, token: string): void => {
   const transporter = nodemailer.createTransport({
-    service: 'Yahoo',
+    service: 'yahoo',
     auth: {
-      user: process.env.YAHOO_EMAIL_USER, // Use your Yahoo email address
-      pass: process.env.YAHOO_EMAIL_PASS, // Use your Yahoo email password or app-specific password
+      user: process.env.YAHOO_EMAIL_USER,
+      pass: process.env.YAHOO_EMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: process.env.YAHOO_EMAIL_USER, // Use your Yahoo email address
+    from: process.env.YAHOO_EMAIL_USER,
     to: email,
     subject: 'Password Reset',
     text: `Click on the following link to reset your password: http://localhost:3000/resetPassword?token=${token}`,
@@ -202,31 +230,35 @@ const sendPasswordResetEmail = (email: string, token: string): void => {
 const getUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-
     const user = await User.findById(id);
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
     }
-
-    const userWithoutPassword = { ...user.toJSON(), password: undefined };
-
-    res.status(200).json({ user: userWithoutPassword });
+    res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
-  };
+  }
 };
 
 const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
-    const users = await User.find({}, '-password');
-
+    const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
-  };
+  }
 };
 
-export { createUser, updateUser, deleteUser, verifyEmail, resetPassword, getUsers, getUserById };
+export {
+  createUser,
+  updateUser,
+  deleteUser,
+  verifyEmail,
+  resetPassword,
+  getUsers,
+  getUserById,
+  changePassword,
+};
