@@ -41,6 +41,7 @@ public class UserService {
         String password = user.getPassword();
         String cryptedPassword = PasswordEncoderUtil.crypterPassword(password);
         user.setPassword(cryptedPassword);
+
         user.setEnable(false);
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
