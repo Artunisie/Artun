@@ -1,0 +1,14 @@
+{
+  "realm": "Artun",
+  "auth-server-url": "http://localhost:8080/",
+  "ssl-required": "external",
+  "resource": "artun-app",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "wYRuECR4OazeGf8piaEOkDJGkRV3SzoD"
+  },
+  "confidential-port": 0,
+  "policy-enforcer": {
+    "credentials": {}
+  }
+}
