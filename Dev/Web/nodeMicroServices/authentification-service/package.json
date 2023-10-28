@@ -21,6 +21,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.1"
+    "@types/bcrypt": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.4"
   }
 }

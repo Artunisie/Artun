@@ -15,28 +15,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const axios_1 = __importDefault(require("axios"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+const USER_SERVICE_BASE_URL = 'http://localhost:8888/user-service/api/users';
+const JWT_SECRET = 'c6371fb187ae13cc0e9b94288545d521d74d022c7e76e0113330b0544f707e1a';
+const tokenBlacklist = [];
 app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
-        const userResponse = yield axios_1.default.get(`${process.env.USER_SERVICE_BASE_URL}?email=${email}`);
-        const user = userResponse.data[0];
+        const userResponse = yield axios_1.default.get(`${USER_SERVICE_BASE_URL}?email=${email}`);
+        const users = userResponse.data;
+        const user = users.find((u) => u.email === email);
         if (!user) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'User not found' });
         }
         const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
         if (isPasswordValid) {
-            return res.status(200).json({ message: 'Login successful' });
+            const token = jsonwebtoken_1.default.sign({ email: user.email, userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+            return res.status(200).json({ message: 'Login successful', token });
         }
         else {
-            return res.status(401).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid password' });
         }
     }
     catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
 }));
+app.post('/logout', (req, res) => {
+    const { token } = req.body;
+    if (tokenBlacklist.includes(token)) {
+        return res.status(401).json({ message: 'Token is already blacklisted' });
+    }
+    tokenBlacklist.push(token);
+    return res.status(200).json({ message: 'Logged out successfully' });
+});
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Authentication service running on port ${PORT}`);
