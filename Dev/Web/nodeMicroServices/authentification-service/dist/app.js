@@ -17,18 +17,14 @@ const axios_1 = __importDefault(require("axios"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const USER_SERVICE_BASE_URL = 'http://localhost:3000/api/users';
-// Endpoint for user login
 app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
-        // Get user details from the user-service based on the provided email
-        const userResponse = yield axios_1.default.get(`${USER_SERVICE_BASE_URL}?email=${email}`);
-        const user = userResponse.data[0]; // Assuming the response is an array with a single user
+        const userResponse = yield axios_1.default.get(`${process.env.USER_SERVICE_BASE_URL}?email=${email}`);
+        const user = userResponse.data[0];
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        // Compare the hashed password stored in the database with the provided password
         const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
         if (isPasswordValid) {
             return res.status(200).json({ message: 'Login successful' });

@@ -5,13 +5,12 @@ import bcrypt from 'bcrypt';
 const app = express();
 app.use(express.json());
 
-const USER_SERVICE_BASE_URL = 'http://localhost:3000/api/users';
 
 app.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    const userResponse = await axios.get(`${USER_SERVICE_BASE_URL}?email=${email}`);
+    const userResponse = await axios.get(`${process.env.USER_SERVICE_BASE_URL}?email=${email}`);
 
     const user = userResponse.data[0]; 
     if (!user) {
