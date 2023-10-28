@@ -20,10 +20,11 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const USER_SERVICE_BASE_URL = 'http://localhost:8888/user-service/api/users';
 const JWT_SECRET = 'c6371fb187ae13cc0e9b94288545d521d74d022c7e76e0113330b0544f707e1a';
-const tokenBlacklist = [];
+var tokenBlacklist = [];
 app.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
+        tokenBlacklist = [];
         const userResponse = yield axios_1.default.get(`${USER_SERVICE_BASE_URL}?email=${email}`);
         const users = userResponse.data;
         const user = users.find((u) => u.email === email);

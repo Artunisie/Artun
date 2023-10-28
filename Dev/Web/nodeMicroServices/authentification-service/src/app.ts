@@ -9,12 +9,12 @@ app.use(express.json());
 const USER_SERVICE_BASE_URL = 'http://localhost:8888/user-service/api/users';
 const JWT_SECRET = 'c6371fb187ae13cc0e9b94288545d521d74d022c7e76e0113330b0544f707e1a'; 
 
-const tokenBlacklist: string[] = [];
+var tokenBlacklist: string[] = [];
 
 app.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-
+    tokenBlacklist=[]
     const userResponse = await axios.get(`${USER_SERVICE_BASE_URL}?email=${email}`);
     const users = userResponse.data;
     const user = users.find((u: any) => u.email === email);
