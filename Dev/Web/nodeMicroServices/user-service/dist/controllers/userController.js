@@ -21,7 +21,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password, name, ncin, ntel } = req.body;
+        const { email, password, name, ncin, ntel, role } = req.body;
         const existingUser = yield User_1.default.findOne({ email });
         if (existingUser) {
             res.status(400).json({ message: 'Email already in use' });
@@ -34,6 +34,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             name,
             ncin,
             ntel,
+            role: "CLIENT"
         });
         yield user.save();
         const token = jsonwebtoken_1.default.sign({ userId: user._id }, process.env.JWT_SECRET, {

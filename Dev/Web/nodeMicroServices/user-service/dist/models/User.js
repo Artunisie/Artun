@@ -30,6 +30,7 @@ const UserSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     ncin: { type: String, required: true },
     ntel: { type: String, required: true },
+    role: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
 });
 exports.default = mongoose_1.default.model('User', UserSchema);

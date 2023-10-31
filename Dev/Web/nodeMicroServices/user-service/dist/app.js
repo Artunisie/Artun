@@ -46,6 +46,7 @@ const createInitialUser = () => __awaiter(void 0, void 0, void 0, function* () {
                 name: 'Example User',
                 ncin: '1234567890',
                 ntel: '9876543210',
+                role: "ADMIN",
                 isVerified: true
             });
             yield user.save();
