@@ -6,6 +6,7 @@ export interface IUser extends Document {
   name: string;
   ncin: string;
   ntel: string;
+  role:string,
   isVerified: boolean;
 }
 
@@ -15,6 +16,7 @@ const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   ncin: { type: String, required: true },
   ntel: { type: String, required: true },
+  role: { type: String, required: true },
   isVerified: { type: Boolean, default: false },
 });
 

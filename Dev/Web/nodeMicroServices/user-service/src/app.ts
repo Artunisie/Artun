@@ -37,6 +37,7 @@ const createInitialUser = async () => {
           name: 'Example User',
           ncin: '1234567890',
           ntel: '9876543210',
+          role:"ADMIN",
           isVerified:true
         });
   

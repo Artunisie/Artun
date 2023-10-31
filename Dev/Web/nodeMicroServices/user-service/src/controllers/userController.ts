@@ -9,7 +9,7 @@ dotenv.config();
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password, name, ncin, ntel } = req.body;
+    const { email, password, name, ncin, ntel ,role} = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -25,6 +25,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
       name,
       ncin,
       ntel,
+      role:"CLIENT"
     });
 
     await user.save();
