@@ -1,7 +1,7 @@
 ./Dev/Web/nodeMicroServices/node_modules
 ./Dev/Web/nodeMicroServices/node-js-service/node_modules
 ./Dev/Web/nodeMicroServices/node_modules
-
+./Dev/Web/artun-angular-frontend/node_modules
 
 node_modules
 .env
