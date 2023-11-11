@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js", 
    "scripts": {
-    "start": "npx tsc && node app.js",
-    "dev": "concurrently -n\"TS, Node\" \"npx tsc --watch\" \"nodemon app.js\""
+    "start": "npx tsc && node dist/app.js",
+    "dev": "concurrently -n\"TS, Node\" \"npx tsc --watch\" \"nodemon dist/app.js\""
   },
   "keywords": [],
   "author": "",
