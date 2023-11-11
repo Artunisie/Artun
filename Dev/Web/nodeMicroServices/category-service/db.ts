@@ -2,15 +2,12 @@ import mongoose from 'mongoose';
 
 export const connectDB = async () => {
   try {
-    const mongoURI = 'mongodb://localhost:27017/';
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
+    const mongoURI = "mongodb+srv://seifeddine:B85mToSBEVYdGF6k@cluster0.o4udqpk.mongodb.net/category-service";
+    await mongoose.connect(mongoURI);
 
     console.log('MongoDB connected');
   } catch (error) {
     console.error('MongoDB connection failed:', error);
-    process.exit(1); 
+    process.exit(1);
+  }
 };

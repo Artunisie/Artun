@@ -11,7 +11,7 @@ const categorySchema = new Schema<CategoryDocument>({
     required: true,
     unique: true,
   },
-*});
+});
 
 const Category = mongoose.model<CategoryDocument>('Category', categorySchema);
 

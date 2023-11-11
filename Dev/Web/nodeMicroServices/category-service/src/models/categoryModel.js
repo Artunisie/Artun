@@ -24,15 +24,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    name: { type: String, required: true },
-    ncin: { type: String, required: true },
-    ntel: { type: String, required: true },
-    role: { type: String, required: true },
-    reports: { type: Number, default: 0 },
-    isVerified: { type: Boolean, default: false },
-    isBlocked: { type: Boolean, default: false }
+const categorySchema = new mongoose_1.Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+    },
 });
-exports.default = mongoose_1.default.model('User', UserSchema);
+const Category = mongoose_1.default.model('Category', categorySchema);
+exports.default = Category;

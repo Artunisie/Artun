@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changePassword = exports.getUserById = exports.getUsers = exports.resetPassword = exports.verifyEmail = exports.deleteUser = exports.updateUser = exports.createUser = void 0;
+exports.UnblockUser = exports.changePassword = exports.reportUser = exports.blockUser = exports.getUserById = exports.getUsers = exports.resetPassword = exports.verifyEmail = exports.deleteUser = exports.updateUser = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -21,7 +21,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password, name, ncin, ntel, role } = req.body;
+        const { email, password, name, ncin, ntel, role, isBlocked, reports } = req.body;
         const existingUser = yield User_1.default.findOne({ email });
         if (existingUser) {
             res.status(400).json({ message: 'Email already in use' });
@@ -34,6 +34,8 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             name,
             ncin,
             ntel,
+            isBlocked,
+            reports,
             role: "CLIENT"
         });
         yield user.save();
@@ -83,6 +85,63 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.updateUser = updateUser;
+const blockUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { isBlocked } = req.body;
+        const user = yield User_1.default.findById(id);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        user.isBlocked = true;
+        yield user.save();
+        res.status(200).json({ message: 'User blocked successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.blockUser = blockUser;
+const UnblockUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { isBlocked } = req.body;
+        const user = yield User_1.default.findById(id);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        user.isBlocked = false;
+        yield user.save();
+        res.status(200).json({ message: 'User Unblocked successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.UnblockUser = UnblockUser;
+const reportUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { reports } = req.body;
+        const user = yield User_1.default.findById(id);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+            return;
+        }
+        user.reports = user.reports.valueOf() + 1;
+        yield user.save();
+        res.status(200).json({ message: 'User reported successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.reportUser = reportUser;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;

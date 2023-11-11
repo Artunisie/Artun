@@ -4,12 +4,13 @@ import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import { report } from 'process';
 
 dotenv.config();
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password, name, ncin, ntel ,role} = req.body;
+    const { email, password, name, ncin, ntel ,role,isBlocked,reports} = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -25,6 +26,8 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
       name,
       ncin,
       ntel,
+      isBlocked,
+      reports,
       role:"CLIENT"
     });
 
@@ -83,6 +86,77 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+
+const blockUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { isBlocked} = req.body;
+
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+     user.isBlocked=true;
+    
+    await user.save();
+
+    res.status(200).json({ message: 'User blocked successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+const UnblockUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { isBlocked} = req.body;
+
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+     user.isBlocked=false;
+    
+    await user.save();
+
+    res.status(200).json({ message: 'User Unblocked successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+const reportUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { reports} = req.body;
+
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+     user.reports=user.reports.valueOf()+1;
+    
+    await user.save();
+
+    res.status(200).json({ message: 'User reported successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
 
 const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -261,5 +335,8 @@ export {
   resetPassword,
   getUsers,
   getUserById,
+  blockUser,
+  reportUser,
   changePassword,
+  UnblockUser
 };
