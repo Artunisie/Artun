@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/discovery/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/adminservice/pom.xml" />
+        <option value="$PROJECT_DIR$/historyService/pom.xml" />
       </list>
     </option>
   </component>
