@@ -7,7 +7,7 @@ import com.seifeddine.PaymentService.services.StripeService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/public/stripe")
+@RequestMapping("/stripe")
 public class StripeApi {
 
     private final StripeService stripeService;
