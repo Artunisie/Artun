@@ -20,8 +20,7 @@ public enum HistoryActionType {
     JOB_COMPLETION,
 
     /** POUR LES ÉVALUATIONS **/
-    CLIENT_RATING,
-    TECHNICIAN_RATING,
+    USER_RATING,
 
     /** FOR PAYMENT **/
     // pas encore

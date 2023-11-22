@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 import static com.Mohamed.userService.myResources.Codes.ACCOUNT_VERIFIED;
 import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_ALREADY_VERIFIED;
 import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_NOT_FOUND;
@@ -70,5 +72,17 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'utilisateur n'existe pas ou n'a pas pu être supprimé.");
         }
     }
+
+    @GetMapping("/findById/{userId}")
+    public ResponseEntity<?> ifUserExists(@PathVariable Long userId) {
+        Map<String, Boolean> userExists;
+        try {
+            userExists = userService.ifUserExiste(userId);
+        } catch (UserNotFoundException ex) {
+            return new ResponseEntity<>("L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(userExists, HttpStatus.OK);
+    }
+
 
 }
