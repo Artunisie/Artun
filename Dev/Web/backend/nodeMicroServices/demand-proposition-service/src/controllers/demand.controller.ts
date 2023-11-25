@@ -1,11 +1,29 @@
 import { Request, Response } from 'express';
 import Demand, { IDemand } from '../models/demande';
+import { log } from 'console';
 
 export class DemandController {
   // Create a new demand
   public createDemand(req: Request, res: Response) {
-    const { title, description, clientId } = req.body;
-    const demand = new Demand({ title, description, clientId });
+    const {
+      jobTitle,
+      jobDescription,
+      hourlyRateMin,
+      hourlyRateMax,
+      applicationDeadline,
+      requirements,
+      clientId,
+    } = req.body;
+
+    const demand = new Demand({
+      jobTitle,
+      jobDescription,
+      hourlyRateMin,
+      hourlyRateMax,
+      applicationDeadline,
+      requirements,
+      clientId,
+    });
 
     demand.save()
       .then((demand: IDemand) => {
@@ -32,10 +50,26 @@ export class DemandController {
         res.status(500).json({ error: error.message });
       });
   }
+//getAllDemandeByClientId
+public getAllDemandeByClientId(req: Request, res: Response) {
+  const clientId = req.params.id;
+
+  Demand.find({ clientId })
+    .then((demands: IDemand[]) => {
+      if (demands.length > 0) {
+        res.status(200).json(demands);
+      } else {
+        res.status(404).json({ message: 'No demands found for the given client ID' });
+      }
+    })
+    .catch((error: Error) => {
+      res.status(500).json({ error: error.message });
+    });
+};
 
   // Get all demands with limited information (title and description)
   public getAllDemands(req: Request, res: Response) {
-    Demand.find({}, { id:1 ,title: 1, description: 1 })
+    Demand.find({})
       .then((demands: IDemand[]) => {
         res.status(200).json(demands);
       })
@@ -43,7 +77,6 @@ export class DemandController {
         res.status(500).json({ error: error.message });
       });
   }
-
   // Delete a demand by ID
   public deleteDemand(req: Request, res: Response) {
     const demandId = req.params.id;
@@ -57,12 +90,32 @@ export class DemandController {
       });
   }
 
-  // Update demand's title and description
+  // Update a demand
   public updateDemand(req: Request, res: Response) {
     const demandId = req.params.id;
-    const { title, description } = req.body;
+    const {
+      jobTitle,
+      jobDescription,
+      hourlyRateMin,
+      hourlyRateMax,
+      applicationDeadline,
+      requirements,
+      technicians,
+    } = req.body;
 
-    Demand.findByIdAndUpdate(demandId, { title, description }, { new: true })
+    Demand.findByIdAndUpdate(
+      demandId,
+      {
+        jobTitle,
+        jobDescription,
+        hourlyRateMin,
+        hourlyRateMax,
+        applicationDeadline,
+        requirements,
+        technicians,
+      },
+      { new: true }
+    )
       .then((demand: IDemand | null) => {
         if (demand) {
           res.status(200).json(demand);

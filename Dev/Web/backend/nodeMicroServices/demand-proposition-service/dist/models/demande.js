@@ -25,11 +25,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const demandSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
+    jobTitle: { type: String, required: true },
+    jobDescription: { type: String, required: true },
+    hourlyRateMin: { type: Number, required: true },
+    hourlyRateMax: { type: Number, required: true },
+    applicationDeadline: { type: String, required: true },
+    requirements: [{ type: String, required: true }],
     acceptanceStatus: { type: Number, default: 0 },
     clientId: { type: String, required: true },
-    technicians: [{ type: String }],
 });
 const Demand = mongoose_1.default.model('Demand', demandSchema);
 exports.default = Demand;

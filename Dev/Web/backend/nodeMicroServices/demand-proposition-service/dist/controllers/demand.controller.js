@@ -8,8 +8,16 @@ const demande_1 = __importDefault(require("../models/demande"));
 class DemandController {
     // Create a new demand
     createDemand(req, res) {
-        const { title, description, clientId } = req.body;
-        const demand = new demande_1.default({ title, description, clientId });
+        const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, clientId, } = req.body;
+        const demand = new demande_1.default({
+            jobTitle,
+            jobDescription,
+            hourlyRateMin,
+            hourlyRateMax,
+            applicationDeadline,
+            requirements,
+            clientId,
+        });
         demand.save()
             .then((demand) => {
             res.status(201).json(demand);
@@ -34,9 +42,26 @@ class DemandController {
             res.status(500).json({ error: error.message });
         });
     }
+    //getAllDemandeByClientId
+    getAllDemandeByClientId(req, res) {
+        const clientId = req.params.id;
+        demande_1.default.find({ clientId })
+            .then((demands) => {
+            if (demands.length > 0) {
+                res.status(200).json(demands);
+            }
+            else {
+                res.status(404).json({ message: 'No demands found for the given client ID' });
+            }
+        })
+            .catch((error) => {
+            res.status(500).json({ error: error.message });
+        });
+    }
+    ;
     // Get all demands with limited information (title and description)
     getAllDemands(req, res) {
-        demande_1.default.find({}, { id: 1, title: 1, description: 1 })
+        demande_1.default.find({})
             .then((demands) => {
             res.status(200).json(demands);
         })
@@ -55,11 +80,19 @@ class DemandController {
             res.status(500).json({ error: error.message });
         });
     }
-    // Update demand's title and description
+    // Update a demand
     updateDemand(req, res) {
         const demandId = req.params.id;
-        const { title, description } = req.body;
-        demande_1.default.findByIdAndUpdate(demandId, { title, description }, { new: true })
+        const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, technicians, } = req.body;
+        demande_1.default.findByIdAndUpdate(demandId, {
+            jobTitle,
+            jobDescription,
+            hourlyRateMin,
+            hourlyRateMax,
+            applicationDeadline,
+            requirements,
+            technicians,
+        }, { new: true })
             .then((demand) => {
             if (demand) {
                 res.status(200).json(demand);
