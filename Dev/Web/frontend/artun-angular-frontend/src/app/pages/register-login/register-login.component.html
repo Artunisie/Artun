@@ -1,0 +1,94 @@
+<div class="container"  [ngClass]="{'sign-up-mode': signUpMode}">
+  <div class="forms-container">
+    <div class="signin-signup">
+      <form action="#" class="sign-in-form">
+        <h2 class="title">Sign in</h2>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Username" />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" />
+        </div>
+        <input type="submit" value="Login" class="btn solid" />
+        <p class="social-text">Or Sign in with social platforms</p>
+        <div class="social-media">
+          <a href="#" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </form>
+
+
+
+      <form  class="sign-up-form">
+        <h2 class="title">Sign up</h2>
+        <div class="input-field" [ngClass]="{'error': !isNameValid}">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Username" [(ngModel)]="username" name="username" />
+        </div>
+        <div class="input-field" [ngClass]="{'error': !isEmailValid}">
+          <i class="fas fa-envelope"></i>
+          <input type="text" placeholder="Email" [(ngModel)]="email" name="email" />
+        </div>
+        <div class="input-field" [ngClass]="{'error': !isPhoneNumberValid}">
+          <i class="fas fa-phone"></i>
+          <input type="text" placeholder="Telephone Number" [(ngModel)]="phoneNumber" name="phoneNumber" />
+        </div>
+        <div class="input-field" [ngClass]="{'error': !isNumCinValid}">
+          <i class="fas fa-id-card"></i>
+          <input type="text" placeholder="Cin Number" [(ngModel)]="cinNumber" name="cinNumber" />
+        </div>
+        <div class="input-field" [ngClass]="{'error': password !== confirmPassword}">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" [(ngModel)]="password" name="password" />
+        </div>
+        <div class="input-field" [ngClass]="{'error': password !== confirmPassword}">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" name="confirmPassword" />
+        </div>
+        <!-- Add any additional validation messages as needed -->
+        <input type="submit" class="btn" value="Sign up" (click)="validateForm()" />
+      </form>
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h3>New here ?</h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+          ex ratione. Aliquid!
+        </p>
+        <button class="btn transparent" id="sign-up-btn"  (click)="toggleMode()">
+          Sign up
+        </button>
+      </div>
+      <img src="/assets/images/log.svg" class="image" alt="" />
+    </div>
+    <div class="panel right-panel">
+      <div class="content">
+        <h3>One of us ?</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+          laboriosam ad deleniti.
+        </p>
+        <button class="btn transparent" id="sign-in-btn"  (click)="toggleMode()">
+          Sign in
+        </button>
+      </div>
+      <img src="/assets/images/register.svg" class="image" alt="" />
+    </div>
+  </div>
+</div>

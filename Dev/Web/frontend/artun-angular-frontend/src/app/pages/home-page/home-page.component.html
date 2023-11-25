@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Artun</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+ <style>
+  .about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This assumes you want it to take up the full height of the viewport */
+}
+.services{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.contact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+ </style>
+</head>
+
+<body>
+
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <a href="index.html"><img src="../../../assets/home/img/logo.jpg" alt="" class="img-fluid rounded-circle" style="width: 45px; height: 60px;"></a>
+        <h1 style="display: inline-block; margin-left: 10px;"><a href="index.html">Artun</a></h1>
+       
+    </div>
+    
+    
+
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+        <li><a class="nav-link scrollto" href="#about">About</a></li>
+        <li><a class="nav-link scrollto" href="#services">Services</a></li>
+        <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav>
+    
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        
+
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <video autoplay muted loop playsinline controls style="width: 100%; height: 100%; object-fit: cover;">
+                  <source src="../../../assets/home/img/slide/yobi.mp4" type="video/mp4">
+                </video>
+                <div class="carousel-container">
+                  <div class="carousel-content container">
+                    <h2 class="animate__animated animate__fadeInDown">Bienvenu à <span>Artun</span></h2>
+                    <p class="animate__animated animate__fadeInUp">Artun - Votre guide pour des solutions techniques locales instantanées! Trouvez rapidement des techniciens qualifiés dans votre région, prêts à résoudre vos problèmes avec une efficacité remarquable</p>
+                    <button (click)="signup()" class="btn btn-primary button">GET STARTED</button>
+                  </div>
+                </div>
+              </div>
+              
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+
+
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row no-gutters">
+          <div class="col-lg-6 video-box">
+            <img src="../../../assets/home/img/about.gif" class="img-fluid" alt="">
+            <a href="https://www.facebook.com/61552529186098/videos/1322985875001655" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+          </div>
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
+
+            <div class="section-title">
+              <h2>À propos d'Artun </h2>
+              <p>Nous sommes passionnés par la facilitation de vos besoins techniques. Chez Artun, notre mission est de simplifier la recherche de professionnels qualifiés dans votre région. Explorez un monde de solutions rapides et fiables, avec Artun comme votre compagnon de confiance pour tous vos défis techniques.</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bx bx-fingerprint"></i></div>
+              <h4 class="title"><a href="">Le point fort d'Artun</a></h4>
+              <p class="description">réside dans sa capacité à simplifier la recherche de techniciens qualifiés dans votre région, offrant une solution rapide et efficace à vos besoins techniques</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bx bx-gift"></i></div>
+              <h4 class="title"><a href="">Nos cadeaux pour vous</a></h4>
+              <p class="description">une expérience exceptionnelle, des services de qualité, et une attention particulière à chaque détail pour répondre à vos besoins avec excellence</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+   
+  
+ <!-- ======= Services Section ======= -->
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Nos Services</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+        <div class="icon"><i class="bi bi-lightning-charge"></i></div>
+        <h4 class="title"><a href="#">Électricien</a></h4>
+        <p class="description">Installation électrique, dépannage, réparation et plus encore.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+        <div class="icon"><i class="bi bi-tools"></i></div>
+        <h4 class="title"><a href="#">Mécanicien</a></h4>
+        <p class="description">Entretien automobile, réparation mécanique et diagnostic.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+        <div class="icon"><i class="bi bi-paint-bucket"></i></div>
+        <h4 class="title"><a href="#">Peintre</a></h4>
+        <p class="description">Services de peinture intérieure et extérieure pour votre maison ou bureau.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+        <div class="icon"><i class="fa-solid fa-utensils"></i></div>
+        <h4 class="title"><a href="#">Traiteur</a></h4>
+        <p class="description">Services de traiteur pour vos événements spéciaux.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+        <div class="icon"><i class="bi bi-bucket"></i></div>
+        <h4 class="title"><a href="#">Nettoyage</a></h4>
+        <p class="description">Nettoyage résidentiel et commercial professionnel.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+        <div class="icon"><i class="bi bi-wrench"></i></div>
+        <h4 class="title"><a href="#">Plombier</a></h4>
+        <p class="description">Services de plomberie, réparation et installation.</p>
+      </div>
+    </div>
+
+  </div>
+</section><!-- End Services Section -->
+
+    <!-- ======= Contact Us Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contactez nous</h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6 d-flex" data-aos="fade-up">
+            <div class="info-box">
+              <i class="bx bx-map"></i>
+              <h3>notre  Address</h3>
+              <p>Manzel AbedRahmen , Iset Bizerte</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="100">
+            <div class="info-box">
+              <i class="bx bx-envelope"></i>
+              <h3>Notre Email</h3>
+              <p><br></p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box ">
+              <i class="bx bx-phone-call"></i>
+              <h3>notre Telephone</h3>
+              <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Contact Us Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>Artun</h3>
+            <p>
+             Manzel AbedRahmen <br>
+             Iset Bizerte<br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> <br>
+            </p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">acceuil</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#"> a propos</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+          
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">electricité</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">maincaincien</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">plombier</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">peinture</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">traiteur</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+ 
+
+</body>
+
+</html>
+
+
