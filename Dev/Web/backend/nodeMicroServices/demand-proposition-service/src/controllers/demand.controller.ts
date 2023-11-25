@@ -59,7 +59,7 @@ public getAllDemandeByClientId(req: Request, res: Response) {
       if (demands.length > 0) {
         res.status(200).json(demands);
       } else {
-        res.status(404).json({ message: 'No demands found for the given client ID' });
+        res.status(404).json({ message: `No demands found for the given client ID ${clientId}` });
       }
     })
     .catch((error: Error) => {
@@ -77,6 +77,87 @@ public getAllDemandeByClientId(req: Request, res: Response) {
         res.status(500).json({ error: error.message });
       });
   }
+
+public  getFilteredData(req: Request, res: Response){
+  const filters = req.body;
+console.log(filters);
+
+  const query: any = {};
+
+  // Handle urgent and not_urgent filter
+  if(!filters.urgent && !filters.not_urgent){
+
+  }
+  else{
+    const urgencyArray = [] ; 
+    if (filters.urgent ) {
+    console.log("urgent");
+    urgencyArray.push('urgent')
+  } if ( filters.nonUrgent) {
+    console.log("not_urgent");
+    urgencyArray.push('not_urgent')
+  }
+  query.applicationDeadline = { $in: urgencyArray };
+
+  }
+
+  if (!filters.plumbing && !filters.mechanical && !filters.Painting && !filters.Cleanign && !filters.others )
+{
+  console.log("All false");
+}
+else{
+  const requirementsArray = [];
+
+  if (filters.plumbing) {
+    requirementsArray.push('plumbing');
+  }
+
+  if (filters.mechanical) {
+    requirementsArray.push('mechanic');
+  }
+
+  if (filters.Painting) {
+    requirementsArray.push('painting');
+  }
+
+  if (filters.Cleaning) {
+    requirementsArray.push('cleaning');
+  }
+
+  if (filters.others) {
+    requirementsArray.push('others');
+  }
+console.log(requirementsArray)
+  // Include requirements in the query
+  query.requirements = { $in: requirementsArray };
+
+}
+  // Handle salary range filter
+  // if (filters.startSalary && filters.endSalary) {
+  //   query.hourlyRateMin = { $gte: filters.startSalary };
+  //   query.hourlyRateMax = { $lte: filters.endSalary };
+  // }
+
+
+
+  // // Handle distance range filter
+  // if (filters.startDistance && filters.endDistance) {
+  //   // Assuming you have a 'distance' field in your model
+  //   query.distance = { $gte: filters.startDistance, $lte: filters.endDistance };
+
+  // }
+
+  Demand.find(query).exec()
+  .then((demands: IDemand[]) => {
+    res.status(200).json(demands);
+  })
+  .catch((error: Error) => {
+    res.status(500).json({ error: error.message });
+  });
+
+}
+
+
   // Delete a demand by ID
   public deleteDemand(req: Request, res: Response) {
     const demandId = req.params.id;
@@ -144,4 +225,7 @@ public getAllDemandeByClientId(req: Request, res: Response) {
         res.status(500).json({ error: error.message });
       });
   }
+
+
+  
 }

@@ -28,10 +28,12 @@ const PropositionSchema = new mongoose_1.Schema({
     subject: { type: String, required: true },
     proposedPrice: { type: Number, required: true },
     coverLetter: { type: String, require: true },
-    userId: { type: String, required: true },
+    userId: { type: Number, required: true },
     demandId: { type: String, required: true },
     acceptanceStatus: { type: Number, default: 0 },
     refusalStatus: { type: Number, default: 0 }, // 0: Pending, 1: Accepted
+}, {
+    timestamps: true,
 });
 const Proposition = mongoose_1.default.model('Proposition', PropositionSchema);
 exports.default = Proposition;

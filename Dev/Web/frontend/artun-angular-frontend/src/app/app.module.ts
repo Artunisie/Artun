@@ -25,8 +25,9 @@ import { HistoriquetechnicienComponent } from './pages/historiquetechnicien/hist
 import { AcceuilclientComponent } from './pages/acceuilclient/acceuilclient.component';
 import { ProfileclientComponent } from './pages/profileclient/profileclient.component';
 import { HistoriqueclientComponent } from './pages/historiqueclient/historiqueclient.component';
-import { PostJobComponent } from './post-job/post-job.component';
+import { PostJobComponent } from './pages/post-job/post-job.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
 export function playerFactory(): any {
   return import('lottie-web');
 }
@@ -63,6 +64,7 @@ export function playerFactory(): any {
     MatRadioModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DemandeService } from '../services/demande.service';
+import { DemandeService } from '../../services/demande.service';
 @Component({
   selector: 'app-post-job',
   templateUrl: './post-job.component.html',
@@ -33,7 +33,7 @@ export class PostJobComponent {
   submitForm() {
     console.log(this.form.value);
 
-    const clientId = 'fwefwqefqwefwe';
+    const clientId = 1;
     // if (this.form.valid) {
       const formData = { ...this.form.value, clientId };
 

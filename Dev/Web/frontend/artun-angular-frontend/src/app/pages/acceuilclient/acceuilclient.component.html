@@ -87,6 +87,12 @@
               <span class="technicienmain-text19">Others</span>
             </div>
           </div>
+
+          <div class="technicienmain-submit-button">
+            <button class="btn btn-primary  filter-btn" (click)="submitFilter()">
+              <mat-icon>search</mat-icon> Search
+            </button>
+          </div>
         </div>
       </div>
       <div class="technicienmain-container09">
@@ -98,21 +104,25 @@
                 <div class="col-sm-12 col-md-8 d-flex align-items-center">
                     <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
                     <div class="text-start ps-4">
-                        <h5 class="mb-3">a la recherhce d un plombier </h5>
-                        <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-4"></i>Rewa, INDIA</span>
-                        <span class="text-truncate me-3"><i class="far fa-clock text-primary me-4"></i>Full Time</span>
-                        <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-4"></i>$123 - $456</span>
+                      <h5 class="mb-3">{{ demande.jobTitle }}</h5>
+                      <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-4"></i>Loacation</span>
+
+                      <span class="text-truncate me-3"><i class="far fa-clock text-primary me-4"></i>{{ demande.applicationDeadline === 'not_urgent' ? 'Not urgent' : 'Urgent' }}</span>
+                      <span class="text-truncate me-3">
+                        <i class="far fa-money-bill-alt text-primary me-4"></i>
+                        {{ demande.hourlyRateMin }} DT - {{ demande.hourlyRateMax }} DT
+                      </span>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                     <div class="d-flex mb-3">
-                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', yourIdVariable]">Show</a>
+                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', demande._id]">Show</a>
                         <button class="btn btn-danger m-3" (click)="onDelete(demande._id)" style="display: flex; align-items: center; justify-content: center;">
                           Delete
                       </button>
 
                     </div>
-                    <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: 01 Jan, 2045</small>
+                    <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: {{demande.createdAt}}</small>
                     <div class="technicienmain-options3">
                         <div class="technicienmain-container04">
               <!-- rating input  -->

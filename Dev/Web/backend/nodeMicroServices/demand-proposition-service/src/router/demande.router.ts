@@ -12,4 +12,5 @@ demandRouter.put('/demande/:id', controller.updateDemand);
 demandRouter.put('/demande/accept/:id', controller.acceptDemand);
 demandRouter.put('/demande/accept/:id', controller.acceptDemand);
 demandRouter.get('/demande/client/:id',controller.getAllDemandeByClientId)
+demandRouter.post('/demande/filtered',controller.getFilteredData)
 export default demandRouter;

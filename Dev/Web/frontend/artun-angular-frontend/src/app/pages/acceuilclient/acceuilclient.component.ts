@@ -7,6 +7,9 @@ import { DemandeService } from 'src/app/services/demande.service';
   styleUrls: ['./acceuilclient.component.css']
 })
 export class AcceuilclientComponent implements OnInit{
+submitFilter() {
+throw new Error('Method not implemented.');
+}
   userId:number = 1
   yourIdVariable: number = 1
   demandeList:any[]=[];

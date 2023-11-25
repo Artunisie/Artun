@@ -14,14 +14,15 @@
     </div>
 
     <div class="demande-container04">
-      <div>
+      <div class="w-100">
         <div class="d-flex align-items-center mb-5">
             <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
             <div class="text-start ps-4">
                 <h3 class="mb-3">{{demande.jobTitle}}</h3>
                 <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{ demande.applicationDeadline === 'not_urgent' ? 'Not urgent' : 'Urgent' }}</span>
-                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{demande.hourlyRateMin}}DT - {{demande.hourlyRateMax}}DT</span>
-            </div>
+                <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-2"></i>{{demande.hourlyRateMin}}DT - {{demande.hourlyRateMax}}DT</span>
+                <small class="text-truncate me-0"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{ demande.createdAt }}</small>
+              </div>
         </div>
 
         <div class="mb-5">

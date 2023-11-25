@@ -32,4 +32,9 @@ export class DemandeService {
   updateDemand(id: string, data: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/demande/${id}`, data);
   }
+
+
+  getFilteredData(filters: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/demande/filtered`, filters);
+  }
 }

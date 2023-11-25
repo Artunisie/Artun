@@ -9,14 +9,26 @@ import { DemandeService } from 'src/app/services/demande.service';
 
 })
 export class TechnicienMainComponent implements OnInit{
+
+  urgentCheckbox: boolean= true ;
+  nonUrgentCheckbox: boolean=true ;
+  plumbingCheckbox: boolean=true;
+  mechanicalCheckbox: boolean=true;
+  PaintingCheckbox: boolean=true;
+  othersCheckbox: boolean=true;
+  CleaningCheckbox: boolean = true;
+
+
   someId: number = 1
   demandeList:any[]=[];
+
+
 
 constructor(private elementRef: ElementRef ,private demandService: DemandeService) {}
 
   starRating = 0;
   startSalaryValue = 0;
-  endSalaryValue = 1000;
+  endSalaryValue = 100000;
 
 startDistanceValue =0 ;
 endDistanceValue = 100000 ;
@@ -49,17 +61,34 @@ getAllDemands() {
 }
 
 
-toggleChat() {
-  const chatPopup: HTMLElement = this.elementRef.nativeElement.querySelector('#chatPopup');
-  chatPopup.style.display = (chatPopup.style.display === 'block') ? 'none' : 'block';
+
+submitFilter() {
+  // Assuming you have a method in your service like getFilteredData
+  this.demandService.getFilteredData({
+    startSalary: this.startSalaryValue,
+    endSalary: this.endSalaryValue,
+    startDistance: this.startDistanceValue,
+    endDistance: this.endDistanceValue,
+    urgent: this.urgentCheckbox,
+    nonUrgent: this.nonUrgentCheckbox,
+    plumbing: this.plumbingCheckbox,
+    mechanical: this.mechanicalCheckbox,
+    Painting: this.PaintingCheckbox,
+    Cleanign:this.CleaningCheckbox,
+    others: this.othersCheckbox,
+  }).subscribe(
+    (filteredData: any[]) => {
+      // Handle the result from the service
+      this.demandeList = filteredData;
+    },
+    (error) => {
+      // Handle error if necessary
+      console.error('Error fetching filtered data', error);
+    }
+  );
 }
 
-removeChat() {
-  var chatContainer = document.getElementById('chatPopup');
-  chatContainer?.parentNode?.removeChild(chatContainer);
-  var chatButton = document.getElementById('chatButton') ;
-  chatButton?.parentNode?.removeChild(chatButton);
-}
+
 
 }
 

@@ -10,7 +10,7 @@ import { HistoriquetechnicienComponent } from './pages/historiquetechnicien/hist
 import { AcceuilclientComponent } from './pages/acceuilclient/acceuilclient.component';
 import { HistoriqueclientComponent } from './pages/historiqueclient/historiqueclient.component';
 import { ProfileclientComponent } from './pages/profileclient/profileclient.component';
-import { PostJobComponent } from './post-job/post-job.component';
+import { PostJobComponent } from './pages/post-job/post-job.component';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register

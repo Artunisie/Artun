@@ -5,10 +5,12 @@ export interface IDemand extends Document {
   jobDescription: string;
   hourlyRateMin: string;
   hourlyRateMax: string;
-  applicationDeadline: string;
+  applicationDeadline: string; //"urgent" or "not_urgent" 
   requirements: string[];
   acceptanceStatus: number;
-  clientId: string; 
+  clientId: number; 
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const demandSchema: Schema = new Schema({
@@ -16,11 +18,14 @@ const demandSchema: Schema = new Schema({
   jobDescription: { type: String, required: true },
   hourlyRateMin: { type: Number, required: true },
   hourlyRateMax: { type: Number, required: true },
-  applicationDeadline: { type: String, required: true },
+  applicationDeadline: { type: String, required: true }, //"urgent" or "not_urgent" 
   requirements: [{ type: String, required: true }],
   acceptanceStatus: { type: Number, default: 0 }, // 0: Pending, 1: Accepted
-  clientId: { type: String, required: true },
-});
+  clientId: { type: Number, required: true },
+},
+  {
+    timestamps: true,
+  }) ;
 
 const Demand = mongoose.model<IDemand>('Demand', demandSchema);
 

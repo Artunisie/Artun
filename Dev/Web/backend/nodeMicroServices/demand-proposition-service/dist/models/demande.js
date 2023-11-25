@@ -32,7 +32,9 @@ const demandSchema = new mongoose_1.Schema({
     applicationDeadline: { type: String, required: true },
     requirements: [{ type: String, required: true }],
     acceptanceStatus: { type: Number, default: 0 },
-    clientId: { type: String, required: true },
+    clientId: { type: Number, required: true },
+}, {
+    timestamps: true,
 });
 const Demand = mongoose_1.default.model('Demand', demandSchema);
 exports.default = Demand;
