@@ -1,6 +1,8 @@
 package com.Mohamed.userService.service;
 
 import com.Mohamed.userService.dto.ResetPasswordRequeste;
+import com.Mohamed.userService.entity.Client;
+import com.Mohamed.userService.entity.Technician;
 import com.Mohamed.userService.entity.User;
 import com.Mohamed.userService.exceptions.AccountNotActivateException;
 import com.Mohamed.userService.exceptions.InvalidEntityException;
@@ -14,10 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
+import static com.Mohamed.userService.enumerations.UserTypes.CLIENT;
+import static com.Mohamed.userService.enumerations.UserTypes.TECHNICIAN;
 import static com.Mohamed.userService.myResources.EmailRessource.*;
 import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_ALREADY_VERIFIED;
 import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_NOT_FOUND;
@@ -131,7 +133,7 @@ public class UserService {
 
     }
 
-    public User getStudentByRestPasswordToken(String restPasswordToken) {
+    public User getUserByRestPasswordToken(String restPasswordToken) {
         return userRepository.findUserByRestPasswordToken(restPasswordToken);
     }
 
@@ -145,7 +147,7 @@ public class UserService {
         if (restPasswordToken == null || newPassword == null) {
             throw new IllegalArgumentException("Token de réinitialisation et nouveau mot de passe sont requis.");
         }
-        User user = getStudentByRestPasswordToken(restPasswordToken);
+        User user = getUserByRestPasswordToken(restPasswordToken);
         if (user != null) {
             Date now = new Date();
             Date expirationDate = user.getResetPasswordTokenExpiration();
@@ -200,6 +202,32 @@ public class UserService {
             log.warn("Utilisateur avec ID " + id + " n'existe pas. Aucune suppression effectuée.");
             return false;
         }
+    }
+
+    public Map<String, Boolean> ifUserExiste(Long userId) throws UserNotFoundException {
+        Optional<User> user = userRepository.findById(userId);
+        String userType = "";
+        boolean exicte = false;
+
+        if(user.isPresent()){
+            User myUser = user.get();
+
+            if(myUser instanceof Client){
+                userType = CLIENT.name();
+                exicte = true;
+            }else if(myUser instanceof Technician){
+                userType = TECHNICIAN.name();
+                exicte = true;
+            }
+
+            Map<String, Boolean> userMap = new HashMap<>();
+            userMap.put(userType,exicte);
+
+            return userMap;
+        }else {
+            throw new UserNotFoundException("L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.");
+        }
+
     }
 
 

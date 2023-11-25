@@ -11,13 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 public class Technician extends User{
-    private double hourlyRate;
     private double rating;
 
     @Override
     public String toString() {
         return  super.toString() + "Technician{" +
-                "hourlyRate='" + hourlyRate + '\'' +
                 ", rating='" + rating + '\'' +
                 '}';
     }

@@ -14,13 +14,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class HistoryEntry {
+public abstract class HistoryEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private LocalDateTime actionDate;
+    private LocalDateTime historyDate;
     private Long userId;
-    private HistoryActionType actionType;
 
 }
