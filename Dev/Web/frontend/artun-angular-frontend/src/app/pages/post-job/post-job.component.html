@@ -1,0 +1,68 @@
+<div>
+  <app-header></app-header>
+  <div class="demande-container01">
+
+    <div class="demande-container04">
+<div class="">
+  <h4 class="mb-4">Post a job</h4>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="row g-3">
+      <div class="col-12">
+        <label for="jobTitle" class="form-label">Post title:</label>
+        <input type="text" id="jobTitle" class="form-control" placeholder="Enter post title" formControlName="jobTitle" required>
+      </div>
+
+      <div class="col-12">
+        <label for="jobDescription" class="form-label">Post description:</label>
+        <textarea id="jobDescription" class="form-control" rows="5" placeholder="Enter post description" formControlName="jobDescription" required></textarea>
+      </div>
+
+      <div class="col-12">
+        <label for="contactEmail" class="form-label">Requirements:</label>
+        <div formArrayName="requirements">
+        <div *ngFor="let requirement of requirements.controls; let i = index" class="mb-3 d-flex align-items-center">
+          <select id="requirement{{ i }}" class="form-control mr-2" [formControlName]="i" required>
+            <option value="plumbing">Plumbing</option>
+            <option value="mechanic">Mechanic</option>
+            <option value="painting">Painting</option>
+            <option value="cleaning">Cleaning</option>
+            <option value="others">Others</option>
+          </select>  <button class="btn btn-danger m-3" (click)="removeRequirement(i)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+        <button class="btn btn-primary btn-block m-3" (click)="addRequirement()">Add Requirement</button>
+      </div>
+
+      <div class="col-12">
+        <label for="hourlyRate" class="form-label">Job salary range:</label>
+        <div class="row g-2">
+          <div class="col-md-6">
+            <input type="number" id="hourlyRateMin" class="form-control" placeholder="Enter Minimal price" formControlName="hourlyRateMin" required>
+          </div>
+          <div class="col-md-6">
+            <input type="number" id="hourlyRateMax" class="form-control" placeholder="Enter Maximal price" formControlName="hourlyRateMax" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="applicationDeadline" class="form-label">Job type:</label>
+        <select type="" id="applicationDeadline" class="form-control" formControlName="applicationDeadline" required>
+          <option value="" disabled selected hidden>Job type</option>
+          <option value="urgent">Urgent</option>
+          <option value="not_urgent">Not urgent</option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-primary w-100" type="submit">Create Job</button>
+      </div>
+    </div>
+  </form>
+
+
+</div>
+    </div>
+  </div>

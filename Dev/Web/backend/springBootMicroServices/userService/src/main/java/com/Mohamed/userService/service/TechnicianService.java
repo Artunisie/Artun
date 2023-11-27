@@ -38,7 +38,6 @@ public class TechnicianService {
         try {
             userService.updateUser(technician, email);
             Technician existingTechnician = technicianRepository.findTechnicianByEmail(email);
-            existingTechnician.setHourlyRate(technician.getHourlyRate());
             existingTechnician.setRating(technician.getRating());
             technicianRepository.save(existingTechnician); // Enregistrez existingTechnician, pas technician
             return true;

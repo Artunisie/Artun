@@ -1,0 +1,40 @@
+<div class="choixclientprofessionel-container">
+  <div class="choixclientprofessionel-container1">
+    <span class="choixclientprofessionel-text">
+      Join as a client or a Professional
+    </span>
+    <div class="choixclientprofessionel-container2">
+
+      <div class="choixclientprofessionel-container3">
+        <mat-radio-button color="primary"   value="1" (change)="onRadioChange($event)" ></mat-radio-button>
+
+        <div class="choixclientprofessionel-container4">
+          <span class="choixclientprofessionel-text1">
+            I am a client, looking for a professional in home renovation and repairs
+          </span>
+        </div>
+      </div>
+
+      <div class="choixclientprofessionel-container5">
+        <mat-radio-button color="primary" value="2" (change)="onRadioChange($event)" ></mat-radio-button>
+
+        <div class="choixclientprofessionel-container6">
+          <span class="choixclientprofessionel-text2">
+            I am a professional, looking for a job in repairs or home renovation
+          </span>
+        </div>
+      </div>
+
+
+
+    </div>
+    <button type="button" (click)="Create_account()" class="choixclientprofessionel-button button">
+      <span class="choixclientprofessionel-text3">
+        <span>Create account</span>
+        <br />
+      </span>
+    </button>
+    <div class="choixclientprofessionel-container7">
+    </div>
+  </div>
+</div>

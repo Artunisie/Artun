@@ -8,8 +8,8 @@ const proposition_1 = __importDefault(require("../models/proposition"));
 class PropositionController {
     // Create a new proposition
     createProposition(req, res) {
-        const { proposedPrice, userId, demandId } = req.body;
-        const proposition = new proposition_1.default({ proposedPrice, userId, demandId });
+        const { jobTitle, hourlyRate, jobDescription, userId, demandId } = req.body;
+        const proposition = new proposition_1.default({ subject: jobTitle, proposedPrice: hourlyRate, coverLetter: jobDescription, userId, demandId });
         proposition.save()
             .then((proposition) => {
             res.status(201).json(proposition);
@@ -46,9 +46,24 @@ class PropositionController {
         });
     }
     // Update proposition's acceptance status
-    updatePropositionStatus(req, res) {
+    AcceptProposition(req, res) {
         const propositionId = req.params.id;
         proposition_1.default.findByIdAndUpdate(propositionId, { acceptanceStatus: 1 }, { new: true })
+            .then((proposition) => {
+            if (proposition) {
+                res.status(200).json(proposition);
+            }
+            else {
+                res.status(404).json({ message: 'Proposition not found' });
+            }
+        })
+            .catch((error) => {
+            res.status(500).json({ error: error.message });
+        });
+    }
+    RefuseProposition(req, res) {
+        const propositionId = req.params.id;
+        proposition_1.default.findByIdAndUpdate(propositionId, { refusalStatus: 1 }, { new: true })
             .then((proposition) => {
             if (proposition) {
                 res.status(200).json(proposition);

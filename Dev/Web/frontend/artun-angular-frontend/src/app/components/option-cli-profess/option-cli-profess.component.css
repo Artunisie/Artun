@@ -1,0 +1,189 @@
+:host {
+  display: contents;
+}
+.choixclientprofessionel-container {
+  width: 650px;
+  height: 400px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  border-color: #a6ddff;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--dl-radius-radius-radius8);
+  flex-direction: column;
+  background-color:white; /* Noir avec une opacité de 80% */
+}
+
+.choixclientprofessionel-container1 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-color: #a6ddff;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--dl-radius-radius-radius8);
+  flex-direction: column;
+}
+
+.choixclientprofessionel-text {
+  font-size: 30px;
+  margin-top: var(--dl-space-space-oneandhalfunits);
+  color: #080808; /* Texte en blanc */
+}
+
+
+.choixclientprofessionel-container2 {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choixclientprofessionel-container3 {
+  flex: 0 0 auto;
+  width: 250px;
+  height: 150px;
+  display: flex;
+  align-self: center;
+  margin-top: var(--dl-space-space-oneandhalfunits);
+  align-items: flex-end;
+  border-radius: var(--dl-radius-radius-radius8);
+  margin-bottom: var(--dl-space-space-oneandhalfunits);
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #bde3fd;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Ombre avec une opacité de 30% */
+  display: flex;
+  margin-top: var(--dl-space-space-oneandhalfunits);
+  align-items: flex-end;
+  margin-right: var(--dl-space-space-oneandhalfunits);
+  border-radius: var(--dl-radius-radius-radius8);
+  margin-bottom: var(--dl-space-space-oneandhalfunits);
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #bde3fd;
+}
+.choixclientprofessionel-textinput {
+  width: 20px;
+  height: 20px;
+  margin-top: var(--dl-space-space-halfunit);
+  text-align: right;
+  margin-right: var(--dl-space-space-halfunit);
+  background-color: #12185b;
+}
+
+.choixclientprofessionel-container4 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+}
+.choixclientprofessionel-text1 {
+  margin: var(--dl-space-space-oneandhalfunits);
+}
+.choixclientprofessionel-container5 {
+  flex: 0 0 auto;
+  width: 250px;
+  height: 150px;
+  display: flex;
+  align-self: center;
+  margin-top: var(--dl-space-space-oneandhalfunits);
+  align-items: flex-end;
+  border-radius: var(--dl-radius-radius-radius8);
+  margin-bottom: var(--dl-space-space-oneandhalfunits);
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #bde3fd;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Ombre avec une opacité de 30% */
+}
+
+.choixclientprofessionel-textinput1 {
+  width: 20px;
+  height: 20px;
+  margin-top: var(--dl-space-space-halfunit);
+  margin-right: var(--dl-space-space-halfunit);
+}
+
+.choixclientprofessionel-container6 {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+}
+.choixclientprofessionel-text2 {
+  margin: var(--dl-space-space-unit);
+}
+.choixclientprofessionel-button {
+  color: var(--dl-color-gray-white);
+  background-color: #12185b;
+}
+.choixclientprofessionel-text3 {
+  color: var(--dl-color-gray-white);
+}
+.choixclientprofessionel-container7 {
+  width: 100%;
+  height: 73px;
+  display: flex;
+  align-self: center;
+  align-items: flex-start;
+  justify-content: center;
+}
+.choixclientprofessionel-text6 {
+  align-self: center;
+}
+.choixclientprofessionel-link {
+  color: #272f9e;
+  align-self: center;
+}
+@media(max-width: 767px) {
+  .choixclientprofessionel-container2 {
+    display: inline;
+  }
+  .choixclientprofessionel-container3 {
+    width: 406px;
+  }
+  .choixclientprofessionel-container5 {
+    width: 405px;
+  }
+}
+
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #12185b !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #12185b !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #12185b !important;
+}
+.choixclientprofessionel-button {
+  color: #fff; /* Couleur du texte */
+  background-color: #007bff; /* Couleur de fond du bouton */
+  border: none;
+  padding: 10px 20px; /* Espacement intérieur du bouton */
+  border-radius: 5px; /* Bordure arrondie */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition de couleur au survol */
+
+  /* Styles du texte à l'intérieur du bouton */
+  font-size: 16px;
+}
+
+.choixclientprofessionel-button:hover {
+  background-color: #0056b3; /* Nouvelle couleur de fond au survol */
+}
+
+/* Styles pour le texte à l'intérieur du bouton */
+.choixclientprofessionel-text3 {
+  display: block;
+  text-align: center;
+  line-height: 1.2;
+}

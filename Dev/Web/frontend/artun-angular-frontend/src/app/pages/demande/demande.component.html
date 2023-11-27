@@ -1,0 +1,73 @@
+<div>
+  <app-technicien-header></app-technicien-header>
+  <div class="demande-container01">
+    <div class="demande-container02">
+      <img
+        alt="image"
+        src="../../../assets/images/bi.png"
+        class="demande-image"
+        style="height: 100%;width: 100%;"
+      />
+      <div class="demande-container03">
+        <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>New York, USA</span>
+      </div>
+    </div>
+
+    <div class="demande-container04">
+      <div class="w-100">
+        <div class="d-flex align-items-center mb-5">
+            <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
+            <div class="text-start ps-4">
+                <h3 class="mb-3">{{demande.jobTitle}}</h3>
+                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{ demande.applicationDeadline === 'not_urgent' ? 'Not urgent' : 'Urgent' }}</span>
+                <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-2"></i>{{demande.hourlyRateMin}}DT - {{demande.hourlyRateMax}}DT</span>
+                <small class="text-truncate me-0"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{ demande.createdAt }}</small>
+              </div>
+        </div>
+
+        <div class="mb-5">
+            <h4 class="mb-3">Job description</h4>
+            <p>{{demande.jobDescription}}</p>
+            <h4 class="mb-3">Qualifications</h4>
+            <ul class="list-unstyled">
+              <li *ngFor="let requirement of demande.requirements">
+                <i class="fa fa-angle-right text-primary me-2"></i>
+                {{ requirement }}
+              </li>
+             </ul>
+        </div>
+
+        <div class="">
+            <h4 class="mb-4">Apply For The Job</h4>
+            <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="jobTitle" class="form-label">Subject :</label>
+                  <input formControlName="jobTitle" type="text" id="jobTitle" class="form-control" placeholder="Titre du poste" required>
+                </div>
+
+                <div class="col-12">
+                  <label for="jobDescription" class="form-label">Cover Letter :</label>
+                  <textarea formControlName="jobDescription" id="jobDescription" class="form-control" rows="5" placeholder="Description du poste" required></textarea>
+                </div>
+
+                <div class="col-12">
+                  <label for="hourlyRate" class="form-label">Salary :</label>
+                  <input formControlName="hourlyRate" type="number" id="hourlyRate" class="form-control" placeholder="Prix par heure" required>
+                </div>
+
+                <div class="col-12">
+                  <button class="btn btn-primary w-100" type="submit">Postuler maintenant</button>
+                </div>
+              </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+
+    </div>
+  </div>
+</div>

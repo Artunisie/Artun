@@ -1,0 +1,110 @@
+<div >
+  <app-technicien-header></app-technicien-header>
+  <div class="technicienmain-container01">
+    <div class="technicienmain-sidebar shadow">
+      <div class="technicienmain-nav-item">
+        <span class="technicienmain-nav-titel">Filter</span>
+        <div class="technicienmain-options">
+          <span class="technicienmain-text">
+            <span>Salary</span>
+            <br />
+          </span>
+          <mat-slider id="to-slider" discrete [displayWith]="SalaryFormatLabel" [(ngModel)]="startSalaryValue" #slider1="ngModel">
+            <input matSliderStartThumb  [(value)]="startSalaryValue" >
+            <input matSliderEndThumb [(value)]="endSalaryValue" >
+          </mat-slider>
+        </div>
+
+        <div class="technicienmain-options1">
+          <span class="technicienmain-text03">
+            <span>Distance</span>
+            <br />
+          </span>
+          <mat-slider id="to-slider" discrete [displayWith]="DistanceFormatLabel" [(ngModel)]="startDistanceValue" #slider2="ngModel">
+            <input matSliderStartThumb [(value)]="startDistanceValue" >
+            <input matSliderEndThumb [(value)]="endDistanceValue" >
+          </mat-slider>
+        </div>
+
+        <div class="technicienmain-options2">
+          <span class="technicienmain-text06">Availability</span>
+          <div class="technicienmain-container02">
+            <input type="checkbox" [(ngModel)]="urgentCheckbox" class="technicienmain-checkbox" />
+            <span class="technicienmain-text07">Urgent</span>
+          </div>
+          <div class="technicienmain-container03">
+            <input type="checkbox" [(ngModel)]="nonUrgentCheckbox" class="technicienmain-checkbox1" />
+            <span class="technicienmain-text08">Non Urgent</span>
+          </div>
+        </div>
+
+        <div class="technicienmain-options4">
+          <span class="technicienmain-text13">
+            <span>Experience</span>
+            <br />
+          </span>
+          <div class="technicienmain-container05">
+            <input type="checkbox" [(ngModel)]="plumbingCheckbox" class="technicienmain-checkbox2" />
+            <span class="technicienmain-text16">Plumbing</span>
+          </div>
+          <div class="technicienmain-container06">
+            <input type="checkbox" [(ngModel)]="mechanicalCheckbox" class="technicienmain-checkbox3" />
+            <span class="technicienmain-text17">Mechanical</span>
+          </div>
+          <div class="technicienmain-container07">
+            <input type="checkbox" [(ngModel)]="PaintingCheckbox" class="technicienmain-checkbox4" />
+            <span class="technicienmain-text18">Painting</span>
+          </div>
+          <div class="technicienmain-container07">
+            <input type="checkbox" [(ngModel)]="CleaningCheckbox" class="technicienmain-checkbox4" />
+            <span class="technicienmain-text18">Cleaning</span>
+          </div>
+          <div class="technicienmain-container08">
+            <input type="checkbox" [(ngModel)]="othersCheckbox" class="technicienmain-checkbox5" />
+            <span class="technicienmain-text19">Others</span>
+          </div>
+        </div>
+
+        <div class="technicienmain-submit-button">
+          <button class="btn btn-primary filter-btn" (click)="submitFilter()">
+            <mat-icon>search</mat-icon> Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="technicienmain-container09">
+      <div class="technicienmain-container15">
+
+
+        <div class="job-item p-4 mb-4" *ngFor="let demande of demandeList">
+          <div class="row g-4">
+            <div class="col-sm-12 col-md-8 d-flex align-items-center">
+              <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
+              <div class="text-start ps-4">
+                <h5 class="mb-3">{{ demande.jobTitle }}</h5>
+                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-4"></i>Loacation</span>
+
+                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-4"></i>{{ demande.applicationDeadline === 'not_urgent' ? 'Not urgent' : 'Urgent' }}</span>
+                <span class="text-truncate me-3">
+                  <i class="far fa-money-bill-alt text-primary me-4"></i>
+                  {{ demande.hourlyRateMin }} DT - {{ demande.hourlyRateMax }} DT
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+              <div class="d-flex mb-3">
+                <!-- Assuming someId is derived from demande or another source -->
+                <a class="btn btn-primary" [routerLink]="['/demande/', demande._id]">Apply Now</a>
+              </div>
+              <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: {{ demande.createdAt }}</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

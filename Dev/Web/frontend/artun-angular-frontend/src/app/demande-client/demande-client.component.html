@@ -1,0 +1,73 @@
+<div>
+  <app-header></app-header>
+  <div class="demande-container01">
+
+    <div class="demande-container04">
+      <div class="w-100 p-4" >
+        <div class="d-flex align-items-center mb-5">
+            <img class="flex-shrink-0 img-fluid border rounded" src="../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
+            <div class="text-start ps-4">
+                <h3 class="mb-3">{{demande.jobTitle}}</h3>
+                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{demande.applicationDeadline}}</span>
+                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{demande.hourlyRateMin}} DT- {{demande.hourlyRateMax}} DT</span>
+            </div>
+        </div>
+
+
+        <div class="mb-5">
+          <h4 class="mb-3">Job description</h4>
+          <p>{{demande.jobDescription}}</p>
+          <h4 class="mb-3">Qualifications</h4>
+          <ul class="list-unstyled">
+            <li *ngFor="let requirement of demande.requirements">
+              <i class="fa fa-angle-right text-primary me-2"></i>
+              {{ requirement }}
+            </li>
+           </ul>
+      </div>
+<!-- affichage offre -->
+<div class="job-items-container card">
+  <ng-container *ngIf="propositions.length > 0; else noPropositions">
+    <div class="job-item p-4 mb-4" *ngFor="let proposition of propositions">
+      <div class="row g-4">
+        <div class="col-sm-12 col-md-8 d-flex align-items-center">
+          <img class="flex-shrink-0 img-fluid border rounded" src="../../assets/images/plombier.png" alt="" style="width: 80px; height: 80px;">
+        <div class="text-start ps-4">
+          <h5 class="mb-1">{{proposition.subject}}</h5>
+
+          <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-4"></i>{{proposition.proposedPrice}}DT</span>
+          <p>{{proposition.coverLetter}}</p>
+        </div>
+      </div>
+
+        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+          <div class="d-flex mb-3 justify-content-between align-items-center">
+            <!-- Bouton Accept -->
+            <button class="btn btn-primary action_button custom-btn" (click)="Accept(proposition._id)" href="">Accept</button>
+            <!-- Bouton Refuse -->
+            <button class="btn btn-danger custom-btn" (click)="refuse(proposition._id)" href="">Refuse</button>
+            <!-- Bouton Chat -->
+            <a (click)="Chat()" class="btn btn-info custom-btn" href="">
+              <i class="fas fa-comment-alt icon-chat"></i> Chat</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Message for no propositions -->
+  <ng-template #noPropositions>
+    <div class="text-center p-4">
+      <p class="mb-0">There are no offers for this job yet.</p>
+    </div>
+  </ng-template>
+</div>
+
+</div>
+
+
+    </div>
+
+
+    </div>
+  </div>
