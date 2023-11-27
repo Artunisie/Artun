@@ -19,7 +19,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { RegisterLoginComponent } from './pages/register-login/register-login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TechnicienHeaderComponent } from './components/technicien-header/technicien-header.component';
-import { DemandeClientComponent } from './demande-client/demande-client.component';
+import { DemandeClientComponent } from './pages/demande-client/demande-client.component';
 import { ChatPopupComponent } from './chat-popup/chat-popup.component';
 import { HistoriquetechnicienComponent } from './pages/historiquetechnicien/historiquetechnicien.component';
 import { AcceuilclientComponent } from './pages/acceuilclient/acceuilclient.component';

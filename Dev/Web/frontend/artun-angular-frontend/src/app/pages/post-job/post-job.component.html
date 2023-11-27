@@ -18,16 +18,11 @@
       </div>
 
       <div class="col-12">
-        <label for="contactEmail" class="form-label">Requirements:</label>
+        <label for="contactEmail" class="form-label">Qualifications:</label>
         <div formArrayName="requirements">
         <div *ngFor="let requirement of requirements.controls; let i = index" class="mb-3 d-flex align-items-center">
-          <select id="requirement{{ i }}" class="form-control mr-2" [formControlName]="i" required>
-            <option value="plumbing">Plumbing</option>
-            <option value="mechanic">Mechanic</option>
-            <option value="painting">Painting</option>
-            <option value="cleaning">Cleaning</option>
-            <option value="others">Others</option>
-          </select>  <button class="btn btn-danger m-3" (click)="removeRequirement(i)">
+          <input id="requirement{{ i }}" class="form-control mr-2" [formControlName]="i" required />
+          <button class="btn btn-danger m-3" (click)="removeRequirement(i)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
@@ -48,13 +43,36 @@
       </div>
 
       <div class="col-12">
-        <label for="applicationDeadline" class="form-label">Job type:</label>
+        <label for="applicationDeadline" class="form-label">Job urgence:</label>
         <select type="" id="applicationDeadline" class="form-control" formControlName="applicationDeadline" required>
-          <option value="" disabled selected hidden>Job type</option>
+          <option value="" disabled selected hidden>Job urgence</option>
           <option value="urgent">Urgent</option>
           <option value="not_urgent">Not urgent</option>
         </select>
       </div>
+
+      <div class="col-12">
+        <label for="applicationDeadline" class="form-label">Job type:</label>
+        <select type="" id="applicationDeadline" class="form-control" formControlName="applicationDeadline" required>
+          <option value="" disabled selected hidden>Job type</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="mechanic">Mechanic</option>
+          <option value="painting">Painting</option>
+          <option value="cleaning">Cleaning</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Add this div to display the success message -->
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+
+
 
       <div class="col-12">
         <button class="btn btn-primary w-100" type="submit">Create Job</button>

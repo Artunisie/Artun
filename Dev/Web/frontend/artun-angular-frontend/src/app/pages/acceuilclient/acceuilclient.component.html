@@ -10,86 +10,53 @@
               <span>Salary</span>
               <br />
             </span>
-            <mat-slider id="to-slider"  discrete [displayWith]="SalaryFormatLabel">
-              <input matSliderStartThumb [(ngModel)]="startSalaryValue">
-              <input matSliderEndThumb [(ngModel)]="endSalaryValue">
+            <mat-slider id="to-slider" discrete [displayWith]="SalaryFormatLabel" [(ngModel)]="startSalaryValue" #slider1="ngModel">
+              <input matSliderStartThumb  [(value)]="startSalaryValue" >
+              <input matSliderEndThumb [(value)]="endSalaryValue" >
             </mat-slider>
           </div>
 
-
-          <div class="technicienmain-options1">
-            <span class="technicienmain-text03">
-              <span>Distance</span>
-              <br />
-            </span>
-
-            <mat-slider id="to-slider" discrete [displayWith]="DistanceFormatLabel">
-              <input matSliderStartThumb [(ngModel)]="startDistanceValue" >
-              <input matSliderEndThumb [(ngModel)]="endDistanceValue">
-            </mat-slider>
-
-
-          </div>
           <div class="technicienmain-options2">
-            <span class="technicienmain-text06">Job type</span>
+            <span class="technicienmain-text06">Availability</span>
             <div class="technicienmain-container02">
-              <input
-                type="checkbox"
-                checked="true"
-                class="technicienmain-checkbox"
-              />
+              <input type="checkbox" [(ngModel)]="urgentCheckbox" class="technicienmain-checkbox" />
               <span class="technicienmain-text07">Urgent</span>
             </div>
             <div class="technicienmain-container03">
-              <input
-                type="checkbox"
-                checked="true"
-                class="technicienmain-checkbox1"
-              />
+              <input type="checkbox" [(ngModel)]="nonUrgentCheckbox" class="technicienmain-checkbox1" />
               <span class="technicienmain-text08">Non Urgent</span>
             </div>
           </div>
+
           <div class="technicienmain-options4">
             <span class="technicienmain-text13">
               <span>Experience</span>
               <br />
             </span>
             <div class="technicienmain-container05">
-              <input
-                type="checkbox"
-                checked="true"
-                class="technicienmain-checkbox2"
-              />
-              <span class="technicienmain-text16">Plumming</span>
+              <input type="checkbox" [(ngModel)]="plumbingCheckbox" class="technicienmain-checkbox2" />
+              <span class="technicienmain-text16">Plumbing</span>
             </div>
             <div class="technicienmain-container06">
-              <input
-                type="checkbox"
-                checked="true"
-                class="technicienmain-checkbox3"
-              />
+              <input type="checkbox" [(ngModel)]="mechanicalCheckbox" class="technicienmain-checkbox3" />
               <span class="technicienmain-text17">Mechanical</span>
             </div>
             <div class="technicienmain-container07">
-              <input
-                type="checkbox"
-                checked="true"
-                class="technicienmain-checkbox4"
-              />
-              <span class="technicienmain-text18">Home renovation</span>
+              <input type="checkbox" [(ngModel)]="PaintingCheckbox" class="technicienmain-checkbox4" />
+              <span class="technicienmain-text18">Painting</span>
+            </div>
+            <div class="technicienmain-container07">
+              <input type="checkbox" [(ngModel)]="CleaningCheckbox" class="technicienmain-checkbox4" />
+              <span class="technicienmain-text18">Cleaning</span>
             </div>
             <div class="technicienmain-container08">
-              <input
-                type="checkbox"
-                checked="true"
-                class="technicienmain-checkbox5"
-              />
+              <input type="checkbox" [(ngModel)]="othersCheckbox" class="technicienmain-checkbox5" />
               <span class="technicienmain-text19">Others</span>
             </div>
           </div>
 
           <div class="technicienmain-submit-button">
-            <button class="btn btn-primary  filter-btn" (click)="submitFilter()">
+            <button class="btn btn-primary filter-btn" (click)="submitFilter()">
               <mat-icon>search</mat-icon> Search
             </button>
           </div>

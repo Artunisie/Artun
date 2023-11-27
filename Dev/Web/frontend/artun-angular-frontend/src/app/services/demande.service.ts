@@ -37,4 +37,10 @@ export class DemandeService {
   getFilteredData(filters: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/demande/filtered`, filters);
   }
+
+  getFilteredDataByUserId(userId: number,   filters:any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/demande/filtered/${userId}`, filters);
+  }
+
+
 }

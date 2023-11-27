@@ -8,7 +8,8 @@ import { DemandeService } from '../../services/demande.service';
 })
 export class PostJobComponent {
   form: FormGroup;
-
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private demandeService: DemandeService) {
     this.form = this.fb.group({
@@ -31,21 +32,19 @@ export class PostJobComponent {
 
 
   submitForm() {
-    console.log(this.form.value);
-
     const clientId = 1;
-    // if (this.form.valid) {
-      const formData = { ...this.form.value, clientId };
+    const formData = { ...this.form.value, clientId };
 
-      // Call the service method to submit the form data
-      this.demandeService.createDemand(formData).subscribe(response => {
-        console.log('Response:', response);
-
-      }, error => {
-        console.error('Error:', error);
-        // Handle error
-      });
-    // }
+    this.demandeService.createDemand(formData).subscribe(response => {
+      console.log('Response:', response);
+      this.successMessage = 'Job created successfully!';
+      this.errorMessage = ''; // Clear any previous error message
+      this.form.reset();
+    }, error => {
+      console.error('Error:', error);
+      this.successMessage = ''; // Clear any previous success message
+      this.errorMessage = 'Error creating job. Please try again.'; // Set error message
+    });
   }
 
 

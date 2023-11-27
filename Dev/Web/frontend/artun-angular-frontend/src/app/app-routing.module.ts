@@ -5,7 +5,7 @@ import { RegisterLoginComponent } from './pages/register-login/register-login.co
 import { TechnicienMainComponent } from './pages/technicien-main/technicien-main.component';
 import { DemandeComponent } from './pages/demande/demande.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { DemandeClientComponent } from './demande-client/demande-client.component';
+import { DemandeClientComponent } from './pages/demande-client/demande-client.component';
 import { HistoriquetechnicienComponent } from './pages/historiquetechnicien/historiquetechnicien.component';
 import { AcceuilclientComponent } from './pages/acceuilclient/acceuilclient.component';
 import { HistoriqueclientComponent } from './pages/historiqueclient/historiqueclient.component';

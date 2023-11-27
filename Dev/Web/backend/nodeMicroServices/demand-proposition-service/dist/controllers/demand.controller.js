@@ -112,15 +112,72 @@ class DemandController {
             // Include requirements in the query
             query.requirements = { $in: requirementsArray };
         }
-        // Handle salary range filter
-        // if (filters.startSalary && filters.endSalary) {
-        //   query.hourlyRateMin = { $gte: filters.startSalary };
-        //   query.hourlyRateMax = { $lte: filters.endSalary };
-        // }
+        //  Handle salary range filter
+        if (filters.startSalary && filters.endSalary) {
+            query.hourlyRateMin = { $gte: filters.startSalary };
+            query.hourlyRateMax = { $lte: filters.endSalary };
+        }
         // // Handle distance range filter
         // if (filters.startDistance && filters.endDistance) {
         //   // Assuming you have a 'distance' field in your model
         //   query.distance = { $gte: filters.startDistance, $lte: filters.endDistance };
+        // }
+        demande_1.default.find(query).exec()
+            .then((demands) => {
+            res.status(200).json(demands);
+        })
+            .catch((error) => {
+            res.status(500).json({ error: error.message });
+        });
+    }
+    //getts the data using the filter for the user wich he created 
+    getFilteredDataByUserId(req, res) {
+        const filters = req.body;
+        const clientId = req.params.id;
+        console.log(filters);
+        const query = {};
+        query.clientId = clientId;
+        // Handle urgent and not_urgent filter
+        var urgencyArray = [];
+        if (filters.urgent) {
+            console.log("urgent");
+            urgencyArray.push('urgent');
+        }
+        if (filters.nonUrgent) {
+            console.log("not_urgent");
+            urgencyArray.push('not_urgent');
+        }
+        console.log("urgencyArray:" + urgencyArray);
+        query.applicationDeadline = { $in: urgencyArray };
+        //   if (!filters.plumbing && !filters.mechanical && !filters.Painting && !filters.Cleanign && !filters.others )
+        // {
+        //   console.log("All false");
+        // }
+        // else{
+        //   var requirementsArray = [];
+        //   if (filters.plumbing) {
+        //     requirementsArray.push('plumbing');
+        //   }
+        //   if (filters.mechanical) {
+        //     requirementsArray.push('mechanic');
+        //   }
+        //   if (filters.Painting) {
+        //     requirementsArray.push('painting');
+        //   }
+        //   if (filters.Cleaning) {
+        //     requirementsArray.push('cleaning');
+        //   }
+        //   if (filters.others) {
+        //     requirementsArray.push('others');
+        //   }
+        // console.log(requirementsArray)
+        //   // Include requirements in the query
+        //   query.requirements = { $in: requirementsArray };
+        // }
+        // Handle salary range filter
+        // if (filters.startSalary && filters.endSalary) {
+        //   query.hourlyRateMin = { $gte: filters.startSalary };
+        //   query.hourlyRateMax = { $lte: filters.endSalary };
         // }
         demande_1.default.find(query).exec()
             .then((demands) => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PropositionService } from '../services/proposition.service';
-import { DemandeService } from '../services/demande.service';
+import { PropositionService } from '../../services/proposition.service';
+import { DemandeService } from '../../services/demande.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -59,6 +59,9 @@ getPropositionsById(demandId:any){
   this.propositionService.refuseProposition(propositonId).subscribe(
     (res) => {
       console.log('refusal done:', res);
+      const demandId = this.route.snapshot.paramMap.get('id');
+      this.getDemandeById(demandId)
+      this.getPropositionsById(demandId)
     },
     (error) => {
       console.error('Error refusing the proposition:', error);
@@ -70,6 +73,9 @@ getPropositionsById(demandId:any){
       this.propositionService.acceptProposition(propositonId).subscribe(
         (res) => {
           console.log('acceptation done:', res);
+          const demandId = this.route.snapshot.paramMap.get('id');
+          this.getDemandeById(demandId)
+          this.getPropositionsById(demandId)
         },
         (error) => {
           console.error('Error accepting the proposition:', error);

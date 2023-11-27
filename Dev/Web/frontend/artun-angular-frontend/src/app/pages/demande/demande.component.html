@@ -56,6 +56,15 @@
                   <input formControlName="hourlyRate" type="number" id="hourlyRate" class="form-control" placeholder="Prix par heure" required>
                 </div>
 
+                <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                  {{ errorMessage }}
+                </div>
+
+                <!-- Add this div to display the success message -->
+                <div *ngIf="successMessage" class="alert alert-success mt-3">
+                  {{ successMessage }}
+                </div>
+
                 <div class="col-12">
                   <button class="btn btn-primary w-100" type="submit">Postuler maintenant</button>
                 </div>

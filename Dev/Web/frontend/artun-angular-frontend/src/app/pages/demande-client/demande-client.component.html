@@ -43,10 +43,22 @@
         <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
           <div class="d-flex mb-3 justify-content-between align-items-center">
             <!-- Bouton Accept -->
+            <div class="me-3 accepted-style" *ngIf="proposition.acceptanceStatus == 1; else refusalBlock">
+              <i class="fas fa-check d-flex"></i>
+              Accepted
+            </div>
+            <ng-template #refusalBlock>
+            <div class="me-3 refused-style" *ngIf="proposition.refusalStatus == 1; else defaultBlock">
+              <i class="fas fa-times"></i> Refused
+            </div>
+          </ng-template>
+            <ng-template #defaultBlock class="d-flex">
             <button class="btn btn-primary action_button custom-btn" (click)="Accept(proposition._id)" href="">Accept</button>
             <!-- Bouton Refuse -->
             <button class="btn btn-danger custom-btn" (click)="refuse(proposition._id)" href="">Refuse</button>
             <!-- Bouton Chat -->
+
+          </ng-template>
             <a (click)="Chat()" class="btn btn-info custom-btn" href="">
               <i class="fas fa-comment-alt icon-chat"></i> Chat</a>
           </div>
