@@ -1,0 +1,8 @@
+server:
+  port:
+    3003
+  servlet:
+    context-path: /api/integration
+api:
+  stripe:
+    key: sk_test_51Nrp2DFftzIVixVaobfCcpo18AVwDd73GHsf85uRsKKZFSQKbhDz5q0tyMo9OoZDRoJmf1CLLD1jMUCB3T7aaCxM00D8J5ZpLq
