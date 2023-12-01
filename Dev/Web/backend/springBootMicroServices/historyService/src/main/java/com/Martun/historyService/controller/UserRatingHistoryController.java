@@ -20,15 +20,17 @@ public class UserRatingHistoryController {
     }
 
 
-    @GetMapping("/checkIfUser/{userId}/rateUser/{ratedUserId}")
+    @GetMapping("/getUser/{userId}/rateUser/{ratedUserId}")
     public ResponseEntity<UserRatingHistory> getUserRatingHistory(@PathVariable Long userId, @PathVariable Long ratedUserId) {
         try {
-            UserRatingHistory ratingHistory = userRatingHistoryService.ifUserReatedAlready(userId, ratedUserId);
+            UserRatingHistory ratingHistory = userRatingHistoryService.getUserReatedAlreadyData(userId, ratedUserId);
             return ResponseEntity.ok(ratingHistory);
         } catch (HistoryNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }
 
 

@@ -14,7 +14,8 @@ public interface HistoryServiceFeignClient {
     @PostMapping("/add")
     ResponseEntity<String> saveRatingHistory(@RequestBody RatingHistoryDto ratingHistory);
 
-    @GetMapping("/checkIfUser/{userId}/rateUser/{ratedUserId}")
+
+    @GetMapping("/getUser/{userId}/rateUser/{ratedUserId}")
     ResponseEntity<RatingHistoryDto> getUserRatingHistory(@PathVariable Long userId, @PathVariable Long ratedUserId);
 
 }

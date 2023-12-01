@@ -27,7 +27,7 @@ public class UserRatingHistoryService {
     }
 
 
-    public UserRatingHistory ifUserReatedAlready(Long userId, Long ratedUserId) throws HistoryNotFoundException {
+    public UserRatingHistory getUserReatedAlreadyData(Long userId, Long ratedUserId) throws HistoryNotFoundException {
         UserRatingHistory ratingEntity = ratingHistoryRepo.findUserRatingHistoryByUserIdAndRatedUserId(userId, ratedUserId);
         if(ratingEntity != null){
             log.info(String.valueOf(ratingEntity.getUserId()));
@@ -41,5 +41,6 @@ public class UserRatingHistoryService {
         }
 
     }
+
 
 }

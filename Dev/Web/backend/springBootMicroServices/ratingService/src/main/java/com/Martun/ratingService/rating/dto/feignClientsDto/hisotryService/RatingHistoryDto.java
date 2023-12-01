@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RatingHistoryDto {
 
-    private Long historyDate;
     private Long userId;
     private Long ratedUserId;
     private String comment;

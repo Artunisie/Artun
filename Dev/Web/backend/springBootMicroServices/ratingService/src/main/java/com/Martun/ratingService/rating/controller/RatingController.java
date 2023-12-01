@@ -17,7 +17,7 @@ public class RatingController {
     private final RatingService ratingService;
     private final UserServiceFeignClient feignClient;
 
-    @PostMapping("/rate/{clientId}")
+   /* @PostMapping("/rate/{clientId}")
     public ResponseEntity<?> saveRating(@PathVariable("clientId") Long ratedUserId, @RequestBody RatingDto rating) {
         try {
             RatingEntity savedRating = ratingService.saveRating(ratedUserId, rating);
@@ -28,7 +28,16 @@ public class RatingController {
         catch (IllegalArgumentException ex){
             return new ResponseEntity<>("Le nombre d'étoiles doit être compris entre 1 et 5.",HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }*/
+
+
+    /* ****************Methode de teste va etre supprimer apres ***********************************************************************************/
+    @GetMapping("/user/{userId}/rated/{ratedUserId}")
+    public ResponseEntity<Boolean> checkUserRating(@PathVariable Long userId, @PathVariable Long ratedUserId) {
+        boolean hasRated = ratingService.ifUserHasAlreadyRated(userId, ratedUserId);
+        return ResponseEntity.ok(hasRated);
     }
+    /* ********************************************************************************************************************************************/
 
 
 }
