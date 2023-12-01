@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +26,21 @@ public class UserRatingHistoryService {
             return "Succès : L'historique de notation de l'utilisateur a été sauvegardé.";
         } catch (Exception e) {
             return "Échec : Une erreur s'est produite lors de la sauvegarde de l'historique de notation de l'utilisateur. " + e.getMessage();
+        }
+    }
+
+    public UserRatingHistory updateRatingHistory(Long ratingHistoryId, UserRatingHistory newRatingHistory) throws HistoryNotFoundException {
+        Optional<UserRatingHistory> optionalUserRatingHistory = ratingHistoryRepo.findById(ratingHistoryId);
+
+        if (optionalUserRatingHistory.isPresent()) {
+            UserRatingHistory userRatingHistory = optionalUserRatingHistory.get();
+            LocalDateTime now = LocalDateTime.now();
+            userRatingHistory.setComment(newRatingHistory.getComment());
+            userRatingHistory.setNombreEtoilesDonner(newRatingHistory.getNombreEtoilesDonner());
+            userRatingHistory.setHistoryDate(now);
+            return ratingHistoryRepo.save(userRatingHistory);
+        } else {
+            throw new HistoryNotFoundException("Aucun historique de notation trouvé avec l'ID : " + ratingHistoryId);
         }
     }
 

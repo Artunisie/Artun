@@ -96,6 +96,7 @@ public class RatingService {
         return ratingRepository.save(ratingEntity);
     }
 
+    // Sauvgarder l'historique de rating
     private void saveRatinghistory(RatingDto ratingDto, RatingEntity ratingEntity) {
         RatingHistoryDto historyDto = new RatingHistoryDto();
         historyDto.setRatedUserId(ratingEntity.getRatedUserId());
@@ -121,7 +122,7 @@ public class RatingService {
         } catch (Exception e) {
             log.error("Une erreur s'est produite lors de la récupération de l'historique des évaluations de l'utilisateur peut etre n'existe pas", e);
         }
-        return oldRating; // Ajoutez cette ligne
+        return oldRating;
     }
 
 
