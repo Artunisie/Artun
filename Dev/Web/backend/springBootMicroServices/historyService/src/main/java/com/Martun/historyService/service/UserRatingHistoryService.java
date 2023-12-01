@@ -33,11 +33,14 @@ public class UserRatingHistoryService {
         Optional<UserRatingHistory> optionalUserRatingHistory = ratingHistoryRepo.findById(ratingHistoryId);
 
         if (optionalUserRatingHistory.isPresent()) {
+
             UserRatingHistory userRatingHistory = optionalUserRatingHistory.get();
+
             LocalDateTime now = LocalDateTime.now();
             userRatingHistory.setComment(newRatingHistory.getComment());
             userRatingHistory.setNombreEtoilesDonner(newRatingHistory.getNombreEtoilesDonner());
             userRatingHistory.setHistoryDate(now);
+
             return ratingHistoryRepo.save(userRatingHistory);
         } else {
             throw new HistoryNotFoundException("Aucun historique de notation trouvé avec l'ID : " + ratingHistoryId);
@@ -48,6 +51,7 @@ public class UserRatingHistoryService {
     public UserRatingHistory getUserReatedAlreadyData(Long userId, Long ratedUserId) throws HistoryNotFoundException {
         UserRatingHistory ratingEntity = ratingHistoryRepo.findUserRatingHistoryByUserIdAndRatedUserId(userId, ratedUserId);
         if(ratingEntity != null){
+            log.info(String.valueOf(ratingEntity.getId()));
             log.info(String.valueOf(ratingEntity.getUserId()));
             log.info(String.valueOf(ratingEntity.getRatedUserId()));
             log.info(ratingEntity.getComment());

@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class RatingDto {
 
     private int numberOfStars;
-    private Long evaluatorId;
     private String comment;
 
 }

@@ -6,10 +6,9 @@ import com.Martun.ratingService.rating.dto.RatingDto;
 import com.Martun.ratingService.rating.dto.feignClientsDto.hisotryService.RatingHistoryDto;
 import com.Martun.ratingService.rating.entity.CommentEntity;
 import com.Martun.ratingService.rating.entity.RatingEntity;
-import com.Martun.ratingService.rating.exceptions.HistoryNotFoundException;
 import com.Martun.ratingService.rating.exceptions.UserNotFoundException;
-import com.Martun.ratingService.rating.repository.CommentRepository;
 import com.Martun.ratingService.rating.repository.RatingRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,11 +27,11 @@ import static com.Martun.ratingService.rating.enumerations.UserTypeEnum.TECHNICI
 @Slf4j
 public class RatingService {
     private final RatingRepository ratingRepository;
-    private final CommentRepository commentRepository;
     private final UserServiceFeignClient feignClient;
     private final HistoryServiceFeignClient historyServiceFeignClient;
+    private Long OldRatingHistoryId = null;
 
-    public RatingEntity saveRating(Long ratedUserId, Long evaluatorId, RatingDto rating) throws UserNotFoundException {
+    public RatingEntity saveRating(Long ratedUserId, Long evaluatorId, RatingDto rating) throws Exception {
         // Vérifier d'abord si l'utilisateur existe
         try {
             ResponseEntity<?> userServiceResponse = feignClient.ifUserExists(ratedUserId);
@@ -54,7 +53,7 @@ public class RatingService {
                             return updateExistingRating(evaluatorId, oldRating, rating, ratingEntity);
                         } else {
                             // Enregistrer un nouveau rating
-                            return saveNewRating(ratedUserId, rating, userType, ratingEntity);
+                            return saveNewRating(ratedUserId, evaluatorId,rating, userType, ratingEntity);
                         }
                     }
                 }
@@ -97,19 +96,30 @@ public class RatingService {
     }
 
     // Sauvgarder l'historique de rating
-    private void saveRatinghistory(RatingDto ratingDto, RatingEntity ratingEntity) {
+    private void saveRatinghistory(Long evaluatorId,RatingDto ratingDto, RatingEntity ratingEntity) {
+
         RatingHistoryDto historyDto = new RatingHistoryDto();
+
         historyDto.setRatedUserId(ratingEntity.getRatedUserId());
         historyDto.setNombreEtoilesDonner(ratingDto.getNumberOfStars());
-        historyDto.setUserId(ratingDto.getEvaluatorId());
+        historyDto.setUserId(evaluatorId);
         historyDto.setComment(ratingDto.getComment());
         historyServiceFeignClient.saveRatingHistory(historyDto);
     }
 
-    private void updateRatingHistory() {
-
+    // Mettre a jour le historique de rating
+    public void updateRatingHistory(Long ratingHistoryId, RatingDto ratingDto) throws Exception {
+        try {
+            RatingHistoryDto newRatingHistory = new RatingHistoryDto();
+            newRatingHistory.setComment(ratingDto.getComment());
+            newRatingHistory.setNombreEtoilesDonner(ratingDto.getNumberOfStars());
+            historyServiceFeignClient.updateRatingHistory(ratingHistoryId, newRatingHistory);
+        } catch (FeignException e) {
+            // Gérer les exceptions Feign ici
+            HttpStatus status = HttpStatus.valueOf(e.status());
+            throw new Exception("Erreur lors de la mise à jour des données. Statut: " + status);
+        }
     }
-
 
     public boolean ifUserHasAlreadyRated(Long userId, Long ratedUserId) {
         boolean oldRating = false;
@@ -146,14 +156,14 @@ public class RatingService {
         RatingHistoryDto ratingHistoryDto = getRatingHistoryData(userId, ratedUserId);
 
         RatingDto ratingDto = new RatingDto();
-        ratingDto.setEvaluatorId(ratingHistoryDto.getUserId());
         ratingDto.setComment(ratingHistoryDto.getComment());
         ratingDto.setNumberOfStars(ratingHistoryDto.getNombreEtoilesDonner());
+        this.OldRatingHistoryId = ratingHistoryDto.getId();
         return ratingDto;
     }
 
 
-    private RatingEntity saveNewRating(Long ratedUserId, RatingDto rating, String userType, RatingEntity ratingEntity) {
+    private RatingEntity saveNewRating(Long ratedUserId,Long evaluatorId ,RatingDto rating, String userType, RatingEntity ratingEntity) {
         log.info("into save new rating function");
 
         String evaluator_type = "";
@@ -170,6 +180,7 @@ public class RatingService {
         }
         ratingEntity.setNbRates(ratingEntity.getNbRates() + 1);
         ratingEntity.setRatedUserType(userType);
+        //ratingEntity.set
 
         if (userType == CLIENT.name()) {
             evaluator_recipient_type = CLIENT.name();
@@ -181,7 +192,7 @@ public class RatingService {
 
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setComment(rating.getComment());
-        commentEntity.setEvaluator_id(rating.getEvaluatorId());
+        commentEntity.setEvaluator_id(evaluatorId);
         commentEntity.setEvaluator_recipient_id(ratedUserId);
         commentEntity.setEvaluator_recipient_type(evaluator_recipient_type);
         commentEntity.setEvaluator_type(evaluator_type);
@@ -192,16 +203,16 @@ public class RatingService {
         // Sauvgarder le rating
         RatingEntity savedRating = saveOrUpdateRatingEntity(ratingEntity);
         // Sauvgarder l'historique
-        saveRatinghistory(rating, savedRating);
+        saveRatinghistory(evaluatorId,rating, savedRating);
         return savedRating;
 
     }
 
-    private RatingEntity updateExistingRating(Long evaluatorId, RatingDto oldRating, RatingDto newRating, RatingEntity ratingEntity) {
+    private RatingEntity updateExistingRating(Long evaluatorId, RatingDto oldRatingDto, RatingDto newRatingDto, RatingEntity ratingEntity) throws Exception {
         log.info("into update existing rating function");
-        int oldStars = oldRating.getNumberOfStars();
-        int newStars = newRating.getNumberOfStars();
-        String newComment = newRating.getComment();
+        int oldStars = oldRatingDto.getNumberOfStars();
+        int newStars = newRatingDto.getNumberOfStars();
+        String newComment = newRatingDto.getComment();
 
         switch (oldStars) {
             case 1 -> ratingEntity.setNb1Star(ratingEntity.getNb1Star() - 1);
@@ -217,6 +228,7 @@ public class RatingService {
             case 3 -> ratingEntity.setNb3Star(ratingEntity.getNb3Star() + 1);
             case 4 -> ratingEntity.setNb4Star(ratingEntity.getNb4Star() + 1);
             case 5 -> ratingEntity.setNb5Star(ratingEntity.getNb5Star() + 1);
+            default -> throw new IllegalArgumentException("Le nombre d'étoiles doit être compris entre 1 et 5.");
         }
         calculateNote(ratingEntity);
 
@@ -227,6 +239,11 @@ public class RatingService {
                 break;
             }
         }
+        // Faire une mise à jour de l'historique
+        if(this.OldRatingHistoryId != null){
+        updateRatingHistory(this.OldRatingHistoryId,newRatingDto);
+        }
+
         // Sauvgarder le rating
         return saveOrUpdateRatingEntity(ratingEntity);
     }

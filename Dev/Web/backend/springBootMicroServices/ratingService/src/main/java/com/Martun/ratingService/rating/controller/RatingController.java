@@ -17,18 +17,20 @@ public class RatingController {
     private final RatingService ratingService;
     private final UserServiceFeignClient feignClient;
 
-   /* @PostMapping("/rate/{clientId}")
-    public ResponseEntity<?> saveRating(@PathVariable("clientId") Long ratedUserId, @RequestBody RatingDto rating) {
+    @PostMapping("/user/{evaluatorId}/rate/{clientId}")
+    public ResponseEntity<?> saveRating(@PathVariable("clientId") Long ratedUserId, @PathVariable("evaluatorId") Long evaluatorId, @RequestBody RatingDto rating) {
         try {
-            RatingEntity savedRating = ratingService.saveRating(ratedUserId, rating);
+            RatingEntity savedRating = ratingService.saveRating(ratedUserId, evaluatorId, rating);
             return new ResponseEntity<>(savedRating, HttpStatus.OK);
         } catch (UserNotFoundException ex) {
             return new ResponseEntity<>("L'utilisateur avec l'ID " + ratedUserId + " n'a pas été trouvé.", HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>("Le nombre d'étoiles doit être compris entre 1 et 5.", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Une erreur inattendue s'est produite.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch (IllegalArgumentException ex){
-            return new ResponseEntity<>("Le nombre d'étoiles doit être compris entre 1 et 5.",HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
+    }
+
 
 
     /* ****************Methode de teste va etre supprimer apres ***********************************************************************************/
