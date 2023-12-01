@@ -11,6 +11,8 @@ import { AcceuilclientComponent } from './pages/acceuilclient/acceuilclient.comp
 import { HistoriqueclientComponent } from './pages/historiqueclient/historiqueclient.component';
 import { ProfileclientComponent } from './pages/profileclient/profileclient.component';
 import { PostJobComponent } from './pages/post-job/post-job.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ConversationsComponent } from './conversations/conversations.component';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register
@@ -23,7 +25,10 @@ const routes: Routes = [
   {path:'historiquecleint',component: HistoriqueclientComponent},
   {path:'profileclient',component:ProfileclientComponent},
   {path:'postJob',component: PostJobComponent},
+  {path:'mainPage' , component:ConversationsComponent , children: [
+    { path: 'messages/:id', component: MessagesComponent },
 
+  ]}
 ];
 
 @NgModule({

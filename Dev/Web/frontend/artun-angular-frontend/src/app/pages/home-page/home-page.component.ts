@@ -1,5 +1,4 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { MatDialog } from '@angular/material/dialog';
 import { OptionCliProfessComponent } from '../../components/option-cli-profess/option-cli-profess.component';
@@ -36,9 +35,7 @@ export class HomePageComponent implements AfterViewInit {
 
   ngOnInit(): void {}
 
-  onAnimate(animationItem: AnimationItem): void {
-    console.log(animationItem);
-  }
+
 
   login() {
     this.router.navigate(['/login_register', { mode: 'login' }]);
