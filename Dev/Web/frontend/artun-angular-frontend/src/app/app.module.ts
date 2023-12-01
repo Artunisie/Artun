@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
 import { TechnicienMainComponent } from './pages/technicien-main/technicien-main.component';
 import { DemandeComponent } from './pages/demande/demande.component';
 import { OptionCliProfessComponent } from './components/option-cli-profess/option-cli-profess.component';
@@ -28,9 +27,10 @@ import { HistoriqueclientComponent } from './pages/historiqueclient/historiquecl
 import { PostJobComponent } from './pages/post-job/post-job.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
-export function playerFactory(): any {
-  return import('lottie-web');
-}
+import { ConversationsComponent } from './conversations/conversations.component';
+import { ChatSideBarComponent } from './components/chat-sideBar/chat-sideBar.component';
+import { MessagesComponent } from './messages/messages.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +49,9 @@ export function playerFactory(): any {
     ProfileclientComponent,
     HistoriqueclientComponent,
     PostJobComponent,
-
+    ConversationsComponent,
+    ChatSideBarComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,6 @@ export function playerFactory(): any {
     FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    LottieModule.forRoot({ player: playerFactory }),
     MatSliderModule,
     NgbRatingModule,
     MatDialogModule,

@@ -1,0 +1,148 @@
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="container" style="width: 50vw;">
+
+    <div class="col-lg-12">
+
+
+            <div class="chat">
+                <div class="chat-header clearfix">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                            </a>
+                            <div class="chat-about">
+                                <h6 class="m-b-0">{{this.ConversationName}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-history">
+                    <ul class="m-b-0">
+                      <ng-container *ngFor="let message of Messages; let i = index">
+                        <li class="clearfix">
+                          <div class="message-data text-{{ messageIsRight(message, i) ? 'right' : 'left' }}">
+                            <ng-container *ngIf="DisplayAvatar(message, i)">
+                              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                            </ng-container>
+                          </div>
+                          <ng-container *ngIf="messageIsRight(message, i)">
+                            <div class="message other-message float-right">{{ message.content }}
+                              <a *ngFor="let file1 of this.message.files" class="message float-right" url="#" >{{ file1.fileName }}</a>
+
+                            </div>
+                          </ng-container>
+                        </li>
+                          <li class="clearfix">
+                          <ng-container *ngIf="!messageIsRight(message, i)">
+                            <div class="message my-message">{{ message.content}}</div>
+                            <div *ngFor="let file2 of this.message.files" class="message my-message">
+                                {{file2.fileName}}
+                            </div>
+                          </ng-container>
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </div>
+
+                <div class="chat-message clearfix">
+                    <div class="input-group mb-0">
+                      <button (click)="videoCall()" class="input-group-prepend">
+                        <span class="material-icons input-group-text">video_call</span>
+                    </button>
+                      <input style="width: 100%;" type="file" #fileInput (change)="onFileSelected($event)" multiple>
+
+                        <button (click)="sendMessage(this.MessageInput)" class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-send" ></i></span>
+                        </button>
+                        <input type="text" class="form-control" name="MessageInput" [(ngModel)]="MessageInput" placeholder="Enter text here...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- New part -->
+    <div class="container" style="width: 80vw;">
+      <div class="px-4 py-5 chat-box bg-white">
+        <!-- Sender Message-->
+
+        <ng-container *ngFor="let message of Messages; let i = index">
+          <div  class="media w-50 mb-3"  *ngIf="!messageIsRight(message, i)">
+            <ng-container *ngIf="DisplayAvatar(message, i)">
+            <img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            </ng-container>
+            <div class="media-body ml-3">
+            <div class="bg-light rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-muted">{{ message.content}}</p>
+              <a *ngFor="let file1 of this.message.files" class="message float-right" url="#" >{{ file1.fileName }}</a>
+            </div>
+            <p class="small text-muted">{{ message.timeStamp | date: 'h:mm a | MMM d' }}</p>
+          </div>
+        </div>
+
+        <!-- Reciever Message-->
+        <div class="media w-50 ml-auto mb-3"   *ngIf="messageIsRight(message, i)">
+          <div class="media-body">
+            <div class="bg-primary rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-white">{{message.content}}</p>
+              <a *ngFor="let file1 of this.message.files" class="message float-right" url="#" >{{ file1.fileName }}</a>
+            </div>
+            <p class="small text-muted">{{ message.timeStamp | date: 'h:mm a | MMM d' }}</p>
+          </div>
+        </div>
+      </ng-container>
+
+        <!-- Sender Message
+        <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+          <div class="media-body ml-3">
+            <div class="bg-light rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
+            </div>
+            <p class="small text-muted">12:00 PM | Aug 13</p>
+          </div>
+        </div> -->
+
+        <!-- Reciever Message-->
+        <!-- <div class="media w-50 ml-auto mb-3">
+          <div class="media-body">
+            <div class="bg-primary rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
+            </div>
+            <p class="small text-muted">12:00 PM | Aug 13</p>
+          </div>
+        </div> -->
+
+        <!-- Sender Message-->
+        <!-- <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+          <div class="media-body ml-3">
+            <div class="bg-light rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
+            </div>
+            <p class="small text-muted">12:00 PM | Aug 13</p>
+          </div>
+        </div> -->
+
+        <!-- Reciever Message-->
+        <!-- <div class="media w-50 ml-auto mb-3 position-relative  end-0 ">
+          <div class="media-body">
+            <div class="bg-primary rounded py-2 px-3 mb-2">
+              <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
+            </div>
+            <p class="small text-muted">12:00 PM | Aug 13</p>
+          </div>
+        </div> -->
+
+      </div>
+
+      <!-- Typing area -->
+      <div class="bg-light">
+        <div class="input-group">
+          <input type="text" placeholder="Type a message"  name="MessageInput" [(ngModel)]="MessageInput" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light w-100">
+          <div class="input-group-append">
+            <button id="button-addon2" (click)="sendMessage(this.MessageInput)" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+
+    </div>

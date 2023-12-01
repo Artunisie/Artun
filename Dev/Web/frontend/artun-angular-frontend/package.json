@@ -30,6 +30,7 @@
     "ngx-bootstrap": "^11.0.2",
     "ngx-lottie": "^10.0.0",
     "rxjs": "~7.8.0",
+    "stompjs": "^2.3.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

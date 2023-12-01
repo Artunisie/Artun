@@ -1,0 +1,169 @@
+ <!--<body>
+  <aside id="logo-sidebar"
+    class=""
+    aria-label="Sidebar">
+    <div class=" ">
+      <ul id="asideContent" >
+        <li class="sidebar-brand">
+          <div class="TopSideBar">
+            <h4 class="fw-bold link-dark py-4">Discussions</h4>
+            <i class="bi bi-pencil-square"></i>
+          </div>
+        </li>
+        <li id="seraching">
+          <form class="flex items-center">
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="relative w-full">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <input type="text" id="simple-search"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search" required>
+            </div>
+            <button type="submit"
+              class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <span class="sr-only">Search</span>
+            </button>
+          </form>
+        </li>
+
+        <li *ngFor="let element of this.conversations"  class="d-flex users">
+
+          <div class="relative" >
+            <img class="w-10 h-10 rounded-full"
+              src="../../assets/img/311570341_1171050073826749_8922140566911874495_n.jpg" alt="">
+            <span
+              class="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+          </div>
+
+          <div style="cursor: pointer;" (click)="showConversation(element)" class="MessagingGroup" >
+            <h5>{{element.name}}</h5>
+          <div *ngIf="element.lastMessage!='[object Object]'">
+            <p class="LastMessage">{{element.lastMessage}}</p>
+          </div>
+
+          <!-- <div *ngIf="element.lastMessage=='[object Object]'">
+            <p class="LastMessage">New conversation</p>
+          </div>- ->
+        </div>
+
+        </li>
+      </ul>
+    </div>
+  </aside>
+</body> -->
+
+
+<div class="w-100">
+  <div class="bg-white" >
+
+    <div class="bg-gray px-4 py-2 bg-light">
+      <p class="h5 mb-0 py-1" >Recent</p>
+    </div>
+
+    <div class="messages-box"  *ngFor="let element of this.conversations" >
+      <div class="list-group rounded-0 " >
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">{{element.name}}</h6>
+              </div>
+               <div *ngIf="element.lastMessage && element.lastMessage.content">
+              <p class="font-italic mb-0 text-small">{{element.lastMessage.content}}</p>
+             </div>
+            </div>
+          </div>
+
+
+        <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+          <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+            <div class="media-body ml-4">
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
+              </div>
+              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </a> -->
+
+      </div>
+    </div>
+  </div>
+</div>
