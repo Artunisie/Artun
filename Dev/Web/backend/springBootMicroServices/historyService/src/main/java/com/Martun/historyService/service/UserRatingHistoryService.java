@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,20 +25,22 @@ public class UserRatingHistoryService {
             return "Échec : Une erreur s'est produite lors de la sauvegarde de l'historique de notation de l'utilisateur. " + e.getMessage();
         }
     }
-    public UserRatingHistory ifUserReatedAlready(Long userId, Long ratedUserId) throws HistoryNotFoundException{
-        UserRatingHistory ratingHistory = ratingHistoryRepo.findUserRatingHistoryByUserIdAndRatedUserId(userId, ratedUserId);
-        if(ratingHistory != null){
-            log.info(String.valueOf(ratingHistory.getRatedUserId()));
-            log.info(String.valueOf(ratingHistory.getUserId()));
-            log.info(ratingHistory.getComment());
-            log.info(String.valueOf(ratingHistory.getNombreEtoilesDonner()));
-            return ratingHistory;
+
+
+    public UserRatingHistory getUserReatedAlreadyData(Long userId, Long ratedUserId) throws HistoryNotFoundException {
+        UserRatingHistory ratingEntity = ratingHistoryRepo.findUserRatingHistoryByUserIdAndRatedUserId(userId, ratedUserId);
+        if(ratingEntity != null){
+            log.info(String.valueOf(ratingEntity.getUserId()));
+            log.info(String.valueOf(ratingEntity.getRatedUserId()));
+            log.info(ratingEntity.getComment());
+            log.info(String.valueOf(ratingEntity.getNombreEtoilesDonner()));
+            return ratingEntity;
         }
         else {
-            // Achanger le message d'erreur
-             throw new HistoryNotFoundException("Rating user not found");
+             throw new HistoryNotFoundException("not found");
         }
 
     }
+
 
 }

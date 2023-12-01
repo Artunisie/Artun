@@ -1,6 +1,5 @@
 package com.Martun.historyService.controller;
 
-import com.Martun.historyService.entity.HistoryEntry;
 import com.Martun.historyService.entity.UserRatingHistory;
 import com.Martun.historyService.exceptions.HistoryNotFoundException;
 import com.Martun.historyService.service.UserRatingHistoryService;
@@ -19,17 +18,19 @@ public class UserRatingHistoryController {
         String result = userRatingHistoryService.saveRatingHistory(ratingHistory);
         return ResponseEntity.ok(result);
     }
-    // nbadelha request paramétre
-    @GetMapping("/check/{userId}/rate/{ratedUserId}")
-    public ResponseEntity<?> ifUserHaveRatedAlready(@PathVariable Long userId, @PathVariable Long ratedUserId) {
-        UserRatingHistory userRatingHistory = new UserRatingHistory();
-        try{
-            userRatingHistory = userRatingHistoryService.ifUserReatedAlready(userId, ratedUserId);
-        }catch (HistoryNotFoundException e){
-            return new ResponseEntity<>("Rating History ")
 
+
+    @GetMapping("/getUser/{userId}/rateUser/{ratedUserId}")
+    public ResponseEntity<UserRatingHistory> getUserRatingHistory(@PathVariable Long userId, @PathVariable Long ratedUserId) {
+        try {
+            UserRatingHistory ratingHistory = userRatingHistoryService.getUserReatedAlreadyData(userId, ratedUserId);
+            return ResponseEntity.ok(ratingHistory);
+        } catch (HistoryNotFoundException e) {
+            return ResponseEntity.notFound().build();
         }
     }
+
+
 }
 
 
