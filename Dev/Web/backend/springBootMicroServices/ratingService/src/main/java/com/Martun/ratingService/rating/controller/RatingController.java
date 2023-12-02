@@ -24,8 +24,6 @@ public class RatingController {
         try {
             RatingEntity savedRating = ratingService.saveRating(ratedUserId, evaluatorId, rating);
             return new ResponseEntity<>(savedRating, HttpStatus.OK);
-        } catch (UserNotFoundException ex) {
-            return new ResponseEntity<>("Rating Service Controlleur: L'utilisateur avec l'ID " + ratedUserId + " n'a pas été trouvé.", HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException ex) {
             return new ResponseEntity<>("Le nombre d'étoiles doit être compris entre 1 et 5.", HttpStatus.INTERNAL_SERVER_ERROR);
         }

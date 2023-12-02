@@ -12,7 +12,6 @@ import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -46,13 +45,8 @@ public class RatingService {
                     Boolean exist = entry.getValue();
 
                     if (exist) {
-                        System.out.println("\nFirst if:" + exist);// valide ici
                         RatingEntity ratingEntity = getRatedUserEntity(ratedUserId);
-                        System.out.println("\n" + ratingEntity.toString());//valide ici
-                        System.out.println("\nvaleur boolean");
-                        boolean alreadyRated = hasUserAlreadyRated(evaluatorId, ratedUserId);// le probleme est ici
-                        System.out.println("\nvaleur boolean" + alreadyRated);
-
+                        boolean alreadyRated = hasUserAlreadyRated(evaluatorId, ratedUserId);
                         // Vérifier si l'utilisateur a déjà évalué
                         if (alreadyRated) {
                             RatingDto oldRating = getOldRatingDto(evaluatorId, ratedUserId);
@@ -68,9 +62,9 @@ public class RatingService {
             log.error("error in saveRating Methode: " + feignException.getMessage());
             log.error("Feign Exception Body: " + feignException.contentUTF8());
             throw new RuntimeException(feignException.getMessage());
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             log.info(e.getMessage());
-            throw new UserNotFoundException("Erreur lors de la vérification de l'existence de l'utilisateur avec l'ID " + ratedUserId);
+            throw new IllegalArgumentException("Le nombre d'étoiles doit être compris entre 1 et 5.");
         }
         return null;
     }
@@ -124,7 +118,7 @@ public class RatingService {
     }
 
     // Mettre a jour le historique de rating
-    public void updateRatingHistory(Long ratingHistoryId, RatingDto ratingDto) throws Exception {
+    public void updateRatingHistory(Long ratingHistoryId, RatingDto ratingDto)  {
         try {
             RatingHistoryDto newRatingHistory = new RatingHistoryDto();
             newRatingHistory.setComment(ratingDto.getComment());
@@ -231,7 +225,7 @@ public class RatingService {
         }
 
         private RatingEntity updateExistingRating (Long evaluatorId, RatingDto oldRatingDto, RatingDto
-        newRatingDto, RatingEntity ratingEntity) throws Exception {
+        newRatingDto, RatingEntity ratingEntity)  {
             log.info("into update existing rating function");
             int oldStars = oldRatingDto.getNumberOfStars();
             int newStars = newRatingDto.getNumberOfStars();
