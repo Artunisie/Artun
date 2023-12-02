@@ -223,9 +223,12 @@ public class UserService {
             Map<String, Boolean> userMap = new HashMap<>();
             userMap.put(userType,exicte);
 
+            //Debug
+            log.info("validated");
+
             return userMap;
         }else {
-            throw new UserNotFoundException("L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.");
+            throw new UserNotFoundException("USER service respond : L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.");
         }
 
     }
