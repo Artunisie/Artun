@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  sideMenu: HTMLElement | null = null;
+    sideMenu: HTMLElement | null = null;
   menuBtn: HTMLElement | null = null;
   closeBtn: HTMLElement | null = null;
   darkMode: HTMLElement | null = null;
