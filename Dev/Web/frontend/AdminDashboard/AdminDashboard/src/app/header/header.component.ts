@@ -6,15 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-    sideMenu: HTMLElement | null = null;
+  sideMenu: HTMLElement | null = null;
   menuBtn: HTMLElement | null = null;
   closeBtn: HTMLElement | null = null;
   darkMode: HTMLElement | null = null;
+
   ngOnInit() {
-    this.sideMenu = document.querySelector('aside');
-    this.menuBtn = document.getElementById('menu-btn');
-    this.closeBtn = document.getElementById('close-btn');
-    this.darkMode = document.querySelector('.dark-mode');
+    this.sideMenu = document.querySelector('aside') as HTMLElement;
+    this.menuBtn = document.getElementById('menu-btn') as HTMLElement;
+    this.closeBtn = document.getElementById('close-btn') as HTMLElement;
+    this.darkMode = document.querySelector('.dark-mode') as HTMLElement;
 
     if (this.menuBtn && this.closeBtn && this.sideMenu && this.darkMode) {
       this.menuBtn.addEventListener('click', () => {
@@ -30,7 +31,30 @@ export class HeaderComponent {
         this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');
         this.darkMode!.querySelector('span:nth-child(2)')!.classList.toggle('active');
       });
+
+      this.addLinkClickListener('dashboard-link');
+      this.addLinkClickListener('users-link');
+      // Add listeners for other links as needed
+      // ...
     }
   }
 
+  addLinkClickListener(linkId: string) {
+    const link = document.getElementById(linkId) as HTMLElement;
+
+    if (link) {
+      link.addEventListener('click', () => this.handleLinkClick(link));
+    }
+  }
+
+  handleLinkClick(clickedLink: HTMLElement) {
+    // Remove "active" class from all links
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+
+    // Add "active" class to the clicked link
+    clickedLink.classList.add('active');
+  }
 }
