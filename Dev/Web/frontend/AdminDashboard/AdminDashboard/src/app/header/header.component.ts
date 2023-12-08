@@ -25,7 +25,9 @@ export class HeaderComponent {
       this.closeBtn.addEventListener('click', () => {
         this.sideMenu!.style.display = 'none';
       });
-
+      document.body.classList.toggle('dark-mode-variables');
+      this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');
+      this.darkMode!.querySelector('span:nth-child(2)')!.classList.toggle('active');
       this.darkMode.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode-variables');
         this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');

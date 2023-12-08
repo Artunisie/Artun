@@ -10,6 +10,12 @@ import { RigthSectionComponent } from './rigth-section/rigth-section.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RemindersComponent } from './reminders/reminders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CategoriesComponent } from './categories/categories.component';
+import { HistoryComponent } from './history/history.component';
+import { ReportsComponent } from './reports/reports.component';
+import { SettingsComponent } from './settings/settings.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ServicesComponent,
     RigthSectionComponent,
     UserProfileComponent,
-    RemindersComponent
+    RemindersComponent,
+    CategoriesComponent,
+    HistoryComponent,
+    ReportsComponent,
+    SettingsComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
