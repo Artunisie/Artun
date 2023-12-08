@@ -34,8 +34,14 @@ export class HeaderComponent {
 
       this.addLinkClickListener('dashboard-link');
       this.addLinkClickListener('users-link');
-      // Add listeners for other links as needed
-      // ...
+      this.addLinkClickListener('History-link');
+      this.addLinkClickListener('Analytics-link');
+      this.addLinkClickListener('Categories-link');
+      this.addLinkClickListener('Services-link');
+      this.addLinkClickListener('Reports-link');
+      this.addLinkClickListener('Settings-link');
+      this.addLinkClickListener('Login-link');
+      this.addLinkClickListener('logout-link');
     }
   }
 
@@ -48,13 +54,11 @@ export class HeaderComponent {
   }
 
   handleLinkClick(clickedLink: HTMLElement) {
-    // Remove "active" class from all links
     const navLinks = document.querySelectorAll('.sidebar a');
     navLinks.forEach(link => {
       link.classList.remove('active');
     });
 
-    // Add "active" class to the clicked link
     clickedLink.classList.add('active');
   }
 }
