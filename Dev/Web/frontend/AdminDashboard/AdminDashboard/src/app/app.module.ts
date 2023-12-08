@@ -8,6 +8,9 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { UsersComponent } from './users/users.component';
 import { ServicesComponent } from './services/services.component';
 import { RigthSectionComponent } from './rigth-section/rigth-section.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { RemindersComponent } from './reminders/reminders.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,11 +19,14 @@ import { RigthSectionComponent } from './rigth-section/rigth-section.component';
     AnalyticsComponent,
     UsersComponent,
     ServicesComponent,
-    RigthSectionComponent
+    RigthSectionComponent,
+    UserProfileComponent,
+    RemindersComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
