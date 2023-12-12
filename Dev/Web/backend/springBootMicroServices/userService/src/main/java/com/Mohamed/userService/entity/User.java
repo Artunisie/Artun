@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class User {
     @Id

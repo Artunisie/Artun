@@ -14,6 +14,9 @@ import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.RandomString;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -223,11 +226,22 @@ public class UserService {
             Map<String, Boolean> userMap = new HashMap<>();
             userMap.put(userType,exicte);
 
+            //Debug
+            log.info("validated");
+
             return userMap;
         }else {
-            throw new UserNotFoundException("L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.");
+            throw new UserNotFoundException("USER service respond : L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.");
         }
 
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 
 
