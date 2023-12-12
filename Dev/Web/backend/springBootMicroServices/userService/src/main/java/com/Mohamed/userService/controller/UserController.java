@@ -79,7 +79,7 @@ public class UserController {
         try {
             userExists = userService.ifUserExiste(userId);
         } catch (UserNotFoundException ex) {
-            return new ResponseEntity<>("L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("USER service respond : L'utilisateur avec l'ID " + userId + " n'a pas été trouvé.", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userExists, HttpStatus.OK);
     }
