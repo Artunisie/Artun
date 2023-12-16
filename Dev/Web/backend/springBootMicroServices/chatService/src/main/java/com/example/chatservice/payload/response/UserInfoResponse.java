@@ -1,37 +1,33 @@
-package com.example.chatservice.payload.response;
+package com.example.chatservice.payload.response ;
+
+import java.util.List;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 @Data
 public class UserInfoResponse {
-	private Long id;
-	private String firstName;
-	private String lastName ;
-	private String email;
+    private String id;
+   // private Integer numCin;
+    private String firstName;
+    private String lastName;
+  //  private String phoneNumber;
+   // private Date dateOfBirth;
+  //  private String address;
+    private String email;
+    private String password;
+    private Long createdTimestamp;
+  //  private String role ;
+    // private boolean enable;
+    // private String verificationCode;
+    // private String restPasswordToken;
+    // private Date resetPasswordTokenExpiration;
 
 
-	public UserInfoResponse(Long id, String FirstName , String LastName, String email) {
-		this.id = id;
-		this.firstName = FirstName;
-		this.lastName= LastName ;
-		this.email = email;
-	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+    
 
 
 

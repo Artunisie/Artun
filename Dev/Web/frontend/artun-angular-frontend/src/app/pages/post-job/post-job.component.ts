@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DemandeService } from '../../services/demande.service';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-post-job',
   templateUrl: './post-job.component.html',
   styleUrls: ['./post-job.component.css']
 })
-export class PostJobComponent {
+export class PostJobComponent implements OnInit {
   form: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
+  userDetails:any  ;
 
-  constructor(private fb: FormBuilder, private demandeService: DemandeService) {
+  constructor(
+    private keycloakService: KeycloakService,
+    private fb: FormBuilder, private demandeService: DemandeService) {
     this.form = this.fb.group({
       jobTitle: ['', Validators.required],
       jobDescription: ['', Validators.required],
@@ -20,6 +24,13 @@ export class PostJobComponent {
       applicationDeadline: ['', Validators.required],
       requirements: this.fb.array([this.fb.control('', Validators.required)])
     });
+  }
+  ngOnInit(): void {
+    this.keycloakService.loadUserProfile(true).then((user:any)=>{
+      this.userDetails = user ;
+      console.log("userDetails",user) ;
+    });
+
   }
 
   addRequirement() {
@@ -32,7 +43,8 @@ export class PostJobComponent {
 
 
   submitForm() {
-    const clientId = 1;
+    const clientId = this.userDetails.id;
+    console.log("client id" , clientId)
     const formData = { ...this.form.value, clientId };
 
     this.demandeService.createDemand(formData).subscribe(response => {

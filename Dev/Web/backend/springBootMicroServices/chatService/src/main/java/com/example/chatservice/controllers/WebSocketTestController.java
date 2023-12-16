@@ -1,16 +1,25 @@
 package com.example.chatservice.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.converter.SimpleMessageConverter;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
+import com.example.chatservice.* ;
 import com.example.chatservice.models.Conversation;
 import com.example.chatservice.models.User;
 import com.example.chatservice.payload.response.MessageDTO;
 import com.example.chatservice.repository.ConversationRepository;
-import com.example.chatservice.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
-import java.util.List;
+import com.example.chatservice.service.KeycloakFeignClient;
+
+
+
+
+
 @Controller
 public class WebSocketTestController {
 
@@ -18,7 +27,7 @@ public class WebSocketTestController {
 ConversationRepository conversationRepository;
 
 @Autowired
-private UserRepository userRepository ; 
+private KeycloakFeignClient keycloakFeignClient ; 
 
 @Autowired
 private SimpMessagingTemplate simpMessagingTemplate ;
@@ -28,11 +37,11 @@ private SimpMessagingTemplate simpMessagingTemplate ;
 
 System.out.println("conversationId"+conversationId);
         Conversation conversation = conversationRepository.findById(conversationId).get() ;
-List<User> users = conversation.getUsers() ;
+List<String> users = conversation.getUserIds() ;
 
-for (User user : users) {
+for (String user : users) {
 
-    simpMessagingTemplate.convertAndSend("/start/conversation/"+user.getId(),messagerequest) ; 
+    simpMessagingTemplate.convertAndSend("/start/conversation/"+user,messagerequest) ; 
 }
         return "ok";
     }

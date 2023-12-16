@@ -5,29 +5,30 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    private Integer numCin;
+@AllArgsConstructor
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class User {
+    private String id;
+   // private Integer numCin;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
-    private Date dateOfBirth;
-    private String address;
+  //  private String phoneNumber;
+   // private Date dateOfBirth;
+  //  private String address;
     private String email;
-    private String password;
-    private Date accountCreationDate;
-    private boolean enable;
-    private String verificationCode;
-    private String restPasswordToken;
-    private Date resetPasswordTokenExpiration;
+   // private String password;
+    private Long createdTimestamp;
+ //   private String role ;
+    // private boolean enable;
+    // private String verificationCode;
+    // private String restPasswordToken;
+    // private Date resetPasswordTokenExpiration;
 
 
+
+    
 }

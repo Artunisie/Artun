@@ -32,7 +32,7 @@ const demandSchema = new mongoose_1.Schema({
     applicationDeadline: { type: String, required: true },
     requirements: [{ type: String, required: true }],
     acceptanceStatus: { type: Number, default: 0 },
-    clientId: { type: Number, required: true },
+    clientId: { type: String, required: true },
 }, {
     timestamps: true,
 });

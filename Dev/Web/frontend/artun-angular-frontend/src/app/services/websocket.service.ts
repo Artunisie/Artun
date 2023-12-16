@@ -14,7 +14,7 @@ export class WebsocketService {
   stompClient : any;
   newmessage: string | undefined;
   greetings: string[] = [];  disabled = true;
-socket  = new SockJS(`${protocal}://${ipAdress}:8080/testchat`) ;
+socket  = new SockJS(`${protocal}://${ipAdress}:8081/testchat`) ;
   constructor() {
   this.stompClient = Stomp.over(this.socket);
   const _this = this;

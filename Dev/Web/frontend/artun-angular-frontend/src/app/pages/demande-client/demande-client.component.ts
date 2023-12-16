@@ -2,23 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { PropositionService } from '../../services/proposition.service';
 import { DemandeService } from '../../services/demande.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { ConversationService } from 'src/app/services/conversation.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-demande-client',
   templateUrl: './demande-client.component.html',
   styleUrls: ['./demande-client.component.css']
 })
 export class DemandeClientComponent implements OnInit {
-
+userDetails :any ;
 demande:any ;
 propositions:any ;
 
-  constructor(private route: ActivatedRoute ,private demandeService :DemandeService , private propositionService:PropositionService){}
+  constructor( private keycloakService:KeycloakService,private websocketService:WebsocketService , private conversationService: ConversationService ,  private route: ActivatedRoute ,private demandeService :DemandeService , private propositionService:PropositionService){}
 
   ngOnInit(): void {
-    const demandId = this.route.snapshot.paramMap.get('id');
-     this.getDemandeById(demandId)
-     this.getPropositionsById(demandId)
+
+    console.log("on init");
+
+    this.keycloakService.loadUserProfile(true).then((user:any)=>{
+      this.userDetails = user ;
+      console.log("userDetails",this.userDetails) ;
+    }).then(()=>{
+      const demandId = this.route.snapshot.paramMap.get('id');
+      this.getDemandeById(demandId)
+      this.getPropositionsById(demandId)
+    })
+
  }
 
 getPropositionsById(demandId:any){
@@ -50,8 +61,20 @@ getPropositionsById(demandId:any){
 
 
 
-  Chat() {
-    throw new Error('Method not implemented.');
+  Chat(proposition_userID:number) {
+console.log("prop id :",proposition_userID);
+console.log("userid",this.userDetails.id);
+
+this.conversationService.createConversation(this.userDetails.id ,proposition_userID ).subscribe(
+  (res)=>{
+    console.log('creation Conversation:', res);
+    this.websocketService.UpdateUser(proposition_userID)  ;
+
+  },
+  (error)=>{
+console.log("erreur creation erreur:", error) ;
+  })
+
     }
 
 

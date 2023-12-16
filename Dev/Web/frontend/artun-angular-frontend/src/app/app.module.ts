@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +30,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ConversationsComponent } from './conversations/conversations.component';
 import { ChatSideBarComponent } from './components/chat-sideBar/chat-sideBar.component';
 import { MessagesComponent } from './messages/messages.component';
-
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { AppAuthGuard } from './app.authguard';
+import { initializeKeycloak } from './init/keycloak-init.factory';
+const keycloakService = new KeycloakService();
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,8 +69,18 @@ import { MessagesComponent } from './messages/messages.component';
     HttpClientModule,
     ReactiveFormsModule,
     MatIconModule,
+    KeycloakAngularModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

@@ -1,6 +1,6 @@
 import { Component,ElementRef,Renderer2, OnInit } from '@angular/core';
 import { DemandeService } from 'src/app/services/demande.service';
-
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-acceuilclient',
   templateUrl: './acceuilclient.component.html',
@@ -8,11 +8,11 @@ import { DemandeService } from 'src/app/services/demande.service';
 })
 export class AcceuilclientComponent implements OnInit{
 
-  userId:number = 1
   yourIdVariable: number = 1
   demandeList:any[]=[];
+  userDetails:any  ;
 
-constructor(private demandService: DemandeService,private elementRef: ElementRef) {}
+constructor(private keycloakService: KeycloakService, private demandService: DemandeService,private elementRef: ElementRef) {}
 
   starRating = 0;
   startSalaryValue = 0;
@@ -29,7 +29,12 @@ othersCheckbox: boolean=true;
 CleaningCheckbox: boolean = true;
 
 ngOnInit() {
-   this.getAllDemandsbyUserId();
+  this.keycloakService.loadUserProfile(true).then((user:any)=>{
+    this.userDetails = user ;
+    console.log("userDetails",this.userDetails) ;
+  }).then(()=>{
+    this.getAllDemandsbyUserId();})
+
 }
 
 
@@ -44,7 +49,8 @@ DistanceFormatLabel(value:number):string{
 
 
 getAllDemandsbyUserId() {
-  this.demandService.getAllDemandeByClientId(this.userId).subscribe(
+  console.log("user id " ,this.userDetails.id)
+  this.demandService.getAllDemandeByClientId(this.userDetails.id).subscribe(
     (res) => {
       this.demandeList = res;
       console.log('All demands:', res);
@@ -85,7 +91,7 @@ removeChat() {
 
 submitFilter() {
   // Assuming you have a method in your service like getFilteredData
-  this.demandService.getFilteredDataByUserId(this.userId ,{
+  this.demandService.getFilteredDataByUserId(this.userDetails.id ,{
     startSalary: this.startSalaryValue,
     endSalary: this.endSalaryValue,
     urgent: this.urgentCheckbox,

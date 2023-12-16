@@ -5,8 +5,8 @@ import { environment } from 'src/environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const ipAdress = environment.ipAdress ; 
-const protocal = environment.protocol ; 
+const ipAdress = environment.ipAdress ;
+const protocal = environment.protocol ;
 @Injectable({
   providedIn: 'root',
 })
@@ -15,24 +15,34 @@ const protocal = environment.protocol ;
 export class ConversationService {
 
 
-  apiUrl:string  = `${protocal}://${ipAdress}:8080/conversations/` ; 
+  apiUrl:string  = `${protocal}://${ipAdress}:8081/conversations/` ;
   constructor(private http: HttpClient) { }
-  
+
+
+  createConversation(userId :number, proposition_user_id:number){
+    console.log(userId , proposition_user_id);
+    return this.http.post(this.apiUrl+"createConversation" , {userId, proposition_user_id} ,{responseType:'text'} ) ;
+  }
+
 
   getConversations(id:number) {
     return this.http.get(this.apiUrl +"getAll"+"/"+id  , httpOptions);
   }
 
   getLastMessageInConversation(conversationId:number){
-    return this.http.get(this.apiUrl+"getLastMessage/"+conversationId , httpOptions) ; 
+    return this.http.get(this.apiUrl+"getLastMessage/"+conversationId , httpOptions) ;
   }
+
+
 GetConversation(conversationId:number){
-  return this.http.get(this.apiUrl+"getConversation/"+conversationId,httpOptions) ; 
+  return this.http.get(this.apiUrl+"getConversation/"+conversationId,httpOptions) ;
 }
 
   getConversationMessages(conversationId:number){
-    return this.http.get(this.apiUrl+"getConversationMessages/"+conversationId,httpOptions) ; 
+    return this.http.get(this.apiUrl+"getConversationMessages/"+conversationId,httpOptions) ;
   }
+
+
   sendMessage(message: string, conversationId: number, senderId: number, files?: FileList): Observable<any> {
     const formData = new FormData();
     formData.append('content', message);
@@ -53,5 +63,5 @@ GetConversation(conversationId:number){
 
 
 
-  
+
 }

@@ -13,19 +13,20 @@ import { ProfileclientComponent } from './pages/profileclient/profileclient.comp
 import { PostJobComponent } from './pages/post-job/post-job.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ConversationsComponent } from './conversations/conversations.component';
+import { AppAuthGuard } from './app.authguard';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register
-  { path: 'professionel', component: TechnicienMainComponent },
-  {path:'demande/:id',component:DemandeComponent},
-  {path:'profile',component:ProfileComponent},
-  {path:'demandeClient/:id',component:DemandeClientComponent},
-  {path:'historiquetechnicien',component:HistoriquetechnicienComponent},
-  {path:'acceuilclient',component:AcceuilclientComponent},
-  {path:'historiquecleint',component: HistoriqueclientComponent},
-  {path:'profileclient',component:ProfileclientComponent},
-  {path:'postJob',component: PostJobComponent},
-  {path:'mainPage' , component:ConversationsComponent , children: [
+  { path: 'professionel',canActivate: [AppAuthGuard],data: { roles: ['user'] }, component: TechnicienMainComponent },
+  {path:'demande/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeComponent},
+  {path:'profile',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:ProfileComponent},
+  {path:'demandeClient/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeClientComponent},
+  {path:'historiquetechnicien',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:HistoriquetechnicienComponent},
+  {path:'acceuilclient',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:AcceuilclientComponent},
+  {path:'historiquecleint',canActivate: [AppAuthGuard],data: { roles: ['user'] },component: HistoriqueclientComponent},
+  {path:'profileclient',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:ProfileclientComponent},
+  {path:'postJob',canActivate: [AppAuthGuard],data: { roles: ['user'] },component: PostJobComponent},
+  {path:'mainPage' ,canActivate: [AppAuthGuard],data: { roles: ['user'] }, component:ConversationsComponent , children: [
     { path: 'messages/:id', component: MessagesComponent },
 
   ]}
@@ -33,6 +34,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [AppAuthGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
