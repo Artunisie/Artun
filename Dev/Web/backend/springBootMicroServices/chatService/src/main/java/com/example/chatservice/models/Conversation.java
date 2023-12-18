@@ -15,7 +15,7 @@ public class Conversation {
     
 
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(joinColumns = @JoinColumn(name = "conversation_id"))
     private List<String> userIds;
 

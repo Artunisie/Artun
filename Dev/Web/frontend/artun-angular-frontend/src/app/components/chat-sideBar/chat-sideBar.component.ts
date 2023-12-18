@@ -26,6 +26,7 @@ export class ChatSideBarComponent implements OnInit {
         next: data => {
           console.log(data) ;
           this.createConversationList(data) ;
+          console.log(this.conversations);
 
         },
         error: err => {
@@ -40,22 +41,22 @@ export class ChatSideBarComponent implements OnInit {
     // Initialize the current user
 
 
-    this.websocketService.stompClient.connect({}, (frame: string) => {
-      console.log('Connected: ' + frame);
-    this.websocketService.subToUser(this.currentUser.id).subscribe({
-      next: data =>{
-        console.log(data)
-        this.conversationService.getConversations(this.currentUser.id).subscribe({
-          next: data => {
-            console.log(data) ;
-            this.createConversationList(data) ; }});
+  //   this.websocketService.stompClient.connect({}, (frame: string) => {
+  //     console.log('Connected: ' + frame);
+  //   this.websocketService.subToUser(this.currentUser.id).subscribe({
+  //     next: data =>{
+  //       console.log(data)
+  //       this.conversationService.getConversations(this.currentUser.id).subscribe({
+  //         next: data => {
+  //           console.log(data) ;
+  //           this.createConversationList(data) ; }});
 
-      } ,
-      error: err =>{
-        console.error(err) ;
-      }
-    })
-  });
+  //     } ,
+  //     error: err =>{
+  //       console.error(err) ;
+  //     }
+  //   })
+  // });
 
   }
 
@@ -70,6 +71,7 @@ export class ChatSideBarComponent implements OnInit {
         element.users.forEach((user: any) => {
           if (user.userId != this.currentUser.id) {
             conversation.name = user.firstName;
+            conversation.userId = user.userId;
           }
         });
       }

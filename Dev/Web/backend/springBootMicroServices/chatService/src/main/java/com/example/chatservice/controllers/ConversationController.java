@@ -7,6 +7,8 @@ import com.example.chatservice.models.User;
 import com.example.chatservice.payload.request.ConversationAndMessagesResponse;
 import com.example.chatservice.payload.request.ConversationDTO;
 import com.example.chatservice.payload.request.CreateConversationRequest;
+import com.example.chatservice.payload.request.UserIdFirstNameUplet;
+import com.example.chatservice.payload.response.MessageDTO;
 import com.example.chatservice.payload.response.UserInfoResponse;
 import com.example.chatservice.repository.ConversationRepository;
 import com.example.chatservice.repository.FileRepository;
@@ -69,15 +71,23 @@ return    conversationRepository.save(conversation);
 @GetMapping("/getAll/{userId}")
     public List<ConversationDTO> getConversations(@PathVariable String userId) {
          List<Conversation> conversationList = conversationRepository.findByUserId(userId);
-        System.out.println(conversationList.toString());
+        List<ConversationDTO> dtoList = new ArrayList<>();
+        conversationList.forEach(conversation -> {
+            
+          ConversationDTO dto  = new ConversationDTO() ; 
+        dto.setUsers(new ArrayList<>());
+        dto.setId(conversation.getId()) ;
 
-        return conversationList.stream()
-                .map(ConversationDTO::new)
-                .collect(Collectors.toList());
+        for (String user : conversation.getUserIds()) {
+            String id = user;
+            UserInfoResponse response = keycloakFeignClient.findUserById(id);
+            dto.getUsers().add(new UserIdFirstNameUplet(response.getId(), response.getFirstName()));
+        }
+            dtoList.add(dto);
+        });
+        return dtoList;
     }
-
-
-
+    
 
      @GetMapping("/getLastMessage/{conversationId}")
     public ResponseEntity getLastMessageInConversation(@PathVariable Long conversationId) {
@@ -98,7 +108,23 @@ if (conv.getMessages().size()>1 ) {
     public ResponseEntity<ConversationAndMessagesResponse> getConversation(@PathVariable Long conversationId) {
         //   System.out.println(conversationId);
         Conversation conversation = conversationRepository.findById(conversationId).get() ;
-        ConversationAndMessagesResponse response = new ConversationAndMessagesResponse(conversation) ;   ;
+        
+        ConversationAndMessagesResponse response = new ConversationAndMessagesResponse() ; 
+            response.setMessages( new ArrayList<MessageDTO>()) ; 
+            response.setUsers(new ArrayList<UserIdFirstNameUplet>())  ;  
+            //sysout every message on the list messages
+            for (Message message : conversation.getMessages()) {
+      // MessageDTO instance 
+      response.getMessages().add(new MessageDTO(message)); 
+            }
+      //loop throught the users array list and create a UserIdFirstNameUplet instance for every user in the conversation and add it to the ArrayList
+            for (String user : conversation.getUserIds()) {
+              String id = user ; 
+              String FirstName = keycloakFeignClient.findUserById(id).getFirstName() ;
+              response.getUsers().add(new UserIdFirstNameUplet(id,FirstName));
+            }
+          
+
   return ResponseEntity.ok(response) ; 
  }
 

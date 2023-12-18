@@ -21,7 +21,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
-@Component
 public class ConversationDTO {
 
     private Long id;
@@ -47,16 +46,4 @@ public UserInfoResponse bean(){
         this.users = users;
     }
 
-    public ConversationDTO(Conversation conversation) {
-        this.users =new ArrayList<>();
-        this.id =conversation.getId();
-
-        for (String user : conversation.getUserIds()) {
-            String id = user;
-            System.out.println("user id " + id);
-            UserInfoResponse response = keycloakFeignClient.findUserById(id);
-            System.out.println("first name " + response.getFirstName());
-            this.users.add(new UserIdFirstNameUplet(response.getId(), response.getFirstName()));
-        }
-    }
 }

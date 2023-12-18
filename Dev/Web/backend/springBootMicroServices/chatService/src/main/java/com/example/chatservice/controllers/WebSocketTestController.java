@@ -17,9 +17,6 @@ import com.example.chatservice.repository.ConversationRepository;
 import com.example.chatservice.service.KeycloakFeignClient;
 
 
-
-
-
 @Controller
 public class WebSocketTestController {
 
@@ -40,7 +37,7 @@ System.out.println("conversationId"+conversationId);
 List<String> users = conversation.getUserIds() ;
 
 for (String user : users) {
-
+System.out.println(user);
     simpMessagingTemplate.convertAndSend("/start/conversation/"+user,messagerequest) ; 
 }
         return "ok";

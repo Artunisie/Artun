@@ -1,5 +1,5 @@
- <!--<body>
-  <aside id="logo-sidebar"
+ <body>
+ <!-- <aside id="logo-sidebar"
     class=""
     aria-label="Sidebar">
     <div class=" ">
@@ -65,7 +65,7 @@
 </body> -->
 
 
-<div class="" style="width: 20vw;">
+<div class="w-100">
   <div class="bg-white" >
 
     <div class="bg-gray px-4 py-2 bg-light">
@@ -73,7 +73,7 @@
     </div>
 
     <div class="messages-box"  *ngFor="let element of this.conversations" >
-      <div class="list-group rounded-0 " >
+      <div  routerLink="messages/{{element.id}}" class="list-group rounded-0 " >
           <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
             <div class="media-body ml-4">
               <div class="d-flex align-items-center justify-content-between mb-1">
@@ -167,3 +167,4 @@
     </div>
   </div>
 </div>
+ </body>

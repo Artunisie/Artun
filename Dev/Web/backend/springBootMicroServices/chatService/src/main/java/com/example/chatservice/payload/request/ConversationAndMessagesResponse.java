@@ -13,34 +13,23 @@ import com.example.chatservice.payload.response.MessageDTO;
 import com.example.chatservice.service.KeycloakFeignClient;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
+@NoArgsConstructor
 public class ConversationAndMessagesResponse {
 
-  @Autowired
+  
   private KeycloakFeignClient keycloakFeignClient ;
 
     private List<UserIdFirstNameUplet> users ; 
 
     private List<MessageDTO> messages;
-
-    ConversationAndMessagesResponse(){
-
+@Autowired
+    ConversationAndMessagesResponse(KeycloakFeignClient keycloakFeignClient) {
+        this.keycloakFeignClient = keycloakFeignClient;
     }
-    public ConversationAndMessagesResponse(Conversation conversation){
-      this.messages = new ArrayList<MessageDTO>() ; 
-      this.users = new ArrayList<UserIdFirstNameUplet>() ;  
-      //sysout every message on the list messages
-      for (Message message : conversation.getMessages()) {
-// MessageDTO instance 
-this.messages.add(new MessageDTO(message)); 
-      }
-//loop throught the users array list and create a UserIdFirstNameUplet instance for every user in the conversation and add it to the ArrayList
-      for (String user : conversation.getUserIds()) {
-        String id = user ; 
-        String FirstName = keycloakFeignClient.findUserById(id).getFirstName() ;
-        this.users.add(new UserIdFirstNameUplet(id,FirstName));
-      }
-    }
+
+  
     
 
 

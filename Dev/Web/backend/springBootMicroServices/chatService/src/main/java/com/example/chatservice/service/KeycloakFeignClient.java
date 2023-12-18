@@ -1,12 +1,13 @@
 package com.example.chatservice.service;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.chatservice.payload.response.UserInfoResponse;
 
 
-
+@Service
 @FeignClient(name = "users-services", url = "http://localhost:8089/api/")
 public interface KeycloakFeignClient {
 

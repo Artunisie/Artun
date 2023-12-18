@@ -42,5 +42,15 @@ public class Message {
     @Column(nullable = true)
     private LocalDateTime timestamp;
 
+    @Override
+public String toString() {
+    return "Message{" +
+            "id=" + id +
+            ", content='" + content + '\'' +
+            ", conversationId=" + conversation.getId() +
+            '}';
+}
+
+
     }
 

@@ -39,7 +39,7 @@ socket  = new SockJS(`${protocal}://${ipAdress}:8081/testchat`) ;
 
 
   connect() {
-    const socket = new SockJS(`${protocal}://${ipAdress}:8080/testchat`);
+    const socket = new SockJS(`${protocal}://${ipAdress}:8081/testchat`);
   this.stompClient = Stomp.over(socket);
   const _this = this;
   this.stompClient.connect({}, function (frame: string) {
@@ -48,9 +48,9 @@ socket  = new SockJS(`${protocal}://${ipAdress}:8081/testchat`) ;
  });
 }
 
-subToConversation(userId:number):Observable<any>{
+subToConversation(conversationId:number):Observable<any>{
   return new Observable(observer => {
-    this.stompClient.subscribe(`/start/conversation/${userId}`, (response: any) => {
+    this.stompClient.subscribe(`/start/conversation/${conversationId}`, (response: any) => {
       console.log("got the convo mate");
       observer.next(response); // Emit the response to the new Observable
     });
@@ -59,14 +59,14 @@ subToConversation(userId:number):Observable<any>{
 
 
 
-subToUser(userId: number): Observable<any> {
-  return new Observable(observer => {
-    this.stompClient.subscribe(`/start/initial/${userId}`, (response: any) => {
-      console.log("got the user mate ");
-      observer.next(response); // Emit the response to the new Observable
-    });
-  });
-}
+// subToUser(userId: number): Observable<any> {
+//   return new Observable(observer => {
+//     this.stompClient.subscribe(`/start/initial/${userId}`, (response: any) => {
+//       console.log("got the user mate ");
+//       observer.next(response); // Emit the response to the new Observable
+//     });
+//   });
+// }
 
 _disconnect(){
   if (this.stompClient !== null) {

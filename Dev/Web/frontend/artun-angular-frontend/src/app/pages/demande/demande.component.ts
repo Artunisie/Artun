@@ -11,7 +11,6 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class DemandeComponent implements OnInit {
 userDetails:any = {} ;
-userId:number=2;
 demande:any;
 jobForm: FormGroup;
 successMessage: string = '';
@@ -55,7 +54,7 @@ errorMessage: string = '';
   onSubmit() {
     const demandId = this.route.snapshot.paramMap.get('id');
     // Check if the form is valid
-    const formData = { ...this.jobForm.value, demandId, userId: this.userId };
+    const formData = { ...this.jobForm.value, demandId, userId: this.userDetails.id };
 
     this.propositionService.createProposition(formData).subscribe(
       response => {
