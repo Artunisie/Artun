@@ -6,21 +6,22 @@ import { WebsocketService } from '../services/websocket.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from '../_shared/shared.service';
 import { DatePipe } from '@angular/common';
-
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'] ,
 })
 export class MessagesComponent implements OnInit {
-  currentUser: any ={id:1};
-  conversationId:any =1  ;
+  currentUser: any ;
+  conversationId:any   ;
   MessageInput: string = '';
   public message: string = '';
-  constructor(private sharedService :SharedService ,private route: ActivatedRoute ,private router: Router, private conversationService:ConversationService , private websocketService: WebsocketService ) { }
+  constructor(private keycloakService :KeycloakService ,private sharedService :SharedService ,private route: ActivatedRoute ,private router: Router, private conversationService:ConversationService , private websocketService: WebsocketService ) { }
   ConversationName:string = "" ;
   Messages:any[] = [] ;
   selectedFiles!: FileList;
+
   ngOnInit(): void {
     // Initialize the current user
     this.websocketService.connect() ;
@@ -28,6 +29,12 @@ export class MessagesComponent implements OnInit {
     this.route.params.subscribe((params:any) => {
   this.conversationId= params['id'];
   this.sharedService.changeid(params['id']);
+
+  this.keycloakService.loadUserProfile(true).then((user:any)=>{
+    this.currentUser = user ;
+    console.log("userDetails",this.currentUser) ;
+  }).then(()=>{
+
 
     this.conversationService.GetConversation(this.conversationId).subscribe({
       next:(data:any )=> {
@@ -77,7 +84,7 @@ console.error(err);
     }
   })
   });
-
+  ;})
   }
 
 

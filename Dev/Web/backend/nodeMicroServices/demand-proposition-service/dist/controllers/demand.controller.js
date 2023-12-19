@@ -147,33 +147,31 @@ class DemandController {
             console.log("not_urgent");
             urgencyArray.push('not_urgent');
         }
-        console.log("urgencyArray:" + urgencyArray);
         query.applicationDeadline = { $in: urgencyArray };
-        //   if (!filters.plumbing && !filters.mechanical && !filters.Painting && !filters.Cleanign && !filters.others )
-        // {
-        //   console.log("All false");
-        // }
-        // else{
-        //   var requirementsArray = [];
-        //   if (filters.plumbing) {
-        //     requirementsArray.push('plumbing');
-        //   }
-        //   if (filters.mechanical) {
-        //     requirementsArray.push('mechanic');
-        //   }
-        //   if (filters.Painting) {
-        //     requirementsArray.push('painting');
-        //   }
-        //   if (filters.Cleaning) {
-        //     requirementsArray.push('cleaning');
-        //   }
-        //   if (filters.others) {
-        //     requirementsArray.push('others');
-        //   }
-        // console.log(requirementsArray)
-        //   // Include requirements in the query
-        //   query.requirements = { $in: requirementsArray };
-        // }
+        if (!filters.plumbing && !filters.mechanical && !filters.Painting && !filters.Cleanign && !filters.others) {
+            console.log("All false");
+        }
+        else {
+            var requirementsArray = [];
+            if (filters.plumbing) {
+                requirementsArray.push('plumbing');
+            }
+            if (filters.mechanical) {
+                requirementsArray.push('mechanic');
+            }
+            if (filters.Painting) {
+                requirementsArray.push('painting');
+            }
+            if (filters.Cleaning) {
+                requirementsArray.push('cleaning');
+            }
+            if (filters.others) {
+                requirementsArray.push('others');
+            }
+            console.log(requirementsArray);
+            // Include requirements in the query
+            query.requirements = { $in: requirementsArray };
+        }
         // Handle salary range filter
         // if (filters.startSalary && filters.endSalary) {
         //   query.hourlyRateMin = { $gte: filters.startSalary };

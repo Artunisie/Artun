@@ -3,19 +3,20 @@ import { DemandeService } from 'src/app/services/demande.service';
 import { ActivatedRoute } from '@angular/router';
 import { PropositionService } from 'src/app/services/proposition.service'; // Replace with the actual path
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-demande',
   templateUrl: './demande.component.html',
   styleUrls: ['./demande.component.css']
 })
 export class DemandeComponent implements OnInit {
-userId:number=2;
+userDetails:any = {} ;
 demande:any;
 jobForm: FormGroup;
 successMessage: string = '';
 errorMessage: string = '';
 
-  constructor(
+  constructor(private keycloakService:KeycloakService,
     private route: ActivatedRoute ,private demandeService :DemandeService ,
     private propositionService:PropositionService , private fb: FormBuilder)
     {
@@ -26,6 +27,11 @@ errorMessage: string = '';
       });
     }
   ngOnInit(): void {
+
+    this.keycloakService.loadUserProfile(true).then((user:any)=>{
+      this.userDetails = user ;
+      console.log("userDetails",this.userDetails) ;
+    })
      const demandId = this.route.snapshot.paramMap.get('id');
       this.getDemandeById(demandId)
   }
@@ -48,7 +54,7 @@ errorMessage: string = '';
   onSubmit() {
     const demandId = this.route.snapshot.paramMap.get('id');
     // Check if the form is valid
-    const formData = { ...this.jobForm.value, demandId, userId: this.userId };
+    const formData = { ...this.jobForm.value, demandId, userId: this.userDetails.id };
 
     this.propositionService.createProposition(formData).subscribe(
       response => {

@@ -8,20 +8,19 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "conversations")
 public class Conversation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+
+    
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(joinColumns = @JoinColumn(name = "conversation_id"))
+    private List<String> userIds;
+
+
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "conversation_users",
-            joinColumns = @JoinColumn(name = "conversation_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<User> users;
-  @JsonIgnore
     @OneToMany(mappedBy = "conversation")
     private List<Message> messages;
 

@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OptionCliProfessComponent } from '../../components/option-cli-profess/option-cli-profess.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/app/services/user-service.service';
 @Component({
   selector: 'app-register-login',
   templateUrl: './register-login.component.html',
   styleUrls: ['./register-login.component.css']
 })
 export class RegisterLoginComponent implements OnInit {
+
   Role:string ='';
   signUpMode: boolean = false;
 
@@ -28,7 +30,7 @@ export class RegisterLoginComponent implements OnInit {
   phoneNumberPattern: RegExp = /^\+(?:[0-9]●?){6,14}[0-9]$/;
   emailPattern: RegExp = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-  constructor(private route: ActivatedRoute,private dialog:MatDialog) {}
+  constructor(private userService :UserService ,private route: ActivatedRoute,private dialog:MatDialog) {}
 
 
   ngOnInit(): void {
@@ -68,5 +70,31 @@ export class RegisterLoginComponent implements OnInit {
     this.isPhoneNumberValid = this.phoneNumberPattern.test(this.phoneNumber);
     this.isNumCinValid = /^\d+$/.test(this.cinNumber) && this.cinNumber.trim() !== '';
     this.isNameValid = this.username.trim() !== '' && !/\s/.test(this.username);
+
+  }
+
+  signup() {
+this.validateForm() ;
+(    this.isPasswordValid &&
+  this.isEmailValid &&
+  this.isPhoneNumberValid &&
+  this.isNumCinValid &&
+  this.isNameValid )
+{
+  var user = {
+    username: this.username,
+    email: this.email,
+    phoneNumber: this.phoneNumber,
+    cinNumber: this.cinNumber,
+    password: this.password,
+    role:this.Role
+  };
+  console.log(user);
+
+  this.userService.register(user).subscribe(
+    success => console.log('User registered',success),
+    error => console.log('Registration failed',error)
+  );
+}
   }
 }

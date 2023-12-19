@@ -6,12 +6,18 @@ import com.example.chatservice.models.Message;
 import com.example.chatservice.models.User;
 import com.example.chatservice.payload.request.ConversationAndMessagesResponse;
 import com.example.chatservice.payload.request.ConversationDTO;
+import com.example.chatservice.payload.request.CreateConversationRequest;
+import com.example.chatservice.payload.request.UserIdFirstNameUplet;
+import com.example.chatservice.payload.response.MessageDTO;
+import com.example.chatservice.payload.response.UserInfoResponse;
 import com.example.chatservice.repository.ConversationRepository;
 import com.example.chatservice.repository.FileRepository;
 import com.example.chatservice.repository.MessageRepository;
-import com.example.chatservice.repository.UserRepository;
+import com.example.chatservice.service.KeycloakFeignClient;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +38,7 @@ public class ConversationController {
 
     private final ConversationRepository conversationRepository;
 
+
     @Autowired
     public ConversationController(ConversationRepository conversationRepository) {
         this.conversationRepository = conversationRepository;
@@ -40,26 +47,51 @@ public class ConversationController {
   @Autowired
   private FileRepository fileRepository ; 
 
-    @Autowired
-    private UserRepository userRepository;
+   @Autowired
+   private KeycloakFeignClient keycloakFeignClient;
+
+
     @Autowired
     private MessageRepository messageRepository  ; 
 
-    @GetMapping("/getAll/{userId}")
-    public List<ConversationDTO> getConversations( @PathVariable Long userId ) {
-     User user = userRepository.findById(userId).get();
-        List<Conversation> conversationList = conversationRepository.findByUsers(user);
-        List<ConversationDTO> dtoList = conversationList.stream()
-            .map(ConversationDTO::ConversationToDTO)
-            .collect(Collectors.toList());
-            return dtoList ; 
-    }
 
+
+    @PostMapping("createConversation")
+    public Conversation createConversation (@RequestBody CreateConversationRequest createConversationRequest) {
+
+   Conversation conversation = new Conversation();
+    conversation.setUserIds(new ArrayList<>());
+    conversation.getUserIds().add(createConversationRequest.getProposition_user_id());
+    conversation.getUserIds().add(createConversationRequest.getUserId());
+    
+return    conversationRepository.save(conversation);
+
+}
+
+@GetMapping("/getAll/{userId}")
+    public List<ConversationDTO> getConversations(@PathVariable String userId) {
+         List<Conversation> conversationList = conversationRepository.findByUserId(userId);
+        List<ConversationDTO> dtoList = new ArrayList<>();
+        conversationList.forEach(conversation -> {
+            
+          ConversationDTO dto  = new ConversationDTO() ; 
+        dto.setUsers(new ArrayList<>());
+        dto.setId(conversation.getId()) ;
+
+        for (String user : conversation.getUserIds()) {
+            String id = user;
+            UserInfoResponse response = keycloakFeignClient.findUserById(id);
+            dto.getUsers().add(new UserIdFirstNameUplet(response.getId(), response.getFirstName()));
+        }
+            dtoList.add(dto);
+        });
+        return dtoList;
+    }
+    
 
      @GetMapping("/getLastMessage/{conversationId}")
     public ResponseEntity getLastMessageInConversation(@PathVariable Long conversationId) {
         // Call your service to get the last message by conversationId
-      
         Conversation conv =  conversationRepository.findById(conversationId).get() ; 
 if (conv.getMessages().size()>1 ) {
             Message lastMessage = conv.getMessages().get(conv.getMessages().size()-1)  ;
@@ -76,7 +108,23 @@ if (conv.getMessages().size()>1 ) {
     public ResponseEntity<ConversationAndMessagesResponse> getConversation(@PathVariable Long conversationId) {
         //   System.out.println(conversationId);
         Conversation conversation = conversationRepository.findById(conversationId).get() ;
-        ConversationAndMessagesResponse response = new ConversationAndMessagesResponse(conversation) ;   ;
+        
+        ConversationAndMessagesResponse response = new ConversationAndMessagesResponse() ; 
+            response.setMessages( new ArrayList<MessageDTO>()) ; 
+            response.setUsers(new ArrayList<UserIdFirstNameUplet>())  ;  
+            //sysout every message on the list messages
+            for (Message message : conversation.getMessages()) {
+      // MessageDTO instance 
+      response.getMessages().add(new MessageDTO(message)); 
+            }
+      //loop throught the users array list and create a UserIdFirstNameUplet instance for every user in the conversation and add it to the ArrayList
+            for (String user : conversation.getUserIds()) {
+              String id = user ; 
+              String FirstName = keycloakFeignClient.findUserById(id).getFirstName() ;
+              response.getUsers().add(new UserIdFirstNameUplet(id,FirstName));
+            }
+          
+
   return ResponseEntity.ok(response) ; 
  }
 
@@ -94,7 +142,7 @@ if (conv.getMessages().size()>1 ) {
 @PostMapping(value = "sendMessage", produces = MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<Map<String, String>> sendMessage(@RequestParam(value="content" , required = false) String content,
                                                    @RequestParam(value = "conversationId") Long conversationId,
-                                                   @RequestParam("senderId") Long senderId,
+                                                   @RequestParam("senderId") String senderId,
                                                    @RequestParam(value="files" , required=false) MultipartFile[] files) {
     if ((content == null || content.isEmpty()) &&
     (files == null || files.length==0)) {
@@ -109,7 +157,7 @@ public ResponseEntity<Map<String, String>> sendMessage(@RequestParam(value="cont
         message.setContent(content);
         message.setConversation(conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new EntityNotFoundException("No conversation found")));
-        message.setSender(userRepository.findById(senderId).get());
+    //    message.setSender(userRepository.findById(senderId).get());
         message.setTimestamp(LocalDateTime.now());
        if (files != null && !(files.length==0)) {
             List<File> messageFiles = new ArrayList<>();

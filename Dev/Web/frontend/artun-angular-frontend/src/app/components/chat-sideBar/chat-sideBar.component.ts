@@ -5,18 +5,35 @@ import { ConversationService } from 'src/app/services/conversation.service';
 import { Stomp } from '@stomp/stompjs';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from 'src/app/_shared/shared.service';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './chat-sideBar.component.html',
   styleUrls: ['./chat-sideBar.component.css']
 })
 export class ChatSideBarComponent implements OnInit {
-  currentUser: any={id:1};
+  currentUser: any={};
   conversations :any = [];
   currentId:any  ;
-  constructor(private sharedService:SharedService , private route:ActivatedRoute ,private router: Router ,private websocketService:WebsocketService ,private conversationService: ConversationService ) { }
+  constructor(private keycloakService:KeycloakService , private sharedService:SharedService , private route:ActivatedRoute ,private router: Router ,private websocketService:WebsocketService ,private conversationService: ConversationService ) { }
 
   ngOnInit(): void {
+    this.keycloakService.loadUserProfile(true).then((user:any)=>{
+      this.currentUser = user ;
+      console.log("userDetails",this.currentUser) ;
+    }).then(()=>{
+      this.conversationService.getConversations(this.currentUser.id).subscribe({
+        next: data => {
+          console.log(data) ;
+          this.createConversationList(data) ;
+          console.log(this.conversations);
+
+        },
+        error: err => {
+          console.error(err) ;
+        }
+      })
+    })
 
     this.sharedService.currentMessage.subscribe((message:any) => {console.log(message)
     this.currentId = message ;
@@ -24,38 +41,22 @@ export class ChatSideBarComponent implements OnInit {
     // Initialize the current user
 
 
+  //   this.websocketService.stompClient.connect({}, (frame: string) => {
+  //     console.log('Connected: ' + frame);
+  //   this.websocketService.subToUser(this.currentUser.id).subscribe({
+  //     next: data =>{
+  //       console.log(data)
+  //       this.conversationService.getConversations(this.currentUser.id).subscribe({
+  //         next: data => {
+  //           console.log(data) ;
+  //           this.createConversationList(data) ; }});
 
-
-
-
-
-    this.conversationService.getConversations(this.currentUser.id).subscribe({
-      next: data => {
-        console.log(data) ;
-        this.createConversationList(data) ;
-
-      },
-      error: err => {
-        console.error(err) ;
-      }
-    })
-
-    this.websocketService.stompClient.connect({}, (frame: string) => {
-      console.log('Connected: ' + frame);
-    this.websocketService.subToUser(this.currentUser.id).subscribe({
-      next: data =>{
-        console.log(data)
-        this.conversationService.getConversations(this.currentUser.id).subscribe({
-          next: data => {
-            console.log(data) ;
-            this.createConversationList(data) ; }});
-
-      } ,
-      error: err =>{
-        console.error(err) ;
-      }
-    })
-  });
+  //     } ,
+  //     error: err =>{
+  //       console.error(err) ;
+  //     }
+  //   })
+  // });
 
   }
 
@@ -70,6 +71,7 @@ export class ChatSideBarComponent implements OnInit {
         element.users.forEach((user: any) => {
           if (user.userId != this.currentUser.id) {
             conversation.name = user.firstName;
+            conversation.userId = user.userId;
           }
         });
       }

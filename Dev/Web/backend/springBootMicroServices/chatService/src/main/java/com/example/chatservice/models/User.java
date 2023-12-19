@@ -1,21 +1,21 @@
-package com.example.chatservice.models;
+package com.example.chatservice.models ;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.example.chatservice.payload.response.UserInfoResponse;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-@Entity
-@Table(name = "users",
-       uniqueConstraints = {
-         //  @UniqueConstraint(columnNames = "username"),
-           @UniqueConstraint(columnNames = "email")
-       })
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
 
   private String firstName;
@@ -37,6 +37,16 @@ public class User {
   }
   public User(){}
 
+
+   public static User fromUserInfoResponse(UserInfoResponse userInfoResponse) {
+        User user = new User();
+        user.setFirstName(userInfoResponse.getFirstName());
+        user.setLastName(userInfoResponse.getLastName());
+        user.setEmail(userInfoResponse.getEmail());
+        user.setPassword(userInfoResponse.getPassword());
+        // Set other fields as needed
+        return user;
+    }
 
 
 

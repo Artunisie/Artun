@@ -1,21 +1,18 @@
-package com.example.chatservice.payload.request;
+package com.example.chatservice.payload.request ;
 
 import com.example.chatservice.models.User;
 
 public class UserIdFirstNameUplet {
-    private Long userId;
+    private String userId;
     private String firstName;
 
-    public UserIdFirstNameUplet(Long userId, String firstName) {
+    public UserIdFirstNameUplet(String userId, String firstName) {
         this.userId = userId;
         this.firstName = firstName;
     }
-    UserIdFirstNameUplet(User user){
-        this.userId = user.getId();
-        this.firstName = user.getFirstName();    
-    }
 
-    public Long getUserId() {
+
+    public String getUserId() {
         return userId;
     }
 
@@ -23,7 +20,7 @@ public class UserIdFirstNameUplet {
         return firstName;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
