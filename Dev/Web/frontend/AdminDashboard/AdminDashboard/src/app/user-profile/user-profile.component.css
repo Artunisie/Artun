@@ -1,0 +1,180 @@
+/* https://freecodez.com */
+:root {
+	--color: #0066ff;
+	--color-hover: #000000;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.body {
+	background: #252525;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.card {
+	width: 280px;
+	height: 280px;
+	background: white;
+	border-radius: 30px;
+	padding: 3px;
+	position: relative;
+	box-shadow: #604b4a30 0px 70px 30px -50px;
+	transition: all 0.5s ease-in-out;
+}
+
+.card .mail {
+	position: absolute;
+	right: 2rem;
+	top: 1.4rem;
+	background: transparent;
+	border: none;
+}
+
+.card .mail i {
+	color: var(--color);
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.card .mail i:hover {
+	color: var(--color-hover);
+}
+
+.card .profile-pic {
+	position: absolute;
+	width: calc(100% - 6px);
+	height: calc(100% - 6px);
+	top: 3px;
+	left: 3px;
+	border-radius: 29px;
+	z-index: 1;
+	border: 0px solid var(--color);
+	overflow: hidden;
+	transition: all 0.5s ease-in-out 0.2s, z-index 0.5s ease-in-out 0.2s;
+	cursor: pointer;
+	background: url(https://res.cloudinary.com/freecodez/image/upload/v1696833687/images/vcx1iklxgzvgkza5klkh.webp);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: rgb(0, 198, 220);
+}
+
+.card:hover {
+	border-top-left-radius: 55px;
+}
+
+.card:hover .bottom {
+	top: 20%;
+	border-radius: 80px 29px 29px 29px;
+	transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+}
+
+.card:hover .profile-pic {
+	width: 100px;
+	height: 100px;
+	aspect-ratio: 1;
+	top: 10px;
+	left: 10px;
+	border-radius: 50%;
+	z-index: 3;
+	border: 7px solid var(--color);
+	box-shadow: rgba(96, 75, 74, 0.1882352941) 0px 5px 5px 0px;
+	transition: all 0.5s ease-in-out, z-index 0.5s ease-in-out 0.1s;
+}
+
+.card:hover .profile-pic:hover {
+	transform: scale(1.3) translate(-10px, -10px);
+	border-radius: 0px;
+}
+
+.card .bottom {
+	position: absolute;
+	bottom: 3px;
+	left: 3px;
+	right: 3px;
+	background: var(--color);
+	top: 80%;
+	border-radius: 29px;
+	z-index: 2;
+	box-shadow: rgba(96, 75, 74, 0.1882352941) 0px 5px 5px 0px inset;
+	overflow: hidden;
+	transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+}
+
+.card .bottom .content {
+	position: absolute;
+	bottom: 0;
+	left: 1.5rem;
+	right: 1.5rem;
+	height: 160px;
+}
+
+.card .bottom .content .name {
+	display: block;
+	font-size: 1.2rem;
+	color: white;
+	font-weight: bold;
+}
+
+.card .bottom .content .about-me {
+	display: block;
+	font-size: 0.9rem;
+	color: white;
+	margin-top: 1rem;
+}
+
+.card .bottom .bottom-bottom {
+	position: absolute;
+	bottom: 13px;
+	left: 1.5rem;
+	right: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.card .bottom .bottom-bottom .social-links-container {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.card .bottom .bottom-bottom .social-links-container i {
+	font-size: 20px;
+	fill: white;
+	filter: drop-shadow(0 5px 5px rgba(165, 132, 130, 0.1333333333));
+	cursor: pointer;
+}
+
+.card .bottom .bottom-bottom .social-links-container i:hover {
+	color: var(--color-hover);
+	transform: scale(1.2);
+}
+
+.card .bottom .bottom-bottom .button {
+	background: white;
+	color: var(--color);
+	border: none;
+	border-radius: 20px;
+	font-size: 0.6rem;
+	font-weight: 600;
+	padding: 0.4rem 0.6rem;
+	box-shadow: rgba(165, 132, 130, 0.1333333333) 0px 5px 5px 0px;
+}
+
+.card .bottom .bottom-bottom .button:hover {
+	background: var(--color-hover);
+	color: white;
+}
+
+.button {
+	cursor: pointer;
+}

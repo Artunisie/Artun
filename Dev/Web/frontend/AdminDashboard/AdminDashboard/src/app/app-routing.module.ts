@@ -10,6 +10,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path:'users', component: UsersComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path:"Settings",component:SettingsComponent},
   {path:"Login",component:LoginComponent},
   {path:"History",component:HistoryComponent},
-  {path:"dashboard",component:DashboardComponent}
+  {path:"dashboard",component:DashboardComponent},
+  { path: 'user-profile/:id', component: UserProfileComponent }
 ];
 
 @NgModule({

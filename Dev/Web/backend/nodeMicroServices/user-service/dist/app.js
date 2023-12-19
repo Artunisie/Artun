@@ -18,6 +18,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors")); // Import the cors middleware
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = 3000;
@@ -57,6 +58,8 @@ const createInitialUser = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 app.use(body_parser_1.default.json());
+// Use cors middleware
+app.use((0, cors_1.default)());
 app.use('/api/users', userRoutes_1.default);
 createInitialUser();
 app.listen(port, () => {

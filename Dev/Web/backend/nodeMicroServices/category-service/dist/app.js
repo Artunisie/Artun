@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const categoryRoutes_1 = __importDefault(require("./routes/categoryRoutes"));
 const db_1 = require("./db");
+const cors_1 = __importDefault(require("cors")); // Import the cors middleware
 const app = (0, express_1.default)();
 (0, db_1.connectDB)();
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/categories', categoryRoutes_1.default);
 const PORT = 3003;
