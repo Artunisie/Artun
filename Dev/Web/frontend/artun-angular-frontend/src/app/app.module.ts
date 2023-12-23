@@ -4,7 +4,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { LottieModule } from 'ngx-lottie';
 import { TechnicienMainComponent } from './pages/technicien-main/technicien-main.component';
 import { DemandeComponent } from './pages/demande/demande.component';
 import { OptionCliProfessComponent } from './components/option-cli-profess/option-cli-profess.component';
@@ -58,7 +57,7 @@ const keycloakService = new KeycloakService();
   ],
   imports: [
     BrowserModule,
-    BsDatepickerModule.forRoot(),
+   BsDatepickerModule.forRoot(),
     FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -82,5 +81,4 @@ const keycloakService = new KeycloakService();
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
 }

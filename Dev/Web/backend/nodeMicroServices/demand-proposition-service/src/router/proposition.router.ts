@@ -10,5 +10,5 @@ propositionRouter.get('/proposition/demand/:id', controller.getAllPropositionsFo
 propositionRouter.post('/acceptProposition/:id', controller.AcceptProposition);
 propositionRouter.post('/refuseProposition/:id', controller.RefuseProposition);
 propositionRouter.put('/proposition/price/:id', controller.updatePropositionPrice);
-
+//connect to mongo db database
 export default propositionRouter;
