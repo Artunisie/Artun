@@ -1,5 +1,4 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { AnimationOptions } from 'ngx-lottie';
 import { MatDialog } from '@angular/material/dialog';
 import { OptionCliProfessComponent } from '../../components/option-cli-profess/option-cli-profess.component';
 import { Router } from '@angular/router';
@@ -12,9 +11,7 @@ declare var $: any;
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements AfterViewInit {
-  options: AnimationOptions = {
-    path: './../assets/lotties/data.json'
-  };
+
 
   @ViewChild('about') aboutSection!: ElementRef;
   @ViewChild('services') servicesSection!: ElementRef;

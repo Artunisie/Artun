@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register
   { path: 'professionel',canActivate: [AppAuthGuard],data: { roles: ['user'] }, component: TechnicienMainComponent },
   {path:'demande/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeComponent},
-  {path:'profile',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:ProfileComponent},
+  {path:'profile',/*canActivate: [AppAuthGuard],data: { roles: ['user'] },*/component:ProfileComponent},
   {path:'demandeClient/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeClientComponent},
   {path:'historiquetechnicien',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:HistoriquetechnicienComponent},
   {path:'acceuilclient',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:AcceuilclientComponent},

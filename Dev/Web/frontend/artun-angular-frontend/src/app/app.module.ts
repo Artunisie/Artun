@@ -4,7 +4,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { LottieModule } from 'ngx-lottie';
 import { TechnicienMainComponent } from './pages/technicien-main/technicien-main.component';
 import { DemandeComponent } from './pages/demande/demande.component';
 import { OptionCliProfessComponent } from './components/option-cli-profess/option-cli-profess.component';
@@ -12,7 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
 import { RegisterLoginComponent } from './pages/register-login/register-login.component';
@@ -70,6 +69,7 @@ const keycloakService = new KeycloakService();
     ReactiveFormsModule,
     MatIconModule,
     KeycloakAngularModule,
+    NgbModule,
   ],
   providers: [
     {

@@ -260,7 +260,6 @@ public class RatingService {
             if (this.OldRatingHistoryId != null) {
                 updateRatingHistory(this.OldRatingHistoryId, newRatingDto);
             }
-
             // Sauvgarder le rating
             return saveOrUpdateRatingEntity(ratingEntity);
         }
