@@ -2,14 +2,10 @@ package com.Martun.historyService.enumeration;
 
 public enum HistoryActionType {
 
-    /** FOR ALL USERS **/
-    PROFILE_UPDATE,
-
     /** FOR CLIENTS **/
     PROJECT_POSTING,
     MODIFY_PROJECT,
     CANCEL_PROJECT,
-    JOB_APPLICATION_FOR_SPECIFIC_TECH,
     ACCEPT_TECH_JOB_OFFER,
     REJECT_TECH_JOB_OFFER,
 
@@ -17,10 +13,10 @@ public enum HistoryActionType {
     SERVICE_PROPOSAL,
     ACCEPT_CLIENT_REQUEST,
     REJECT_CLIENT_REQUEST,
-    JOB_COMPLETION,
+    JOB_COMPLETION,/* check it first*/
 
     /** POUR LES ÉVALUATIONS **/
-    USER_RATING,
+    USER_RATING,/* done */
 
     /** FOR PAYMENT **/
     // pas encore
