@@ -4,6 +4,6 @@ import { getAllReports, addReport } from '../controllers/reportsController';
 const router = express.Router();
 
 router.get('/', getAllReports);
-router.post('/', addReport);
+router.post('/', express.json(), addReport);
 
 export default router;
