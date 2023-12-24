@@ -1,10 +1,8 @@
-// src/app/users/users.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-users',
@@ -14,9 +12,12 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   newUsers: any[] = [];
+  userForm!: FormGroup; // Add the definite assignment assertion here
+  showUserCreationForm: boolean = false;
 
   constructor(
     private userService: UserService,
+    private fb: FormBuilder,
     private datePipe: DatePipe,
     private router: Router
   ) {}
@@ -30,6 +31,19 @@ export class UsersComponent implements OnInit {
         console.error('Error fetching users:', error);
       }
     );
+
+    // Initialize the form with validators
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      ncin: ['', Validators.required],
+      ntel: ['', Validators.required],
+      role: ['', Validators.required],
+      reports: [0, Validators.required],
+      isVerified: [false],
+      isBlocked: [false],
+    });
   }
 
   calculateTimeAgo(createdAt: string): string {
@@ -68,8 +82,28 @@ export class UsersComponent implements OnInit {
 
     return 'last month';
   }
-
   viewUserProfile(userId: string): void {
     this.router.navigate(['/user-profile', userId]);
+  }
+
+  openUserCreationForm(): void {
+    this.showUserCreationForm = true;
+  }
+
+  createUser(): void {
+    if (this.userForm.valid) {
+      const newUser = this.userForm.value;
+
+      this.userService.createUser(newUser).subscribe(
+        (response) => {
+          console.log('User created successfully:', response);
+          this.userForm.reset();
+          this.showUserCreationForm = false;
+        },
+        (error) => {
+          console.error('Error creating user:', error);
+        }
+      );
+    }
   }
 }

@@ -17,8 +17,22 @@ export class UserService {
   }
 
   getUserById(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.get(url);
   }
-  
+
+  blockUser(userId: string): Observable<any> {
+    const url = `${this.apiUrl}/block-user/${userId}`;
+    return this.http.put(url, {});
+  }
+
+  unblockUser(userId: string): Observable<any> {
+    const url = `${this.apiUrl}/unblock-user/${userId}`;
+    return this.http.put(url, {});
+  }
+
+  createUser(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, user);
+  }
 
 }

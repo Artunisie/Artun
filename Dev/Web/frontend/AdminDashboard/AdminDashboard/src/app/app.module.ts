@@ -17,6 +17,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoryProfileComponent } from './category-profile/category-profile.component'; // Import FormsModule and ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -33,14 +35,15 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
     ReportsComponent,
     SettingsComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    CategoryProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule, // Add HttpClientModule to the imports array
-
+    HttpClientModule,
+    ReactiveFormsModule, // Add this line
   ],
   providers: [],
   bootstrap: [AppComponent]

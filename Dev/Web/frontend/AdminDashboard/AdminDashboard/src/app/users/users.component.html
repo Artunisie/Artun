@@ -1,17 +1,63 @@
-
+<!-- src/app/users/users.component.html -->
 
 <div class="new-users">
-    <h2>New Users</h2>
-    <div class="user-list">
-      <div *ngFor="let user of newUsers" class="user" (click)="viewUserProfile(user._id)">      
-        <img [src]="user.profileImageUrl || '../../assets/images/profile-4.jpg'" alt="{{ user.name }} Image">
-        <h2>{{ user.name }}</h2>
-        <p>{{ calculateTimeAgo(user.createdAt) }}</p>
-        <p>User role {{user.role }}</p>
-        
-        <a [routerLink]="['/user-profile', user._id]">View Profile</a>
-
-      </div>
+  <h2>New Users</h2>
+  <div class="user-list">
+    <div *ngFor="let user of newUsers" class="user" (click)="viewUserProfile(user._id)">
+      <img [src]="user.profileImageUrl || '../../assets/images/profile-4.jpg'" alt="{{ user.name }} Image">
+      <h2>{{ user.name }}</h2>
+      <p>{{ calculateTimeAgo(user.createdAt) }}</p>
+      <p>User role {{ user.role }}</p>
+      <a [routerLink]="['/user-profile', user._id]">View Profile</a>
     </div>
   </div>
-  
+
+  <div *ngIf="showUserCreationForm">
+    <h2>Create New User</h2>
+    <form [formGroup]="userForm" (ngSubmit)="createUser()" class="row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" formControlName="email" required>
+      </div>
+      <div class="col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password" required>
+      </div>
+      <div class="col-md-6">
+        <label for="ncin" class="form-label">NCIN</label>
+        <input type="text" class="form-control" id="ncin" formControlName="ncin" required>
+      </div>
+      <div class="col-md-6">
+        <label for="ntel" class="form-label">NTEL</label>
+        <input type="text" class="form-control" id="ntel" formControlName="ntel" required>
+      </div>
+      <div class="col-md-6">
+        <label for="role" class="form-label">Role</label>
+        <input type="text" class="form-control" id="role" formControlName="role" required>
+      </div>
+      <div class="col-md-6">
+        <label for="reports" class="form-label">Reports</label>
+        <input type="number" class="form-control" id="reports" formControlName="reports" required>
+      </div>
+      <div class="col-md-6 form-check">
+        <input type="checkbox" class="form-check-input" id="isVerified" formControlName="isVerified">
+        <label class="form-check-label" for="isVerified">Is Verified</label>
+      </div>
+      <div class="col-md-6 form-check">
+        <input type="checkbox" class="form-check-input" id="isBlocked" formControlName="isBlocked">
+        <label class="form-check-label" for="isBlocked">Is Blocked</label>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Create User</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-12 mt-3" *ngIf="!showUserCreationForm">
+    <button class="btn btn-primary" (click)="openUserCreationForm()">Create New User</button>
+  </div>
+</div>

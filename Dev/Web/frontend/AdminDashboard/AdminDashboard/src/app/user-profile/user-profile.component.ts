@@ -1,3 +1,5 @@
+// user-profile.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
@@ -28,5 +30,29 @@ export class UserProfileComponent implements OnInit {
     } else {
       console.error('User ID is null.');
     }
+  }
+
+  blockUser(userId: string): void {
+    this.userService.blockUser(userId).subscribe(
+      () => {
+        console.log('User blocked successfully');
+        this.user.isBlocked = true;
+      },
+      (error) => {
+        console.error('Error blocking user:', error);
+      }
+    );
+  }
+
+  unblockUser(userId: string): void {
+    this.userService.unblockUser(userId).subscribe(
+      () => {
+        console.log('User unblocked successfully');
+        this.user.isBlocked = false;
+      },
+      (error) => {
+        console.error('Error unblocking user:', error);
+      }
+    );
   }
 }

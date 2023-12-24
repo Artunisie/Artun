@@ -1,0 +1,23 @@
+<!-- category-profile.component.html -->
+
+<div class="body">
+    <div class="card">
+        <button class="mail">
+            <i class="fa-solid fa-envelope"></i>
+        </button>
+        <div class="profile-pic"></div>
+        <div class="bottom">
+            <div class="content">
+                <span class="name">{{ category?.name }}</span>
+                <span class="about-me">This is the profile for the category {{ category?.name }}.</span>
+                <!-- Add any other information you want to display for categories -->
+            </div>
+
+            <div class="bottom-bottom">
+                <!-- Add any specific actions for categories here -->
+                <button *ngIf="!category.isBlocked" (click)="blockCategory(category._id)" class="button">Block</button>
+                <button *ngIf="category.isBlocked" (click)="unblockCategory(category._id)" class="button">Unblock</button>
+            </div>
+        </div>
+    </div>
+</div>

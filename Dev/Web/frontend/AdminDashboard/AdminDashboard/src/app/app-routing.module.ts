@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CategoryProfileComponent } from './category-profile/category-profile.component';
 
 const routes: Routes = [
   { path:'users', component: UsersComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path:"Login",component:LoginComponent},
   {path:"History",component:HistoryComponent},
   {path:"dashboard",component:DashboardComponent},
-  { path: 'user-profile/:id', component: UserProfileComponent }
+  { path: 'user-profile/:id', component: UserProfileComponent },
+  { path: 'category-profile/:id', component: CategoryProfileComponent },
 ];
 
 @NgModule({

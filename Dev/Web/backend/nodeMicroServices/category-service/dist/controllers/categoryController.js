@@ -50,6 +50,21 @@ const categoryController = {
             res.status(500).json({ message: 'Error updating the category' });
         }
     }),
+    getCategoryById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const { id } = req.params;
+            const category = yield categoryModel_1.default.findById(id);
+            if (category) {
+                res.status(200).json(category);
+            }
+            else {
+                res.status(404).json({ message: 'Category not found' });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Error fetching category by ID' });
+        }
+    }),
     deleteCategory: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const { id } = req.params;

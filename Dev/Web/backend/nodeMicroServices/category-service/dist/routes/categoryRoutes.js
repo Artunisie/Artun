@@ -10,4 +10,5 @@ router.get('/', categoryController_1.default.getAllCategories);
 router.post('/', categoryController_1.default.addCategory);
 router.put('/:id', categoryController_1.default.updateCategory);
 router.delete('/:id', categoryController_1.default.deleteCategory);
+router.get('/:id', categoryController_1.default.getCategoryById);
 exports.default = router;

@@ -36,7 +36,21 @@ const categoryController = {
       res.status(500).json({ message: 'Error updating the category' });
     }
   },
+  getCategoryById: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const category = await Category.findById(id);
 
+      if (category) {
+        res.status(200).json(category);
+      } else {
+        res.status(404).json({ message: 'Category not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching category by ID' });
+    }
+  },
+  
   deleteCategory: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
