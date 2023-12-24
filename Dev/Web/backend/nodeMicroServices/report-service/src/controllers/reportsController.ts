@@ -1,4 +1,3 @@
-// report.controller.ts
 import { Request, Response } from 'express';
 import Report from '../models/reportmodel';
 
@@ -12,7 +11,6 @@ export const getAllReports = async (req: Request, res: Response) => {
   }
 };
 
-// report.controller.ts
 export const addReport = async (req: Request, res: Response) => {
   try {
     const { reportCause, idReporter, idReported } = req.body;

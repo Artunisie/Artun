@@ -25,7 +25,6 @@ const getAllReports = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getAllReports = getAllReports;
-// report.controller.ts
 const addReport = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { reportCause, idReporter, idReported } = req.body;

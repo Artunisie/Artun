@@ -1,4 +1,3 @@
-// report.routes.ts
 import express from 'express';
 import { getAllReports, addReport } from '../controllers/reportsController';
 
