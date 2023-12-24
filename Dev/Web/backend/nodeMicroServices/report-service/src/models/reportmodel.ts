@@ -1,4 +1,3 @@
-// report.model.ts
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface ReportDocument extends Document {

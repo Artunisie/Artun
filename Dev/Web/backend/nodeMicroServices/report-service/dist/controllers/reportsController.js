@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addReport = exports.getAllReports = void 0;
 const reportmodel_1 = __importDefault(require("../models/reportmodel"));
-const getAllReports = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllReports = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const reports = yield reportmodel_1.default.find();
         res.status(200).json(reports);
@@ -28,10 +28,10 @@ exports.getAllReports = getAllReports;
 const addReport = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { reportCause, idReporter, idReported } = req.body;
-        console.log('Received Request Body:', req.body); // Log the received data
-        // Validation for required fields
+        console.log('Received Request Body:', req.body); // <-- Add this line
+        console.log('Received Request Body:', req.body);
         if (!reportCause || !idReporter || !idReported) {
-            console.log('Validation Failed:', { reportCause, idReporter, idReported }); // Log the extracted data
+            console.log('Validation Failed:', { reportCause, idReporter, idReported });
             return res.status(400).json({ message: 'All fields are required' });
         }
         const newReport = new reportmodel_1.default({ reportCause, idReporter, idReported });

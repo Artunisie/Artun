@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Report from '../models/reportmodel';
 
-export const getAllReports = async (req: Request, res: Response) => {
+export const getAllReports = async (_: Request, res: Response) => {
   try {
     const reports = await Report.find();
     res.status(200).json(reports);
@@ -15,11 +15,9 @@ export const addReport = async (req: Request, res: Response) => {
   try {
     const { reportCause, idReporter, idReported } = req.body;
 
-    console.log('Received Request Body:', req.body); // Log the received data
-
-    // Validation for required fields
+    console.log('Received Request Body:', req.body); 
     if (!reportCause || !idReporter || !idReported) {
-      console.log('Validation Failed:', { reportCause, idReporter, idReported }); // Log the extracted data
+      console.log('Validation Failed:', { reportCause, idReporter, idReported });
       return res.status(400).json({ message: 'All fields are required' });
     }
 
