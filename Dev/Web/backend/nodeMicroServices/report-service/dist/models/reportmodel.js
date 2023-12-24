@@ -23,15 +23,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// reportModel.ts
+// report.model.ts
 const mongoose_1 = __importStar(require("mongoose"));
-// Create a Mongoose schema for the Report document
 const reportSchema = new mongoose_1.Schema({
     reportCause: {
         type: String,
         required: true,
     },
-    idreporter: {
+    idReporter: {
         type: String,
         required: true,
     },
@@ -40,7 +39,5 @@ const reportSchema = new mongoose_1.Schema({
         required: true,
     },
 });
-// Create a Mongoose model for the Report document
 const Report = mongoose_1.default.model('Report', reportSchema);
-// Export the Report model to be used in other files
 exports.default = Report;

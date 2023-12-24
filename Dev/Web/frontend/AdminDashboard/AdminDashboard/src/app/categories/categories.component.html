@@ -6,4 +6,20 @@
       <h2>{{ category.name }}</h2>
     </div>
   </div>
+  <div *ngIf="showCategoryCreationForm">
+    <h2>Create New Category</h2>
+    <form [formGroup]="categoryForm" (ngSubmit)="createCategory()" class="row g-3">
+      <div class="col-md-6">
+        <label for="categoryName" class="form-label">Category Name</label>
+        <input type="text" class="form-control" id="categoryName" formControlName="name" required>
+      </div>
+      <div class="col-12 mt-3">
+        <button type="submit" class="btn btn-primary">Create Category</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-12 mt-3" *ngIf="!showCategoryCreationForm">
+    <button class="btn btn-primary" (click)="openCategoryCreationForm()">Create New Category</button>
+  </div>
 </div>

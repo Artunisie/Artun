@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   sideMenu: HTMLElement | null = null;
   menuBtn: HTMLElement | null = null;
   closeBtn: HTMLElement | null = null;
   darkMode: HTMLElement | null = null;
+  categoryCount: number = 0;
+
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.sideMenu = document.querySelector('aside') as HTMLElement;
@@ -25,9 +29,11 @@ export class HeaderComponent {
       this.closeBtn.addEventListener('click', () => {
         this.sideMenu!.style.display = 'none';
       });
+
       document.body.classList.toggle('dark-mode-variables');
       this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');
       this.darkMode!.querySelector('span:nth-child(2)')!.classList.toggle('active');
+      
       this.darkMode.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode-variables');
         this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');
@@ -44,8 +50,24 @@ export class HeaderComponent {
       this.addLinkClickListener('Settings-link');
       this.addLinkClickListener('Login-link');
       this.addLinkClickListener('logout-link');
+
+      // Load category count when component initializes
+      this.loadCategoryCount();
     }
   }
+
+  loadCategoryCount(): void {
+    this.categoryService.getCategoryCount().subscribe(
+      count => {
+        console.log('Category Count:', count);
+        this.categoryCount = count;
+      },
+      error => {
+        console.error('Error fetching category count:', error);
+      }
+    );
+  }
+  
 
   addLinkClickListener(linkId: string) {
     const link = document.getElementById(linkId) as HTMLElement;

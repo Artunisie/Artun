@@ -1,23 +1,40 @@
-<!-- category-profile.component.html -->
-
 <div class="body">
     <div class="card">
-        <button class="mail">
-            <i class="fa-solid fa-envelope"></i>
-        </button>
-        <div class="profile-pic"></div>
-        <div class="bottom">
-            <div class="content">
-                <span class="name">{{ category?.name }}</span>
-                <span class="about-me">This is the profile for the category {{ category?.name }}.</span>
-                <!-- Add any other information you want to display for categories -->
-            </div>
-
-            <div class="bottom-bottom">
-                <!-- Add any specific actions for categories here -->
-                <button *ngIf="!category.isBlocked" (click)="blockCategory(category._id)" class="button">Block</button>
-                <button *ngIf="category.isBlocked" (click)="unblockCategory(category._id)" class="button">Unblock</button>
-            </div>
+      <button class="mail">
+        <i class="fa-solid fa-envelope"></i>
+      </button>
+      <div class="profile-pic"></div>
+      <div class="bottom">
+        <div class="content">
+          <span class="name">{{ category?.name }}</span>
+          <span class="about-me">This is the profile for the category {{ category?.name }}.</span>
+          
+          <!-- Button to update category -->
+          <button class="btn btn-primary" style="color: rgb(87, 46, 46);" (click)="openUpdateCategoryForm()">Update</button>
         </div>
+  
+        <div class="bottom-bottom">
+          <!-- Use ngIf to conditionally display buttons based on the form state -->
+          <button *ngIf="!showCategoryUpdateForm" class="btn btn-primary" (click)="deleteCategory()">Delete</button> 
+          <button *ngIf="showCategoryUpdateForm" class="btn btn-primary" (click)="updateCategory()">Update</button>
+
+        </div>
+      </div>
     </div>
-</div>
+  
+    <!-- Update category form -->
+    <div *ngIf="showCategoryUpdateForm">
+      <h2>Update Category</h2>
+      <form [formGroup]="categoryForm" (ngSubmit)="updateCategory()">
+        <div class="col-md-6">
+          <label for="categoryName" class="form-label">Category Name</label>
+          <input type="text" class="form-control" id="categoryName" formControlName="name" required>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="submit" class="btn btn-primary">Update Category</button>
+          <button type="button" class="btn btn-primary" (click)="cancelUpdateCategory()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

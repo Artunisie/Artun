@@ -1,26 +1,25 @@
-<!-- user-profile.component.html -->
-
 <div class="body">
     <div class="card">
-        <button class="mail">
-            <i class="fa-solid fa-envelope"></i>
-        </button>
-        <div class="profile-pic"></div>
-        <div class="bottom">
-            <div class="content">
-                <span class="name">{{ user?.name }}</span>
-                <span class="about-me">Hi, I am {{ user?.name }}. I got {{user?.reports}} reports, my email is {{user?.email}} , and actually I'm an {{user?.role}}, </span>
-                
-            </div>
-
-            <div class="bottom-bottom">
-                <div class="social-links-container">
-                    <span class="material-icons-sharp">email</span>
-                    e-mail
-                </div>
-                <button *ngIf="!user.isBlocked" (click)="blockUser(user._id)" class="button">Block</button>
-                <button *ngIf="user.isBlocked" (click)="unblockUser(user._id)" class="button">Unblock</button>
-            </div>
+      <button class="mail">
+        <i class="fa-solid fa-envelope"></i>
+      </button>
+      <div class="profile-pic"></div>
+      <div class="bottom">
+        <div class="content">
+          <span class="name">{{ user?.name }}</span>
+          <span class="about-me">Hi, I am {{ user?.name }}. I got {{user?.reports}} reports, my email is {{user?.email}} , and actually I'm an {{user?.role}}, </span>
         </div>
+  
+        <div class="bottom-bottom">
+          <div class="social-links-container">
+            <span class="material-icons-sharp">email</span>
+            e-mail
+          </div>
+          <button *ngIf="!user.isBlocked" (click)="blockUser(user._id)" class="button">Block</button>
+          <button *ngIf="user.isBlocked" (click)="unblockUser(user._id)" class="button">Unblock</button>
+          <button class="btn btn-danger" (click)="deleteUser(user._id)">Delete</button> <!-- Added Delete button -->
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

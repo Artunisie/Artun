@@ -1,5 +1,3 @@
-// src/app/user.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -35,4 +33,8 @@ export class UserService {
     return this.http.post(`${this.apiUrl}`, user);
   }
 
+  deleteUser(userId: string): Observable<any> {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.delete(url);
+  }
 }

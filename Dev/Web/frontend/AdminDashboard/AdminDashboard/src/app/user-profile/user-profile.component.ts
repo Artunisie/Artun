@@ -1,7 +1,5 @@
-// user-profile.component.ts
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
@@ -12,7 +10,10 @@ import { UserService } from '../user.service';
 export class UserProfileComponent implements OnInit {
   user: any;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService) {}
 
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id');
@@ -55,4 +56,21 @@ export class UserProfileComponent implements OnInit {
       }
     );
   }
+
+  deleteUser(userId: string): void {
+    // Assuming you have a deleteUser method in your UserService
+    this.userService.deleteUser(userId).subscribe(
+      () => {
+        console.log('User deleted successfully');
+        // Handle successful deletion (e.g., navigate to a different page)
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        // Handle error (e.g., show an error message)
+      }
+    );
+    this.router.navigate(['/dashboard']);
+
+  }
+
 }

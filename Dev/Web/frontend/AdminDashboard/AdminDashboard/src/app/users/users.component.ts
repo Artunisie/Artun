@@ -43,6 +43,7 @@ export class UsersComponent implements OnInit {
       reports: [0, Validators.required],
       isVerified: [false],
       isBlocked: [false],
+      // Add more fields as needed
     });
   }
 

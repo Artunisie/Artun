@@ -16,7 +16,7 @@ exports.connectDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const mongoURI = "mongodb+srv://seifeddine:B85mToSBEVYdGF6k@cluster0.o4udqpk.mongodb.net/reports-service-seif";
+        const mongoURI = "mongodb+srv://seifeddine:ewyFHk1NAO0j78Oc@cluster0.o4udqpk.mongodb.net/reports";
         yield mongoose_1.default.connect(mongoURI);
         console.log('MongoDB connected');
     }
