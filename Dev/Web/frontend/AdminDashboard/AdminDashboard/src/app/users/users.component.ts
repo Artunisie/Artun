@@ -39,11 +39,6 @@ export class UsersComponent implements OnInit {
       password: ['', Validators.required],
       ncin: ['', Validators.required],
       ntel: ['', Validators.required],
-      role: ['', Validators.required],
-      reports: [0, Validators.required],
-      isVerified: [false],
-      isBlocked: [false],
-      // Add more fields as needed
     });
   }
 

@@ -9,15 +9,16 @@ export interface ReportDocument extends Document {
 const reportSchema = new Schema<ReportDocument>({
   reportCause: {
     type: String,
-    required: true,
   },
   idReporter: {
     type: String,
     required: true,
+    unique:true
   },
   idReported: {
     type: String,
     required: true,
+    unique:true
   },
 });
 

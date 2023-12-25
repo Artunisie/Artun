@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addReport = exports.getAllReports = void 0;
+const axios_1 = __importDefault(require("axios"));
 const reportmodel_1 = __importDefault(require("../models/reportmodel"));
 const getAllReports = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -28,14 +29,69 @@ exports.getAllReports = getAllReports;
 const addReport = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { reportCause, idReporter, idReported } = req.body;
-        console.log('Received Request Body:', req.body); // <-- Add this line
         console.log('Received Request Body:', req.body);
         if (!reportCause || !idReporter || !idReported) {
             console.log('Validation Failed:', { reportCause, idReporter, idReported });
             return res.status(400).json({ message: 'All fields are required' });
         }
+        // Make a request to the user service to check if the reporter exists
+        let reporterExistsResponse;
+        try {
+            reporterExistsResponse = yield axios_1.default.get(`http://localhost:3000/api/users/${idReporter}`);
+        }
+        catch (reporterError) {
+            console.error('Error checking reporter:', reporterError);
+            if (axios_1.default.isAxiosError(reporterError)) {
+                if (reporterError.response && reporterError.response.status === 404) {
+                    return res.status(404).json({ message: 'Reporter not found' });
+                }
+            }
+            // Handle other errors or rethrow
+            throw reporterError;
+        }
+        // Make a request to the user service to check if the reported user exists
+        let reportedExistsResponse;
+        try {
+            reportedExistsResponse = yield axios_1.default.get(`http://localhost:3000/api/users/${idReported}`);
+        }
+        catch (reportedError) {
+            console.error('Error checking reported user:', reportedError);
+            if (axios_1.default.isAxiosError(reportedError)) {
+                if (reportedError.response && reportedError.response.status === 404) {
+                    return res.status(404).json({ message: 'Reported user not found' });
+                }
+            }
+            // Handle other errors or rethrow
+            throw reportedError;
+        }
+        // Check if the reporter and reported are different users
+        if (idReporter === idReported) {
+            return res.status(400).json({ message: 'Reporter and reported cannot be the same user' });
+        }
+        // Check if the report cause is unique for the given reporter and reported
+        const existingReport = yield reportmodel_1.default.findOne({
+            reportCause,
+            idReporter,
+            idReported,
+        });
+        if (existingReport) {
+            return res.status(400).json({ message: 'Report cause must be unique for each reporter-reported pair' });
+        }
+        // Create and save the new report
         const newReport = new reportmodel_1.default({ reportCause, idReporter, idReported });
         yield newReport.save();
+        // Increment the reports count for the reported user
+        try {
+            yield axios_1.default.put(`http://localhost:3000/api/users/report-user/${idReported}`);
+        }
+        catch (incrementError) {
+            console.error('Error incrementing reports count for the reported user:', incrementError);
+            if (axios_1.default.isAxiosError(incrementError)) {
+                return res.status(500).json({ message: 'Error incrementing reports count for the reported user' });
+            }
+            // Handle other errors or rethrow
+            throw incrementError;
+        }
         res.status(201).json(newReport);
     }
     catch (error) {
