@@ -31,6 +31,7 @@ const UserSchema = new mongoose_1.Schema({
     ncin: { type: String, required: true },
     ntel: { type: String, required: true },
     role: { type: String, required: true },
+    profileImg: { type: String, required: false },
     reports: { type: Number, default: 0 },
     isVerified: { type: Boolean, default: false },
     isBlocked: { type: Boolean, default: false }

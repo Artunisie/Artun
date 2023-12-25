@@ -21,7 +21,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password, name, ncin, ntel, role, isBlocked, reports } = req.body;
+        const { email, password, name, ncin, ntel, role, profileImg, isBlocked, reports } = req.body;
         const existingUser = yield User_1.default.findOne({ email });
         if (existingUser) {
             res.status(400).json({ message: 'Email already in use' });
@@ -34,9 +34,10 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             name,
             ncin,
             ntel,
+            profileImg,
             isBlocked,
             reports,
-            role: "CLIENT"
+            role: "CLIENT",
         });
         yield user.save();
         const token = jsonwebtoken_1.default.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -54,7 +55,7 @@ exports.createUser = createUser;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const { email, password, name, ncin, ntel } = req.body;
+        const { email, password, name, ncin, ntel, profileImg } = req.body;
         const user = yield User_1.default.findById(id);
         if (!user) {
             res.status(404).json({ message: 'User not found' });
@@ -75,6 +76,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         if (ntel) {
             user.ntel = ntel;
+        }
+        if (profileImg) {
+            user.profileImg = profileImg;
         }
         yield user.save();
         res.status(200).json({ message: 'User updated successfully' });

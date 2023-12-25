@@ -1,10 +1,8 @@
-<!-- src/app/users/users.component.html -->
-
 <div class="new-users">
   <h2>New Users</h2>
   <div class="user-list">
     <div *ngFor="let user of newUsers" class="user" (click)="viewUserProfile(user._id)">
-      <img [src]="user.profileImageUrl || '../../assets/images/profile-4.jpg'" alt="{{ user.name }} Image">
+      <img [src]="user.profileImg || '../../assets/images/profile-4.jpg'" alt="{{ user.name }} Image">
       <h2>{{ user.name }}</h2>
       <p>{{ calculateTimeAgo(user.createdAt) }}</p>
       <p>User role {{ user.role }}</p>
@@ -34,6 +32,10 @@
       <div class="col-md-6">
         <label for="ntel" class="form-label">NTEL</label>
         <input type="text" class="form-control" id="ntel" formControlName="ntel" required>
+      </div>
+      <div class="col-md-6">
+        <label for="profileImg" class="form-label">Profile Image</label>
+        <input type="file" class="form-control" id="profileImg" formControlName="profileImg">
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-primary">Create User</button>

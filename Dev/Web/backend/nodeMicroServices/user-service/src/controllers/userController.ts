@@ -4,13 +4,12 @@ import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import { report } from 'process';
 
 dotenv.config();
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password, name, ncin, ntel ,role,isBlocked,reports} = req.body;
+    const { email, password, name, ncin, ntel ,role,profileImg,isBlocked,reports} = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -26,9 +25,10 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
       name,
       ncin,
       ntel,
+      profileImg,
       isBlocked,
       reports,
-      role:"CLIENT"
+      role:"CLIENT",
     });
 
     await user.save();
@@ -49,7 +49,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
 const updateUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const { email, password, name, ncin, ntel } = req.body;
+    const { email, password, name, ncin, ntel ,profileImg} = req.body;
 
     const user = await User.findById(id);
     if (!user) {
@@ -76,6 +76,9 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
     if (ntel) {
       user.ntel = ntel;
+    }
+    if (profileImg) {
+      user.profileImg = profileImg;
     }
 
     await user.save();

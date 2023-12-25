@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   newUsers: any[] = [];
-  userForm!: FormGroup; // Add the definite assignment assertion here
+  userForm!: FormGroup;
   showUserCreationForm: boolean = false;
 
   constructor(
@@ -32,13 +32,13 @@ export class UsersComponent implements OnInit {
       }
     );
 
-    // Initialize the form with validators
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       ncin: ['', Validators.required],
       ntel: ['', Validators.required],
+      profileImg: [null],
     });
   }
 
@@ -52,13 +52,13 @@ export class UsersComponent implements OnInit {
 
     if (interval >= 1) {
       const formattedDate = this.datePipe.transform(createdDate, 'medium');
-      return formattedDate || ''; // Handle possible null
+      return formattedDate || '';
     }
 
     interval = Math.floor(seconds / 2592000);
     if (interval >= 1) {
       const formattedDate = this.datePipe.transform(createdDate, 'medium');
-      return formattedDate || ''; // Handle possible null
+      return formattedDate || '';
     }
 
     interval = Math.floor(seconds / 86400);
@@ -78,6 +78,7 @@ export class UsersComponent implements OnInit {
 
     return 'last month';
   }
+
   viewUserProfile(userId: string): void {
     this.router.navigate(['/user-profile', userId]);
   }
