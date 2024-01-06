@@ -10,10 +10,10 @@ import { HistoriquetechnicienComponent } from './pages/historiquetechnicien/hist
 import { AcceuilclientComponent } from './pages/acceuilclient/acceuilclient.component';
 import { HistoriqueclientComponent } from './pages/historiqueclient/historiqueclient.component';
 import { ProfileclientComponent } from './pages/profileclient/profileclient.component';
-import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component'; 
 import { PostJobComponent } from './pages/post-job/post-job.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ConversationsComponent } from './conversations/conversations.component';
+import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component';
 import { AppAuthGuard } from './app.authguard';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
