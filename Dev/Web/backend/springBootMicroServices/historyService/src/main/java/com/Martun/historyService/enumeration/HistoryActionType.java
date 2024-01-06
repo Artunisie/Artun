@@ -3,9 +3,9 @@ package com.Martun.historyService.enumeration;
 public enum HistoryActionType {
 
     /** FOR CLIENTS **/
-    PROJECT_POSTING,
-    MODIFY_PROJECT,
-    CANCEL_PROJECT,
+    CREATE_DEMANDE,
+    MODIFY_DEMANDE,
+    DELETE_DEMANDE,
     ACCEPT_TECH_JOB_OFFER,
     REJECT_TECH_JOB_OFFER,
 

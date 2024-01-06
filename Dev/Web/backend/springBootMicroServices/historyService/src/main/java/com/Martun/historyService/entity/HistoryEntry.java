@@ -22,4 +22,5 @@ public abstract class HistoryEntry {
     private LocalDateTime historyDate;
     private Long userId;
 
+
 }

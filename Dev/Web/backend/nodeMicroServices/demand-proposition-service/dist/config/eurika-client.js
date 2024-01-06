@@ -5,7 +5,7 @@ class EurekaClient {
     constructor() {
         this.client = new eureka_js_client_1.Eureka({
             instance: {
-                app: 'node-service',
+                app: 'Demande-proposition-service',
                 hostName: 'localhost',
                 ipAddr: 'localhost',
                 port: {
