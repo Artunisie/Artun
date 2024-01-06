@@ -8,7 +8,7 @@ const demande_1 = __importDefault(require("../models/demande"));
 class DemandController {
     // Create a new demand
     createDemand(req, res) {
-        const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, clientId, } = req.body;
+        const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, category, clientId, } = req.body;
         const demand = new demande_1.default({
             jobTitle,
             jobDescription,
@@ -16,6 +16,7 @@ class DemandController {
             hourlyRateMax,
             applicationDeadline,
             requirements,
+            category,
             clientId,
         });
         demand.save()

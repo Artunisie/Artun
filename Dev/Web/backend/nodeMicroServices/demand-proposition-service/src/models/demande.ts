@@ -9,6 +9,7 @@ export interface IDemand extends Document {
   requirements: string[];
   acceptanceStatus: number;
   clientId: string; 
+  category: string; 
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,6 +21,7 @@ const demandSchema: Schema = new Schema({
   hourlyRateMax: { type: Number, required: true },
   applicationDeadline: { type: String, required: true }, //"urgent" or "not_urgent" 
   requirements: [{ type: String, required: true }],
+  category: [{ type: String, required: true }],
   acceptanceStatus: { type: Number, default: 0 }, // 0: Pending, 1: Accepted
   clientId: { type: String, required: true },
 },

@@ -23,7 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// report.model.ts
 const mongoose_1 = __importStar(require("mongoose"));
 const reportSchema = new mongoose_1.Schema({
     reportCause: {

@@ -12,6 +12,7 @@ export class DemandController {
       hourlyRateMax,
       applicationDeadline,
       requirements,
+      category,
       clientId,
     } = req.body;
 
@@ -22,6 +23,7 @@ export class DemandController {
       hourlyRateMax,
       applicationDeadline,
       requirements,
+      category,
       clientId,
     });
 

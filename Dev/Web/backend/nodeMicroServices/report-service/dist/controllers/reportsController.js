@@ -28,7 +28,6 @@ exports.getAllReports = getAllReports;
 const addReport = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { reportCause, idReporter, idReported } = req.body;
-        console.log('Received Request Body:', req.body); // <-- Add this line
         console.log('Received Request Body:', req.body);
         if (!reportCause || !idReporter || !idReported) {
             console.log('Validation Failed:', { reportCause, idReporter, idReported });

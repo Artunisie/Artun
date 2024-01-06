@@ -31,6 +31,7 @@ const demandSchema = new mongoose_1.Schema({
     hourlyRateMax: { type: Number, required: true },
     applicationDeadline: { type: String, required: true },
     requirements: [{ type: String, required: true }],
+    category: [{ type: String, required: true }],
     acceptanceStatus: { type: Number, default: 0 },
     clientId: { type: String, required: true },
 }, {
