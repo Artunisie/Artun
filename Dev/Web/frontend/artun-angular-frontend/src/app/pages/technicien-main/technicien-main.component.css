@@ -18,6 +18,36 @@
   background-color: #e6e7ff;
 
 }
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #e6e7ff;
+}
+
+.scrolling-banner {
+  width: 100%;
+  height: 30px;
+  background-color: #3333334d;
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+}
+
+.yo {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 15s linear infinite;
+}
+
+@keyframes scrollText {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
 .technicienmain-sidebar {
   width: 300px;
   height: 100vh;
@@ -1008,16 +1038,3 @@ a:hover > .link-icon {
   color: #31668a;
 }
 
-.technicienmain-submit-button{
-  width: 100%;
-  margin-top: 20px;
-padding-left: 50%;
-}
-
-
-.filter-btn{
-  padding: 10px;
-  width: auto;
-  display: inline-flex;
-  align-items: center;
-}
