@@ -93,7 +93,10 @@
                 </div>
                 <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                     <div class="d-flex mb-3">
-                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', demande._id]">Show</a>
+                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', demande._id]">
+                          <img src="../../../assets/home/img/R (1).gif" alt="Description de l'image" class="ml-2" style="height: 20px;width: 20px;">
+                          
+                        Show</a>
                         <button class="btn btn-danger m-3" (click)="onDelete(demande._id)" style="display: flex; align-items: center; justify-content: center;">
                           Delete
                       </button>

@@ -103,7 +103,10 @@
             <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
               <div class="d-flex mb-3">
                 <!-- Assuming someId is derived from demande or another source -->
-                <a class="btn btn-primary" [routerLink]="['/demande/', demande._id]">Apply Now</a>
+                <a class="btn btn-primary" [routerLink]="['/demande/', demande._id]">
+                  <img src="../../../assets/home/img/animated-tool-image-0243.gif" alt="Description de l'image" class="ml-2" style="height: 30px;width: 30px;">
+                  
+                  Apply Now</a>
               </div>
               <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: {{ demande.createdAt }}</small>
             </div>
