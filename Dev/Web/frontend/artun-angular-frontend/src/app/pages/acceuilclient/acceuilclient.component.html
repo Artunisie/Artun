@@ -1,97 +1,117 @@
 
-<app-header></app-header>
-   
-<app-videoclient-component></app-videoclient-component>
-
-  <div class="technicienmain-container01" style="background-color:rgba(211, 207, 207, 0.151);">
-    
-    <div class="technicienmain-sidebar shadow" style="background-image: url('../../../assets/home/img/hg1.jpg');background-size: cover; background-position: center; background-repeat: no-repeat;">
-     
-         
-      
-     
-      <div class="scrolling-banner">
-        <div class="yo">
-            <span>Welcome to our platform ARTUN </span>
-            <img src="../../../assets/home/img/R.gif" alt="Image 1" style="height: 20px ;width: 40px;">
-           
-            
-        </div>
-    </div>
-      
-    </div>
-    
-    <div class="technicienmain-container09">
-      <div class="technicienmain-container15">
-
-
-        <div class="job-item p-4 mb-4">
-          <div class="row g-4">
-              <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                  <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
-                  <div class="text-start ps-4">
-                      <h5 class="mb-3">Je fais face à une situation urgente à la maison : mon robinet vient de se casser, et l'eau coule partout. C'est une situation assez critique et j'ai besoin de l'aide d'un plombier compétent le plus rapidement possible.</h5>
-                      <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-4"></i>Rewa, INDIA</span>
-                      <span class="text-truncate me-3"><i class="far fa-clock text-primary me-4"></i>Full Time</span>
-                      <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-4"></i>$123 - $456</span>
-                  </div>
-              </div>
-              <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                <div class="d-flex mb-3">
-                  <a class="btn btn-primary" [routerLink]="['/demandeClient', yourIdVariable]">
-                    <img src="../../../assets/home/img/R (1).gif" alt="Description de l'image" class="ml-2" style="height: 20px;width: 20px;">
-                      Show
-                      
-                  </a>
-              </div>
+<div >
+    <app-header></app-header>
+   <app-videoclient-component></app-videoclient-component>
+    <div class="technicienmain-container01" style="background-color:rgba(211, 207, 207, 0.151);">
+      <div class="technicienmain-sidebar shadow" style="background-image: url('../../../assets/home/img/hg1.jpg');background-size: cover; background-position: center; background-repeat: no-repeat;">
+        
+        <div class="scrolling-banner">
+          <div class="yo">
+              <span>Welcome to our platform ARTUN </span>
+              <img src="../../../assets/home/img/R.gif" alt="Image 1" style="height: 20px ;width: 40px;">
+             
               
-                  <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: 01 Jan, 2045</small>
-                  <div class="technicienmain-options3">
-                      <div class="technicienmain-container04">
-            
-                      </div>
-                    </div>
-              </div>
           </div>
-          
       </div>
-      <div class="technicienmain-container15">
-
-
-        <div class="job-item p-4 mb-4">
-          <div class="row g-4">
-              <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                  <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
-                  <div class="text-start ps-4">
-                      <h5 class="mb-3">a la recherhce d un plombier  j ai une robinet cassé je cherche un technicine doué et professionnele  pour courriger cette fisure je vous remerci et a bientot bibity mon amour </h5>
-                      <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-4"></i>Rewa, INDIA</span>
-                      <span class="text-truncate me-3"><i class="far fa-clock text-primary me-4"></i>Full Time</span>
-                      <span class="text-truncate me-3"><i class="far fa-money-bill-alt text-primary me-4"></i>$123 - $456</span>
-                  </div>
-              </div>
-              <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                <a class="btn btn-primary" [routerLink]="['/demandeClient', yourIdVariable]">
-                  <img src="../../../assets/home/img/R (1).gif" alt="Description de l'image" class="ml-2" style="height: 20px;width: 20px;">
-                    Show</a>
-                  <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: 01 Jan, 2045</small>
-                  <div class="technicienmain-options3">
-                      <div class="technicienmain-container04">
-            
-                      </div>
-                    </div>
-              </div>
+        <div class="technicienmain-nav-item">
+          <span class="technicienmain-nav-titel">Filter</span>
+          <div class="technicienmain-options">
+            <span class="technicienmain-text">
+              <span>Salary</span>
+              <br />
+            </span>
+            <mat-slider id="to-slider" discrete [displayWith]="SalaryFormatLabel" [(ngModel)]="startSalaryValue" #slider1="ngModel">
+              <input matSliderStartThumb  [(value)]="startSalaryValue" >
+              <input matSliderEndThumb [(value)]="endSalaryValue" >
+            </mat-slider>
           </div>
-          
+
+          <div class="technicienmain-options2">
+            <span class="technicienmain-text06">Availability</span>
+            <div class="technicienmain-container02">
+              <input type="checkbox" [(ngModel)]="urgentCheckbox" class="technicienmain-checkbox" />
+              <span class="technicienmain-text07">Urgent</span>
+            </div>
+            <div class="technicienmain-container03">
+              <input type="checkbox" [(ngModel)]="nonUrgentCheckbox" class="technicienmain-checkbox1" />
+              <span class="technicienmain-text08">Non Urgent</span>
+            </div>
+          </div>
+
+          <div class="technicienmain-options4">
+            <span class="technicienmain-text13">
+              <span>Experience</span>
+              <br />
+            </span>
+            <div class="technicienmain-container05">
+              <input type="checkbox" [(ngModel)]="plumbingCheckbox" class="technicienmain-checkbox2" />
+              <span class="technicienmain-text16">Plumbing</span>
+            </div>
+            <div class="technicienmain-container06">
+              <input type="checkbox" [(ngModel)]="mechanicalCheckbox" class="technicienmain-checkbox3" />
+              <span class="technicienmain-text17">Mechanical</span>
+            </div>
+            <div class="technicienmain-container07">
+              <input type="checkbox" [(ngModel)]="PaintingCheckbox" class="technicienmain-checkbox4" />
+              <span class="technicienmain-text18">Painting</span>
+            </div>
+            <div class="technicienmain-container07">
+              <input type="checkbox" [(ngModel)]="CleaningCheckbox" class="technicienmain-checkbox4" />
+              <span class="technicienmain-text18">Cleaning</span>
+            </div>
+            <div class="technicienmain-container08">
+              <input type="checkbox" [(ngModel)]="othersCheckbox" class="technicienmain-checkbox5" />
+              <span class="technicienmain-text19">Others</span>
+            </div>
+          </div>
+
+          <div class="technicienmain-submit-button">
+            <button class="btn btn-primary filter-btn" (click)="submitFilter()">
+              <mat-icon>search</mat-icon> Search
+            </button>
+          </div>
+        </div>
       </div>
-      </div>
+      <div class="technicienmain-container09">
+        <div class="technicienmain-container15">
 
 
-      
+          <div class="job-item p-4 mb-4"   *ngFor="let demande of demandeList">
+            <div class="row g-4">
+                <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                    <img class="flex-shrink-0 img-fluid border rounded" src="../../../assets/images/robinet.png" alt="" style="width: 80px; height: 80px;">
+                    <div class="text-start ps-4">
+                      <h5 class="mb-3">{{ demande.jobTitle }}</h5>
+                      <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-4"></i>Loacation</span>
+
+                      <span class="text-truncate me-3"><i class="far fa-clock text-primary me-4"></i>{{ demande.applicationDeadline === 'not_urgent' ? 'Not urgent' : 'Urgent' }}</span>
+                      <span class="text-truncate me-3">
+                        <i class="far fa-money-bill-alt text-primary me-4"></i>
+                        {{ demande.hourlyRateMin }} DT - {{ demande.hourlyRateMax }} DT
+                      </span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                    <div class="d-flex mb-3">
+                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', demande._id]">Show</a>
+                        <button class="btn btn-danger m-3" (click)="onDelete(demande._id)" style="display: flex; align-items: center; justify-content: center;">
+                          Delete
+                      </button>
+
+                    </div>
+                    <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: {{demande.createdAt}}</small>
+                    <div class="technicienmain-options3">
+                        <div class="technicienmain-container04">
+
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
     </div>
 
+    <app-chat-popup></app-chat-popup>
 
-
- <app-chat-popup></app-chat-popup>
-
-    
   </div>
