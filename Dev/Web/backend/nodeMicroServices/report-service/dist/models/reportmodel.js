@@ -27,15 +27,16 @@ const mongoose_1 = __importStar(require("mongoose"));
 const reportSchema = new mongoose_1.Schema({
     reportCause: {
         type: String,
-        required: true,
     },
     idReporter: {
         type: String,
         required: true,
+        unique: true
     },
     idReported: {
         type: String,
         required: true,
+        unique: true
     },
 });
 const Report = mongoose_1.default.model('Report', reportSchema);

@@ -52,21 +52,11 @@ export class HeaderComponent implements OnInit {
       this.addLinkClickListener('logout-link');
 
       // Load category count when component initializes
-      this.loadCategoryCount();
+      
     }
   }
 
-  loadCategoryCount(): void {
-    this.categoryService.getCategoryCount().subscribe(
-      count => {
-        console.log('Category Count:', count);
-        this.categoryCount = count;
-      },
-      error => {
-        console.error('Error fetching category count:', error);
-      }
-    );
-  }
+
   
 
   addLinkClickListener(linkId: string) {

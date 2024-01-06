@@ -1,24 +1,25 @@
 <div class="recent-orders">
-    <h2>Recent Reports</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Report cause</th>
-          <th>Reporter </th>
-          <th>user Reported</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr >
-          <td>azer</td>
-          <td>azer</td>
-          <td>azer</td>
-          <td >azer</td>
-          <td class="primary">Details</td>
-        </tr>
-      </tbody>
-    </table>
-    <a href="#">Show All</a>
-  </div>
+  <h2>Recent Reports</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Report cause</th>
+        <th>Reporter</th>
+        <th>User Reported</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of reports">
+        <td>{{ report.reportCause }}</td>
+        <td>
+          <a [routerLink]="['/user-profile', report.idReporter]">{{ report.idReporter }}</a>
+        </td>
+        <td>
+          <a [routerLink]="['/user-profile', report.idReported]">{{ report.idReported }}</a>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

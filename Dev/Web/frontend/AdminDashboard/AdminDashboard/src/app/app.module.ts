@@ -1,3 +1,5 @@
+// app.module.ts
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,9 +18,10 @@ import { ReportsComponent } from './reports/reports.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CategoryProfileComponent } from './category-profile/category-profile.component'; // Import FormsModule and ReactiveFormsModule
+import { CategoryProfileComponent } from './category-profile/category-profile.component';
+import { ReportService } from './report.service';  // Import the ReportService
 
 @NgModule({
   declarations: [
@@ -43,9 +46,11 @@ import { CategoryProfileComponent } from './category-profile/category-profile.co
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule, // Add this line
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    ReportService,  // Add the ReportService to providers
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
