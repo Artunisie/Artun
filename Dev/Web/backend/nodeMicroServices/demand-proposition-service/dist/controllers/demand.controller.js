@@ -18,6 +18,7 @@ const axios_1 = __importDefault(require("axios"));
 class DemandController {
     // Create a new demand
     createDemand(req, res) {
+<<<<<<< HEAD
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, clientId, } = req.body;
@@ -70,6 +71,25 @@ class DemandController {
                 // Assurez-vous de renvoyer une réponse à la demande Express en cas d'erreur
                 res.status(500).send('Error saving demand in MongoDB');
             }
+=======
+        const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, category, clientId, } = req.body;
+        const demand = new demande_1.default({
+            jobTitle,
+            jobDescription,
+            hourlyRateMin,
+            hourlyRateMax,
+            applicationDeadline,
+            requirements,
+            category,
+            clientId,
+        });
+        demand.save()
+            .then((demand) => {
+            res.status(201).json(demand);
+        })
+            .catch((error) => {
+            res.status(500).json({ error: error.message });
+>>>>>>> 62ec8f5eab42e7130f8c5bff2ebc8a773428c2a5
         });
     }
     // Get a demand by ID

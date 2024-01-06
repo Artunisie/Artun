@@ -32,6 +32,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { AppAuthGuard } from './app.authguard';
 import { initializeKeycloak } from './init/keycloak-init.factory';
+import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component';
+
+import { VideoclientComponentComponent } from './components/videoclient-component/videoclient-component.component';
+import { VideotechnyComponentComponent } from './components/videotechny-component/videotechny-component.component';
 const keycloakService = new KeycloakService();
 @NgModule({
   declarations: [
@@ -54,6 +58,9 @@ const keycloakService = new KeycloakService();
     ConversationsComponent,
     ChatSideBarComponent,
     MessagesComponent,
+    TousLesTechniciensComponent,
+    VideoclientComponentComponent,
+    VideotechnyComponentComponent,
   ],
   imports: [
     BrowserModule,

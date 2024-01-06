@@ -13,6 +13,7 @@ import { ProfileclientComponent } from './pages/profileclient/profileclient.comp
 import { PostJobComponent } from './pages/post-job/post-job.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ConversationsComponent } from './conversations/conversations.component';
+import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component';
 import { AppAuthGuard } from './app.authguard';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'profileclient',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:ProfileclientComponent},
   {path:'postJob',canActivate: [AppAuthGuard],data: { roles: ['user'] },component: PostJobComponent},
   {path:'mainPage' ,canActivate: [AppAuthGuard],data: { roles: ['user'] }, component:ConversationsComponent , children: [
-    { path: 'messages/:id', component: MessagesComponent },
+  { path: 'messages/:id', component: MessagesComponent },
+  {path:'touslestechniciens',component:TousLesTechniciensComponent},
 
   ]}
 ];

@@ -1,0 +1,17 @@
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 40vh; /* Ajustez la hauteur selon vos besoins */
+    overflow: hidden;
+  }
+  
+  video {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%; /* Ajustez la largeur selon vos besoins */
+    height: auto;
+  
+  }
+  

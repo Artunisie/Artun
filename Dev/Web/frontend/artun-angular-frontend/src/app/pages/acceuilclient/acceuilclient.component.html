@@ -1,8 +1,18 @@
 
 <div >
     <app-header></app-header>
-    <div class="technicienmain-container01">
-      <div class="technicienmain-sidebar shadow">
+   <app-videoclient-component></app-videoclient-component>
+    <div class="technicienmain-container01" style="background-color:rgba(211, 207, 207, 0.151);">
+      <div class="technicienmain-sidebar shadow" style="background-image: url('../../../assets/home/img/hg1.jpg');background-size: cover; background-position: center; background-repeat: no-repeat;">
+        
+        <div class="scrolling-banner">
+          <div class="yo">
+              <span>Welcome to our platform ARTUN </span>
+              <img src="../../../assets/home/img/R.gif" alt="Image 1" style="height: 20px ;width: 40px;">
+             
+              
+          </div>
+      </div>
         <div class="technicienmain-nav-item">
           <span class="technicienmain-nav-titel">Filter</span>
           <div class="technicienmain-options">
@@ -83,7 +93,10 @@
                 </div>
                 <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                     <div class="d-flex mb-3">
-                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', demande._id]">Show</a>
+                        <a class="btn btn-primary m-3" [routerLink]="['/demandeClient', demande._id]">
+                          <img src="../../../assets/home/img/R (1).gif" alt="Description de l'image" class="ml-2" style="height: 20px;width: 20px;">
+                          
+                        Show</a>
                         <button class="btn btn-danger m-3" (click)="onDelete(demande._id)" style="display: flex; align-items: center; justify-content: center;">
                           Delete
                       </button>
@@ -92,13 +105,6 @@
                     <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-4"></i>Date Line: {{demande.createdAt}}</small>
                     <div class="technicienmain-options3">
                         <div class="technicienmain-container04">
-              <!-- rating input  -->
-                          <ngb-rating  [max]="5" [(rate)]="starRating" [readonly]="false">
-                            <ng-template let-fill="fill" let-index="index">
-                              <i class="bi-star{{fill == 100 ? '-fill' : ''}}" [class.filled]="fill === 100" ></i>
-                            </ng-template>
-                          </ngb-rating>
-              <!-- end rating input -->
 
                         </div>
                       </div>
@@ -109,6 +115,6 @@
       </div>
     </div>
 
-
+    <app-chat-popup></app-chat-popup>
 
   </div>

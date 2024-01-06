@@ -1,24 +1,34 @@
 <div class="recent-orders">
-    <h2>Recent services</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>services category</th>
-          <th>service Number</th>
-          <th>Payment</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr >
-          <td>azer</td>
-          <td>azer</td>
-          <td>azer</td>
-          <td >azer</td>
-          <td class="primary">Details</td>
-        </tr>
-      </tbody>
-    </table>
-    <a href="#">Show All</a>
-  </div>
+  <h2>Recent demands</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Demand ID</th>
+        <th>Description</th>
+        <th>HRateMin</th>
+        <th>HRateMax</th>
+        <th>Deadline</th>
+        <th>requirements</th>
+        <th>UserId</th>
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let demand of recentDemands">
+        <td>{{ demand._id}}</td>
+        <td>{{ demand.jobTitle}}</td>
+        <td>{{ demand.jobDescription}}</td>
+        <td>{{ demand.hourlyRateMin}}</td>
+        <td>{{ demand.hourlyRateMax}}</td>
+        <td>{{ demand.applicationDeadline}}</td>
+        <td>{{ demand.requirements}}</td>
+        <td>{{ demand.userId}}</td>
+
+
+
+      </tr>
+    </tbody>
+  </table>
+</div>

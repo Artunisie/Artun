@@ -102,5 +102,6 @@ export class UsersComponent implements OnInit {
         }
       );
     }
+    this.router.navigate(['/dashboard']);
   }
 }
