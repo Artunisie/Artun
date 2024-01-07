@@ -20,13 +20,6 @@
                      <span class="material-icons-sharp">person_outline</span>
                      <h3>Users</h3>
                      </a>
-
-                    <a routerLink="/History" id="History-link">
-                        <span class="material-icons-sharp">
-                            receipt_long
-                        </span>
-                        <h3>History</h3>
-                    </a>
                     <a routerLink="/Analytics" id="Analytics-link">
                         <span class="material-icons-sharp">
                             insights
@@ -51,23 +44,15 @@
                         </span>
                         <h3>Reports</h3>
                     </a>
-                    <a routerLink="/Settings" id="Settings-link">
-                        <span class="material-icons-sharp">
-                            settings
-                        </span>
-                        <h3>Settings</h3>
-                    </a>
-                    <a routerLink="/Login" id="Login-link">
+                    <a id="logout-link" (click)="logout()">
                         <span class="material-icons-sharp">
                             add
                         </span>
                         <h3>New Login</h3>
                     </a>
-                    <a href="#" id="logout-link">
-                        <span class="material-icons-sharp">
-                            logout
-                        </span>
+                    <a href="#" id="logout-link" (click)="logout()">
+                        <span class="material-icons-sharp">logout</span>
                         <h3>Logout</h3>
-                    </a>
+                    </a>                    
                 </div>
             </aside>

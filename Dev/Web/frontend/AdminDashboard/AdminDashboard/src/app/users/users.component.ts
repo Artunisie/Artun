@@ -38,6 +38,7 @@ export class UsersComponent implements OnInit {
       password: ['', Validators.required],
       ncin: ['', Validators.required],
       ntel: ['', Validators.required],
+
       profileImg: [null],
     });
   }
