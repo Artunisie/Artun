@@ -11,13 +11,15 @@
  @Getter
  @Setter
  public class Technician extends User{
-     private double rating;
+     //private double rating;
 
-     @Override
+     /*@Override
      public String toString() {
          return  super.toString() + "Technician{" +
                  ", rating='" + rating + '\'' +
                  '}';
-     }
+     }*/
+
+
  }
 

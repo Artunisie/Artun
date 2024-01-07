@@ -17,6 +17,8 @@ import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-l
 import { AppAuthGuard } from './app.authguard';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
+  {path:'touslestechniciens',component:TousLesTechniciensComponent},
+
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register
   { path: 'professionel',canActivate: [AppAuthGuard],data: { roles: ['user'] }, component: TechnicienMainComponent },
   {path:'demande/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeComponent},
@@ -29,7 +31,6 @@ const routes: Routes = [
   {path:'postJob',canActivate: [AppAuthGuard],data: { roles: ['user'] },component: PostJobComponent},
   {path:'mainPage' ,canActivate: [AppAuthGuard],data: { roles: ['user'] }, component:ConversationsComponent , children: [
   { path: 'messages/:id', component: MessagesComponent },
-  {path:'touslestechniciens',component:TousLesTechniciensComponent},
 
   ]}
 ];
