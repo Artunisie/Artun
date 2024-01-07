@@ -9,13 +9,12 @@
           <span class="name">{{ category?.name }}</span>
           <span class="about-me">This is the profile for the category {{ category?.name }}.</span>
           
-          <!-- Button to update category -->
-          <button class="btn btn-primary" style="color: rgb(87, 46, 46);" (click)="openUpdateCategoryForm()">Update</button>
         </div>
   
         <div class="bottom-bottom">
           <!-- Use ngIf to conditionally display buttons based on the form state -->
           <button *ngIf="!showCategoryUpdateForm" class="btn btn-primary" (click)="deleteCategory()">Delete</button> 
+          <button class="btn btn-primary"  (click)="openUpdateCategoryForm()">Update</button>
           <button *ngIf="showCategoryUpdateForm" class="btn btn-primary" (click)="updateCategory()">Update</button>
 
         </div>

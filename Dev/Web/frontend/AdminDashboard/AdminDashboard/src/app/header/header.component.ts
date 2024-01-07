@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   darkMode: HTMLElement | null = null;
   categoryCount: number = 0;
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private keycloakService: KeycloakService) { }
 
   ngOnInit() {
     this.sideMenu = document.querySelector('aside') as HTMLElement;
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit {
       document.body.classList.toggle('dark-mode-variables');
       this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');
       this.darkMode!.querySelector('span:nth-child(2)')!.classList.toggle('active');
-      
+
       this.darkMode.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode-variables');
         this.darkMode!.querySelector('span:nth-child(1)')!.classList.toggle('active');
@@ -50,29 +51,38 @@ export class HeaderComponent implements OnInit {
       this.addLinkClickListener('Settings-link');
       this.addLinkClickListener('Login-link');
       this.addLinkClickListener('logout-link');
-
-      // Load category count when component initializes
-      
     }
   }
-
-
-  
 
   addLinkClickListener(linkId: string) {
     const link = document.getElementById(linkId) as HTMLElement;
 
     if (link) {
-      link.addEventListener('click', () => this.handleLinkClick(link));
+      link.addEventListener('click', (event) => this.handleLinkClick(event, linkId));
     }
   }
 
-  handleLinkClick(clickedLink: HTMLElement) {
+  handleLinkClick(event: Event, linkId: string) {
+    if (linkId === 'logout-link') {
+      // Prevent the default link behavior
+      event.preventDefault();
+
+      // Call the logout method when the logout link is clicked
+      this.logout();
+    }
+
     const navLinks = document.querySelectorAll('.sidebar a');
     navLinks.forEach(link => {
       link.classList.remove('active');
     });
 
-    clickedLink.classList.add('active');
+    const clickedLink = document.getElementById(linkId);
+    if (clickedLink) {
+      clickedLink.classList.add('active');
+    }
+  }
+
+  logout() {
+    this.keycloakService.logout();
   }
 }
