@@ -12,11 +12,13 @@ import { HistoriqueclientComponent } from './pages/historiqueclient/historiquecl
 import { ProfileclientComponent } from './pages/profileclient/profileclient.component';
 import { PostJobComponent } from './pages/post-job/post-job.component';
 import { MessagesComponent } from './messages/messages.component';
-import { ConversationsComponent } from './conversations/conversations.component';
 import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component';
+import { ConversationsComponent } from './conversations/conversations.component';
+
 import { AppAuthGuard } from './app.authguard';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
+  {path:'touslestechniciens',component:TousLesTechniciensComponent},
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register
   { path: 'professionel',canActivate: [AppAuthGuard],data: { roles: ['user'] }, component: TechnicienMainComponent },
   {path:'demande/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeComponent},
@@ -29,9 +31,10 @@ const routes: Routes = [
   {path:'postJob',canActivate: [AppAuthGuard],data: { roles: ['user'] },component: PostJobComponent},
   {path:'mainPage' ,canActivate: [AppAuthGuard],data: { roles: ['user'] }, component:ConversationsComponent , children: [
   { path: 'messages/:id', component: MessagesComponent },
-  {path:'touslestechniciens',component:TousLesTechniciensComponent},
+  
 
   ]}
+  
 ];
 
 @NgModule({

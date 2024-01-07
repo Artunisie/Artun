@@ -1,68 +1,68 @@
-// package com.Mohamed.userService.service;
+package com.Mohamed.userService.service;
 
-// import com.Mohamed.userService.dto.ResetPasswordRequeste;
-// import com.Mohamed.userService.entity.Client;
-// import com.Mohamed.userService.entity.Technician;
-// import com.Mohamed.userService.entity.User;
-// import com.Mohamed.userService.exceptions.AccountNotActivateException;
-// import com.Mohamed.userService.exceptions.InvalidEntityException;
-// import com.Mohamed.userService.exceptions.UserNotFoundException;
-// import com.Mohamed.userService.repository.UserRepository;
-// import com.Mohamed.userService.util.EmailUtil;
-// import com.Mohamed.userService.util.PasswordEncoderUtil;
-// import jakarta.mail.MessagingException;
-// import lombok.RequiredArgsConstructor;
-// import lombok.extern.slf4j.Slf4j;
-// import net.bytebuddy.utility.RandomString;
-// import reactor.core.publisher.Flux;
-// import reactor.core.publisher.Mono;
+ import com.Mohamed.userService.dto.ResetPasswordRequeste;
+ import com.Mohamed.userService.entity.Client;
+ import com.Mohamed.userService.entity.Technician;
+ import com.Mohamed.userService.entity.User;
+ import com.Mohamed.userService.exceptions.AccountNotActivateException;
+ import com.Mohamed.userService.exceptions.InvalidEntityException;
+ import com.Mohamed.userService.exceptions.UserNotFoundException;
+ import com.Mohamed.userService.repository.UserRepository;
+ import com.Mohamed.userService.util.EmailUtil;
+ import com.Mohamed.userService.util.PasswordEncoderUtil;
+ import jakarta.mail.MessagingException;
+ import lombok.RequiredArgsConstructor;
+ import lombok.extern.slf4j.Slf4j;
+ import net.bytebuddy.utility.RandomString;
+ import reactor.core.publisher.Flux;
+ import reactor.core.publisher.Mono;
 
-// import org.springframework.stereotype.Service;
+ import org.springframework.stereotype.Service;
 
-// import java.util.*;
+ import java.util.*;
 
-// import static com.Mohamed.userService.enumerations.UserTypes.CLIENT;
-// import static com.Mohamed.userService.enumerations.UserTypes.TECHNICIAN;
-// import static com.Mohamed.userService.myResources.EmailRessource.*;
-// import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_ALREADY_VERIFIED;
-// import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_NOT_FOUND;
+ import static com.Mohamed.userService.enumerations.UserTypes.CLIENT;
+ import static com.Mohamed.userService.enumerations.UserTypes.TECHNICIAN;
+ import static com.Mohamed.userService.myResources.EmailRessource.*;
+ import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_ALREADY_VERIFIED;
+ import static com.Mohamed.userService.myResources.ErrorCodes.ACCOUNT_NOT_FOUND;
 
-// @Service
-// @Slf4j
-// @RequiredArgsConstructor
-// public class UserService {
-//     private final UserRepository userRepository;
-//     private final EmailUtil emailUtil;
+ @Service
+ @Slf4j
+ @RequiredArgsConstructor
+ public class UserService {
+     private final UserRepository userRepository;
+     private final EmailUtil emailUtil;
 
-//     public void addUser(User user) {
-//         boolean emailTest = emailUserAlreadyExists(user.getEmail());
-//         boolean cinTest = numCinUserAlreadyExists(user.getNumCin());
-//         if (emailTest) {
-//             throw new InvalidEntityException("Un autre utilisateur avec le meme email existe deja");
-//         }
-//         if (cinTest) {
-//             throw new InvalidEntityException("Un autre utilisateur avec le meme cin existe deja");
-//         }
-//         String password = user.getPassword();
-//         String cryptedPassword = PasswordEncoderUtil.crypterPassword(password);
-//         user.setPassword(cryptedPassword);
+    public void addUser(User user) {
+         boolean emailTest = emailUserAlreadyExists(user.getEmail());
+         boolean cinTest = numCinUserAlreadyExists(user.getNumCin());
+         if (emailTest) {
+             throw new InvalidEntityException("Un autre utilisateur avec le meme email existe deja");
+         }
+         if (cinTest) {
+             throw new InvalidEntityException("Un autre utilisateur avec le meme cin existe deja");
+        }
+         String password = user.getPassword();
+         String cryptedPassword = PasswordEncoderUtil.crypterPassword(password);
+         user.setPassword(cryptedPassword);
 
-//         user.setEnable(false);
-//         String randomCode = RandomString.make(64);
-//         user.setVerificationCode(randomCode);
-//         Date currentDate = new Date();
-//         user.setAccountCreationDate(currentDate);
-//     }
+        user.setEnable(false);
+        String randomCode = RandomString.make(64);
+         user.setVerificationCode(randomCode);
+         Date currentDate = new Date();
+         user.setAccountCreationDate(currentDate);
+     }
 
-//     private boolean emailUserAlreadyExists(String email) {
-//         Optional<User> user = userRepository.findUserByEmail(email);
-//         return user.isPresent();
-//     }
+     private boolean emailUserAlreadyExists(String email) {
+        Optional<User> user = userRepository.findUserByEmail(email);
+         return user.isPresent();
+     }
 
-//     private boolean numCinUserAlreadyExists(Integer numCin) {
-//         Optional<User> user = userRepository.findUserByNumCin(numCin);
-//         return user.isPresent();
-//     }
+     private boolean numCinUserAlreadyExists(Integer numCin) {
+         Optional<User> user = userRepository.findUserByNumCin(numCin);
+         return user.isPresent();
+     }
 
 //     public void sendVerificationEmail(User user, String siteURL) {
 //         String toEmail = user.getEmail();

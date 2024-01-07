@@ -13,20 +13,20 @@ import java.util.Date;
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
     private String id;
-   // private Integer numCin;
+   private Integer numCin;
     private String firstName;
     private String lastName;
-  //  private String phoneNumber;
-   // private Date dateOfBirth;
-  //  private String address;
+    private String phoneNumber;
+    private Date dateOfBirth;
+   private String address;
     private String email;
-   // private String password;
+    private String password;
     private Long createdTimestamp;
- //   private String role ;
-    // private boolean enable;
-    // private String verificationCode;
-    // private String restPasswordToken;
-    // private Date resetPasswordTokenExpiration;
+    private String role ;
+     private boolean enable;
+     private String verificationCode;
+     private String restPasswordToken;
+     private Date resetPasswordTokenExpiration;
 
 
 

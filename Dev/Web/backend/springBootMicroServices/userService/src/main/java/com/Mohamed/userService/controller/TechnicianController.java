@@ -1,17 +1,17 @@
-// package com.Mohamed.userService.controller;
+package com.Mohamed.userService.controller;
 
-// import com.Mohamed.userService.entity.Admin;
-// import com.Mohamed.userService.entity.Technician;
-// import com.Mohamed.userService.exceptions.AccountNotActivateException;
-// import com.Mohamed.userService.exceptions.UserNotFoundException;
-// import com.Mohamed.userService.service.TechnicianService;
-// import com.Mohamed.userService.service.UserService;
-// import com.Mohamed.userService.util.linksUtil;
-// import jakarta.servlet.http.HttpServletRequest;
-// import lombok.RequiredArgsConstructor;
-// import org.springframework.http.HttpStatus;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
+ import com.Mohamed.userService.entity.Admin;
+import com.Mohamed.userService.entity.Technician;
+ import com.Mohamed.userService.exceptions.AccountNotActivateException;
+import com.Mohamed.userService.exceptions.UserNotFoundException;
+ import com.Mohamed.userService.service.TechnicianService;
+ import com.Mohamed.userService.service.UserService;
+ import com.Mohamed.userService.util.linksUtil;
+ import jakarta.servlet.http.HttpServletRequest;
+ import lombok.RequiredArgsConstructor;
+ import org.springframework.http.HttpStatus;
+ import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.*;
 
 // @RestController
 // @RequestMapping("/artun/app/user/technician/")
@@ -43,4 +43,4 @@
 //         }
 
 //     }
-// }
+}

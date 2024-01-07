@@ -4,6 +4,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component';
 import { TechnicienMainComponent } from './pages/technicien-main/technicien-main.component';
 import { DemandeComponent } from './pages/demande/demande.component';
 import { OptionCliProfessComponent } from './components/option-cli-profess/option-cli-profess.component';
@@ -32,7 +33,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { AppAuthGuard } from './app.authguard';
 import { initializeKeycloak } from './init/keycloak-init.factory';
-import { TousLesTechniciensComponent } from './pages/tous-les-techniciens/tous-les-techniciens.component';
+
 
 import { VideoclientComponentComponent } from './components/videoclient-component/videoclient-component.component';
 import { VideotechnyComponentComponent } from './components/videotechny-component/videotechny-component.component';
