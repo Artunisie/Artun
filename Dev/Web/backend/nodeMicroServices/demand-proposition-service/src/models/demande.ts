@@ -5,8 +5,8 @@ export interface IDemand extends Document {
   jobDescription: string;
   hourlyRateMin: string;
   hourlyRateMax: string;
-  applicationDeadline: string; //"urgent" or "not_urgent" 
-  requirements: string[];
+  applicationDeadline: string; //"urgent" or "not_urgent"  (el deadline 3ndek String ???? hhhhhhhhhh)
+  requirements: string;
   acceptanceStatus: number;
   clientId: string; 
   category: string; 

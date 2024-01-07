@@ -1,4 +1,4 @@
-import { Component ,ElementRef , Input} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-chat-popup',
@@ -6,22 +6,11 @@ import { Component ,ElementRef , Input} from '@angular/core';
   styleUrls: ['./chat-popup.component.css']
 })
 export class ChatPopupComponent {
+  // Ajoutez une propriété pour contrôler l'affichage du bouton
+  showChatButton: boolean = true;
 
-@Input() id!:number ;
-
-
-  constructor(private elementRef: ElementRef) {}
-
-  toggleChat(id:number) {
-    const chatPopup: HTMLElement = this.elementRef.nativeElement.querySelector(`#chatPopup${id}`);
-    chatPopup.style.display = (chatPopup.style.display === 'block') ? 'none' : 'block';
+  // Fonction appelée lors du clic sur l'icône de fermeture
+  closeChat() {
+    this.showChatButton = false;
   }
-
-  removeChat(id:number) {
-    var chatContainer = document.getElementById(`chatPopup${id}`);
-    chatContainer?.parentNode?.removeChild(chatContainer);
-    var chatButton = document.getElementById(`chatButton${id}`);
-    chatButton?.parentNode?.removeChild(chatButton);
-  }
-
 }

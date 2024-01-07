@@ -1,7 +1,7 @@
-// package com.Mohamed.userService.entity;
+ package com.Mohamed.userService.entity;
 
-// import jakarta.persistence.Entity;
+ import jakarta.persistence.Entity;
 
-// @Entity
-// public class Client extends User{
-// }
+ @Entity
+ public class Client extends User{
+ }
