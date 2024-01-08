@@ -17,6 +17,7 @@
      private final ClientRepository clientRepository;
      private final UserService userService;
 
+<<<<<<< HEAD
     public boolean addClient(Client client){
          try {
             userService.addUser(client);
@@ -25,10 +26,21 @@
 
          }catch (Exception e){
            e.printStackTrace();
+=======
+     public boolean addClient(Client client){
+         try {
+             userService.addUser(client);
+             clientRepository.save(client);
+             return true;
+
+         }catch (Exception e){
+             e.printStackTrace();
+>>>>>>> 131adcc0678076388b19741e9ca2599f75c81b52
              return false;
          }
      }
 
+<<<<<<< HEAD
     public boolean updateClient(Client client, String email) {
         try {
              userService.updateUser(client, email);
@@ -36,11 +48,24 @@
             clientRepository.save(existingClient);
              return true;
         } catch (UserNotFoundException userNotFoundException) {
+=======
+     public boolean updateClient(Client client, String email) {
+         try {
+             userService.updateUser(client, email);
+             Client existingClient = clientRepository.findClientByEmail(email);
+             clientRepository.save(existingClient);
+             return true;
+         } catch (UserNotFoundException userNotFoundException) {
+>>>>>>> 131adcc0678076388b19741e9ca2599f75c81b52
              userNotFoundException.printStackTrace();
              return false;
          } catch (AccountNotActivateException accountNotActivateException) {
              accountNotActivateException.printStackTrace();
              return false;
          }
+<<<<<<< HEAD
     }
+=======
+     }
+>>>>>>> 131adcc0678076388b19741e9ca2599f75c81b52
  }

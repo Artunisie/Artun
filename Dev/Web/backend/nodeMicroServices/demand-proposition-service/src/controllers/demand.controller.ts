@@ -1,40 +1,71 @@
 import { Request, Response } from 'express';
 import Demand, { IDemand } from '../models/demande';
 import { log } from 'console';
+import axios from 'axios';
 
 export class DemandController {
   // Create a new demand
-  public createDemand(req: Request, res: Response) {
-    const {
-      jobTitle,
-      jobDescription,
-      hourlyRateMin,
-      hourlyRateMax,
-      applicationDeadline,
-      requirements,
-      category,
-      clientId,
-    } = req.body;
+  public async createDemand(req: Request, res: Response) {
+    try {
+        const {
+            jobTitle,
+            jobDescription,
+            hourlyRateMin,
+            hourlyRateMax,
+            applicationDeadline,
+            requirements,
+            category,
+            clientId,
+        } = req.body;
 
-    const demand = new Demand({
-      jobTitle,
-      jobDescription,
-      hourlyRateMin,
-      hourlyRateMax,
-      applicationDeadline,
-      requirements,
-      category,
-      clientId,
-    });
+        const demand = new Demand({
+            jobTitle,
+            jobDescription,
+            hourlyRateMin,
+            hourlyRateMax,
+            applicationDeadline,
+            requirements,
+            category,
+            clientId,
+        });
 
-    demand.save()
-      .then((demand: IDemand) => {
-        res.status(201).json(demand);
-      })
-      .catch((error: Error) => {
-        res.status(500).json({ error: error.message });
-      });
-  }
+        // Save the demand in the MongoDB database
+        const savedDemand = await demand.save();
+
+        try {
+            // get the object
+            // Call the service with Axios to save the history
+            const requestData = {
+                jobTitle,
+                jobDescription,
+                hourlyRateMin,
+                hourlyRateMax,
+                applicationDeadline,
+                requirements,
+                clientId,
+            };
+            const url = 'http://localhost:8005/artun/history/client/demande/add';
+
+            // Envoi de la requête POST avec Axios
+            const response = await axios.post(url, requestData);
+            console.log('Response from the save create history method of the Spring Boot microservice:', response.data);
+
+        } catch (error: any) {
+            console.error('Error communicating with the Spring Boot microservice:', error.message);
+            if (error.response) {
+                console.error('Response from the Spring Boot microservice:', error.response.data);
+            } else if (error.request) {
+                console.error('No response received. Request made but no response from the server.');
+            } else {
+                console.error('Error in making the request:', error.message);
+            }
+            res.status(500).send('Error communicating with the Spring Boot microservice');
+        }
+    } catch (error:any) {
+        console.error('Error saving demand in MongoDB:', error.message);
+        res.status(500).send('Error saving demand in MongoDB');
+    }
+}
 
   // Get a demand by ID
   public getDemand(req: Request, res: Response) {

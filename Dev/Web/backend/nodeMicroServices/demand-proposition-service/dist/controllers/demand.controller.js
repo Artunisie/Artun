@@ -1,30 +1,73 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DemandController = void 0;
 const demande_1 = __importDefault(require("../models/demande"));
+const axios_1 = __importDefault(require("axios"));
 class DemandController {
     // Create a new demand
     createDemand(req, res) {
-        const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, category, clientId, } = req.body;
-        const demand = new demande_1.default({
-            jobTitle,
-            jobDescription,
-            hourlyRateMin,
-            hourlyRateMax,
-            applicationDeadline,
-            requirements,
-            category,
-            clientId,
-        });
-        demand.save()
-            .then((demand) => {
-            res.status(201).json(demand);
-        })
-            .catch((error) => {
-            res.status(500).json({ error: error.message });
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { jobTitle, jobDescription, hourlyRateMin, hourlyRateMax, applicationDeadline, requirements, category, clientId, } = req.body;
+                const demand = new demande_1.default({
+                    jobTitle,
+                    jobDescription,
+                    hourlyRateMin,
+                    hourlyRateMax,
+                    applicationDeadline,
+                    requirements,
+                    category,
+                    clientId,
+                });
+                // Save the demand in the MongoDB database
+                const savedDemand = yield demand.save();
+                try {
+                    // get the object
+                    // Call the service with Axios to save the history
+                    const requestData = {
+                        jobTitle,
+                        jobDescription,
+                        hourlyRateMin,
+                        hourlyRateMax,
+                        applicationDeadline,
+                        requirements,
+                        clientId,
+                    };
+                    const url = 'http://localhost:8005/artun/history/client/demande/add';
+                    // Envoi de la requête POST avec Axios
+                    const response = yield axios_1.default.post(url, requestData);
+                    console.log('Response from the save create history method of the Spring Boot microservice:', response.data);
+                }
+                catch (error) {
+                    console.error('Error communicating with the Spring Boot microservice:', error.message);
+                    if (error.response) {
+                        console.error('Response from the Spring Boot microservice:', error.response.data);
+                    }
+                    else if (error.request) {
+                        console.error('No response received. Request made but no response from the server.');
+                    }
+                    else {
+                        console.error('Error in making the request:', error.message);
+                    }
+                    res.status(500).send('Error communicating with the Spring Boot microservice');
+                }
+            }
+            catch (error) {
+                console.error('Error saving demand in MongoDB:', error.message);
+                res.status(500).send('Error saving demand in MongoDB');
+            }
         });
     }
     // Get a demand by ID

@@ -19,6 +19,10 @@ import { AppAuthGuard } from './app.authguard';
 const routes: Routes = [
   {path:'',component:HomePageComponent} ,
   {path:'touslestechniciens',component:TousLesTechniciensComponent},
+<<<<<<< HEAD
+=======
+
+>>>>>>> 131adcc0678076388b19741e9ca2599f75c81b52
   {path:'login_register',component:RegisterLoginComponent} , // the mode is either login or register
   { path: 'professionel',canActivate: [AppAuthGuard],data: { roles: ['user'] }, component: TechnicienMainComponent },
   {path:'demande/:id',canActivate: [AppAuthGuard],data: { roles: ['user'] },component:DemandeComponent},
@@ -31,7 +35,10 @@ const routes: Routes = [
   {path:'postJob',canActivate: [AppAuthGuard],data: { roles: ['user'] },component: PostJobComponent},
   {path:'mainPage' ,canActivate: [AppAuthGuard],data: { roles: ['user'] }, component:ConversationsComponent , children: [
   { path: 'messages/:id', component: MessagesComponent },
+<<<<<<< HEAD
   
+=======
+>>>>>>> 131adcc0678076388b19741e9ca2599f75c81b52
 
   ]}
   

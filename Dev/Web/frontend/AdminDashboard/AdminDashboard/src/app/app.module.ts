@@ -1,5 +1,3 @@
-// app.module.ts
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,12 +14,13 @@ import { CategoriesComponent } from './categories/categories.component';
 import { HistoryComponent } from './history/history.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SettingsComponent } from './settings/settings.component';
-import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './init-keycloak'; // Import the initialization function
 import { CategoryProfileComponent } from './category-profile/category-profile.component';
-import { ReportService } from './report.service';  // Import the ReportService
 
 @NgModule({
   declarations: [
@@ -37,9 +36,8 @@ import { ReportService } from './report.service';  // Import the ReportService
     HistoryComponent,
     ReportsComponent,
     SettingsComponent,
-    LoginComponent,
     DashboardComponent,
-    CategoryProfileComponent
+    CategoryProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,10 +45,13 @@ import { ReportService } from './report.service';  // Import the ReportService
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    KeycloakAngularModule, // Add KeycloakAngularModule here
   ],
-  providers: [
-    ReportService,  // Add the ReportService to providers
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private readonly keycloakService: KeycloakService) {
+    initializeKeycloak(keycloakService);
+  }
+}

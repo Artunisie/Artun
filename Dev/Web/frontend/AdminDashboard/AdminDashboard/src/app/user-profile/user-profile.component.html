@@ -3,7 +3,7 @@
       <button class="mail">
         <i class="fa-solid fa-envelope"></i>
       </button>
-      <div class="profile-pic"></div>
+      <div class="profile-pic" [ngStyle]="{'background-image': 'url(' + (  '../../assets/images/profile-4.jpg' || user?.profileImage) + ')'}"></div>
       <div class="bottom">
         <div class="content">
           <span class="name">{{ user?.name }}</span>

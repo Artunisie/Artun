@@ -170,3 +170,7 @@
 .button {
 	cursor: pointer;
 }
+.bottom-bottom{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
